@@ -14,11 +14,11 @@ http.createServer(function (req, res) {
         '.js' : 'text/javascript'
     };
 
-    path.exists(filename, function(exists) {
+    fs.exists(filename, function(exists) {
         if(!exists) {
-            response.writeHead(404, {'Content-Type': 'text/plain'});
-            response.write('404 Not Found\n');
-            response.end();
+            res.writeHead(404, {'Content-Type': 'text/plain'});
+            res.write('404 Not Found\n');
+            res.end();
             return;
         }
 
@@ -26,15 +26,15 @@ http.createServer(function (req, res) {
 
         fs.readFile(filename, 'binary', function(err, file) {
             if(err) {
-                response.writeHead(500, {"Content-Type": "text/plain"});
-                response.write(err + "\n");
-                response.end();
+                res.writeHead(500, {"Content-Type": "text/plain"});
+                res.write(err + "\n");
+                res.end();
                 return;
             }
 
-            response.writeHead(200);
-            response.write(file, 'binary');
-            response.end();
+            res.writeHead(200);
+            res.write(file, 'binary');
+            res.end();
         });
     });
 }).listen(port);
