@@ -9,10 +9,11 @@
 		<h2>POEMY</h2>
 		<div ng-controller="PoemController as poems">
 			<h3>{{poems.poem.title}}</h3>
-			
-			 <form ng-submit="submit()">
+			<button ng-hide="poems.poem.complete">ADD A LINE</button>
+			 <form ng-submit="addLine()">
 				<input type="text" ng-model="newLine" name="newLine" placeholder="ADD A NEW LINE DUMMY" />
-				<input type="submit" value="Submit">
+				<input type="submit" value="addLine">
+				<h4>{{newLine}}</h4>
 			</form>
 			<div>{{poems.showPoem()	}}</div>
 		</div>
