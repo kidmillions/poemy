@@ -1,9 +1,24 @@
+// requirements
 var http = require('http'),
     url = require('url'),
     path = require('path'),
     fs = require('fs'),
+    mongoose = require('mongoose'),
+    models = require('./app/models'),
     port = process.argv[2] || 3000;
 
+// databse config
+    dburl = 'mongodb://localhost/test'
+    mongoose.connect(dburl);
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function (callback) {
+        //yay
+        console.log('\nconnecting to mongodb at ' + dburl + '\n');
+    });
+    Poem = models.poem;
+
+// launch server
 http.createServer(function (req, res) {
     var uri = url.parse(req.url).pathname,
         filename = path.join(process.cwd(), uri);
@@ -22,7 +37,7 @@ http.createServer(function (req, res) {
             return;
         }
 
-        if (fs.statSync(filename).isDirectory()) filename += '/index.html';
+        if (fs.statSync(filename).isDirectory()) filename += 'app/index.html';
 
         fs.readFile(filename, 'binary', function(err, file) {
             if(err) {
@@ -32,9 +47,18 @@ http.createServer(function (req, res) {
                 return;
             }
 
-            res.writeHead(200);
-            res.write(file, 'binary');
-            res.end();
+            if (req.method === 'GET') {
+                
+                Poem.find(function(err, poems) {
+                    if (err) { res.send(err) }
+
+                    res.json(poems);
+                });
+                
+                res.writeHead(200);
+                res.write(file, 'binary');
+                res.end();
+            }
         });
     });
 }).listen(port);
