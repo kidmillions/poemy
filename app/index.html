@@ -11,7 +11,7 @@
 			<div ng-repeat="poem in poemCtrl.poems">
 				<h3>{{poems.poem.title}}</h3>
 				<div ng-repeat="line in poem.lines">{{line}}</div>	
-				 <form name="lineForm" ng-hide="poem.complete" ng-controller="LineController as lineCtrl" ng-submit="lineCtrl.addNewLine(poem)">
+				 <form name="lineForm" ng-hide="poem.complete" 	ng-controller="LineController as lineCtrl" ng-submit="lineCtrl.addNewLine(poem)">
 				 	<div>{{lineCtrl.newLine}}</div>
 				 	<input ng-model="lineCtrl.newLine" placeholder="add a line">
 				 </form>
