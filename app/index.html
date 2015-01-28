@@ -1,0 +1,23 @@
+<!doctype html>
+<html ng-app="poemy">
+	<head>
+	  <meta charset="utf-8">
+	  <title>Poemy</title>
+	  <link rel="stylesheet" href="poemy.css">
+	</head>
+	<body>
+		<h2>POEMY</h2>
+		<div ng-controller="PoemController as poemCtrl">
+			<div ng-repeat="poem in poemCtrl.poems">
+				<h3>{{poems.poem.title}}</h3>
+				<div ng-repeat="line in poem.lines">{{line}}</div>	
+				 <form name="lineForm" ng-hide="poem.complete" ng-controller="LineController as lineCtrl" ng-submit="lineCtrl.addNewLine(poem)">
+				 	<div>{{lineCtrl.newLine}}</div>
+				 	<input ng-model="lineCtrl.newLine" placeholder="add a line">
+				 </form>
+			</div>
+		</div>
+	<script type="text/javascript" src="app/assets/js/angular.min.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+	</body>
+</html>
