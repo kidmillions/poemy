@@ -1,15 +1,16 @@
 (function() {
 	var app = angular.module('poemy', []);
 	app.controller('PoemController', function() {
-		$http.get('/api/index.html')
+		this.getPoems =  function($scope, $http) {
+			$http.get('/api/index.html')
             .success(function(data) {
-                this.poems = data;
+                $scope.poems = data;
                 console.log(data);
             })
             .error(function(data) {
                 console.log('error: ' + data);
             });
-       // this.poems = samplePoems;
+        };
 	});
 
 	app.controller("LineController", function() {

@@ -3,11 +3,14 @@
 	<head>
 	  <meta charset="utf-8">
 	  <title>Poemy</title>
-	  <link rel="stylesheet" href="poemy.css">
+	  <link rel="stylesheet" href="app/poemy.css">
 	</head>
 	<body>
 		<h2>POEMY</h2>
 		<div ng-controller="PoemController as poemCtrl">
+			<form ng-submit="getPoems()">
+				<input class="btn-primary" type="submit" value="GIVE ME A POEM">
+			</form>
 			<div ng-repeat="poem in poemCtrl.poems">
 				<h3>{{poems.poem.title}}</h3>
 				<div ng-repeat="line in poem.lines">{{line}}</div>	
