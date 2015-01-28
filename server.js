@@ -8,20 +8,22 @@ var http = require('http'),
     config = require('./config'),
     port = process.argv[2] || 3000;
 
-// databse config
+// database config
     dburl = config.localip + ':27017'
     mongoose.connect(dburl);
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function (callback) {
-        launch();
         console.log('\nconnecting to mongodb at ' + dburl + '\n');
+        //launch server only after successful database connection occurs
+        launch();
     });
 
 // launch server
 function launch() { 
 http.createServer(function (req, res) {
     var uri = url.parse(req.url).pathname,
+        query = url.parse(req.url).query,
         filename = path.join(process.cwd(), uri);
 
     var contentTypesByExtension = {
@@ -50,27 +52,31 @@ http.createServer(function (req, res) {
 
             if (req.method === 'GET') {
                 
-                models.poem.find(function(err, poems) {
-                    if (err) { res.send(err) }
+                if (query === 'json') {
 
-                    //console.log(poems);
-                    if (poems) {
-                        res.writeHead(200, {'Content-Type': 'text/html'});
-                        res.write(file, 'binary');
-                        //res.writeHead(200, {'Content-Type': 'application/json'});
-                        res.write(JSON.stringify(poems));
-                        res.end();
-                    } else {
-                        res.end('nothing to show');
-                    }
-                        //res.end();
-                });
+                    models.poem.find(function(err, poems) {
+                        if (err) { res.send(err) }
+
+                        if (poems) {
+                            //res.writeHead(200, {'Content-Type': 'application/json'});
+                            res.write(JSON.stringify(poems));
+                            res.end();
+                        } else {
+                            res.end('nothing here');
+                        }
+                    });
+
+                } else {
+                    res.writeHead(200, {'Content-Type': 'text/html'});
+                    res.write(file, 'binary');
+                    res.end();
+                }
                 
             }
         });
     });
 }).listen(port);
 
-console.log('\034SERVER STARTED\034\n listening at\n => http://localhost:' + port+ "/\nCTRL + C to shutdown");
+console.log('\nSERVER STARTED\n listening at\n => http://localhost:' + port+ "/\nCTRL + C to shutdown");
 }
 
