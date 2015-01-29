@@ -57,3 +57,11 @@
 	}];
 })();
 
+
+
+//GET request to display one poems
+	//pass poem object to PoemController
+
+//POST new line from addNewLine 
+
+//Button listener POST
