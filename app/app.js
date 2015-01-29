@@ -6,24 +6,29 @@
                 $scope.poems = data; //response data
             });	
         
-        //function to get random poem
-        // this.getPoem = function() {
-			// 	var newPoem = {};
-			// 	while(!newPoem.complete) {
-				// 	newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
-			// 	}
-			// 	return newPoem;
-		// };
-		
-		//clicker function to add new poem to index
-		// $("#getPoem").on("click", function() {
-			// 	var newPoem = this.getPoem();
-			// 	this.closest(".row").find(".poem-box").html(newPoem)
-			// });
+        	//function to get random poem
+        	$scope.getPoem = function() {
+				var newPoem = {};
+				while(!newPoem.complete) {
+			 	newPoem = $scope.poems[Math.floor(Math.random()*($scope.poems.length))];
+			 	}
+			 	return newPoem;
+			 };
+			
+			//clicker function to add new poem to index
+			$("#getPoem").on("click", "button", function(event) {
+				event.preventDefault();
+				var newPoem = $scope.getPoem();
+				$(this).find(".poem-box").html(newPoem);
+			});
+
+			//Determine numLines value based on poem.type
 		
     });
 
 	app.controller("LineController", function() {
+		
+		//mark poem as complete
 		function completePoem(poem) {
 			if (poem.numLines > poem.lines.length) {
 				poem.complete = false;
@@ -32,6 +37,8 @@
 			}
 		};
 		this.newLine = "";
+
+		//add new line to poem
 		this.addNewLine = function(poem) {
 			poem.lines.push(this.newLine);
 			this.newLine = "";
