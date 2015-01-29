@@ -17,29 +17,30 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
     console.log('\nconnecting to mongodb at ' + dburl + '\n');
     //launch server only after successful database connection occurs
-    launch();
+    server.listen(port);
 });
 
-// launch server
-function launch() { 
-    http.createServer(function (req, res) {
-        var uri = url.parse(req.url).pathname,
-            file = path.join(process.cwd(), uri);
-        console.log(req.url);
-        if (uri.split('/')[1] === 'api') {
-             //if calls are made to the API then return restful json
-            restfulServer(req, res);
-        } else {
-            if (req.url === '/') {
-                //serve index.html in /app if nothing
-                file += 'app/index.html'
-            }
-            //callback optional
-            fileServer(file, uri, req, res);
-        }
-    }).listen(port);
+// server 
+var server = http.createServer(function (req, res) { 
     console.log('\nSERVER STARTED\n listening at\n => http://localhost:' + port+ "/\nCTRL + C to shutdown");
-}
+    var uri = url.parse(req.url).pathname,
+        file = path.join(process.cwd(), uri);
+    console.log(req.url);
+    if (uri.split('/')[1] === 'api') {
+        //if calls are made to the API then return restful json
+        restfulServer(req, res);
+    } else {
+        if (req.url === '/') {
+            //serve index.html in /app if nothing
+            file += 'app/index.html'
+        }
+        //callback optional
+        fileServer(file, uri, req, res);
+    }
+});
+
+module.exports = server;
+
 
 //json dealer
 function restfulServer(req, res, callback){
