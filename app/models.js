@@ -1,12 +1,16 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    random = require('mongoose-simple-random');
 
 var poemSchema = mongoose.Schema({
     title: String,
     type: String,
     lines: [String],
     complete: Boolean
-})
+});
 
-var Poem = mongoose.model('Poem', poemSchema)
+poemSchema.plugin(random);
+
+
+var Poem = mongoose.model('Poem', poemSchema);
 
 module.exports.poem = Poem;

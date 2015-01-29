@@ -6,22 +6,20 @@ var http = require('http'),
     mongoose = require('mongoose'),
     models = require('./app/models'),
     config = require('./config'),
-    //use 3000 or provided argument as in 'npm start 8080'
-    port = process.argv[2] || 3000;
+    port = config.port;
 
 // database config
+function dbConnect () {
 mongoose.connect(config.databaseUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-    console.log('\nconnecting to mongodb at ' + config.databaseUrl + '\n');
-    //launch server only after successful database connection occurs
-    server.listen(port);
+    console.log('\nconnecting to mongodb at ' + config.databaseUrl + '\n'); 
 });
+}
 
 // server 
 var server = http.createServer(function (req, res) { 
-    console.log('\nSERVER STARTED\n listening at\n => http://localhost:' + port+ "/\nCTRL + C to shutdown");
     var uri = url.parse(req.url).pathname,
         file = path.join(process.cwd(), uri);
     console.log(req.url);
@@ -36,26 +34,47 @@ var server = http.createServer(function (req, res) {
         //callback optional
         fileServer(file, uri, req, res);
     }
+}).listen(port, function () {
+        console.log('\nSERVER STARTED\n listening at\n => http://localhost:' + port+ "/\nCTRL + C to shutdown");
+        dbConnect();       
 });
 
 module.exports = server;
 
-
 //json dealer
 function restfulServer(req, res, callback){
+    pathArray = req.url.split('/');
     if (req.url === '/api/poems') {
         res.writeHead(200, { 'Content-Type' : 'application/json' });
         console.log('request made to api/poems');
         models.poem.find(function (err, poems) {
             if (err) return console.error(err);
-            console.log('requested poems\n' + poems);
+            // console.log('requested poems\n' + poems);
             res.write(JSON.stringify(poems));
             res.end();
+        });  
+    } else if ( req.url ===  '/api/random_poem') {
+        res.writeHead(200, { 'Content-Type' : 'application/json' });
+        console.log('request made to api/random_poem');
+        models.poem.findOneRandom(function (err, poem) {
+            if (err) return console.error(err);
+            res.write(JSON.stringify(poem));
+            res.end();
+        }); 
+    } else if ( pathArray[2] === 'poem' ) {
+        if ( pathArray[3] === undefined) { console.log('acessed api/poem, but didn\'t provide id like: /api/poem/id ') }
+        models.poem.findOne({ '_id' : pathArray[3] }).exec(function (err, poem) {
+            if (err) return console.error(err);
+            res.write(JSON.stringify(poem));
+            res.end();
         });
-        } else {
-        console.log('');
-        res.end('nothing there');
+        
+        console.log('trying to find id = ' + pathArray[3]);
+    } else {
+        res.writeHead(404);
+        res.end('nothing here');
     }
+
     if(callback !== undefined) callback();
 }
 
