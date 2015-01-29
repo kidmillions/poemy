@@ -10,12 +10,11 @@ var http = require('http'),
     port = process.argv[2] || 3000;
 
 // database config
-var dburl = config.localip + ':27017'
-mongoose.connect(dburl);
+mongoose.connect(config.databaseUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-    console.log('\nconnecting to mongodb at ' + dburl + '\n');
+    console.log('\nconnecting to mongodb at ' + config.databaseUrl + '\n');
     //launch server only after successful database connection occurs
     server.listen(port);
 });

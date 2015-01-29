@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     models = require('./app/models'),
     config = require('./config');
 
-dburl = config.localip + ':27017'
+dburl = config.databaseUrl
 
 mongoose.connect(dburl);
 
