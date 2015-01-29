@@ -2,13 +2,17 @@
 	var app = angular.module('poemy', []);
 	app.controller('PoemController', function() {
 		this.poems = samplePoems;
-		this.getPoem = function() {
-			var newPoem = {};
-			while(!newPoem.complete) {
-			newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
-			}
-			return newPoem;
-		};
+		// this.getPoem = function() {
+		// 	var newPoem = {};
+		// 	while(!newPoem.complete) {
+		// 	newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
+		// 	}
+		// 	return newPoem;
+		// };
+		// $("#getPoem").on("click", function() {
+		// 	var newPoem = this.getPoem();
+		// 	this.closest(".row").find(".poem-box").html(newPoem)
+		// })
 		// this.getPoems =  function($scope, $http) {
 		// 	$http.get('/api/index.html')
   //           .success(function(data) {
@@ -18,7 +22,7 @@
   //           .error(function(data) {
   //               console.log('error: ' + data);
   //           });
-        };
+        // };
 	});
 
 	app.controller("LineController", function() {
