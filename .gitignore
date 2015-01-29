@@ -1,3 +1,7 @@
 npm-debug.log
 node_modules
 node_modules/*
+<<<<<<< HEAD
+=======
+node_modules/mongoose
+>>>>>>> b7bf2241288877b3e0ecfe0e6d6594bcab590d4e

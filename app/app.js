@@ -8,11 +8,19 @@
     });
 
 	app.controller("LineController", function() {
+		function completePoem(poem) {
+			if (poem.numLines > poem.lines.length) {
+				poem.complete = false;
+			} else {
+				poem.complete = true;
+			}
+		};
 		this.newLine = "";
 		this.addNewLine = function(poem) {
 			poem.lines.push(this.newLine);
 			this.newLine = "";
+			completePoem(poem);
 		}
 	});
-
 })();
+
