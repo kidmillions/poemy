@@ -4,4 +4,8 @@ node_modules/*
 <<<<<<< HEAD
 =======
 node_modules/mongoose
+<<<<<<< HEAD
 >>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
+=======
+>>>>>>> b7bf2241288877b3e0ecfe0e6d6594bcab590d4e
+>>>>>>> add-tests

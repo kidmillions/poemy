@@ -1,22 +1,24 @@
 (function() {
 	var app = angular.module('poemy', []);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> add-tests
 	app.controller('PoemController', function($scope, $http) {
 	    $http.get('/api/poems')
             .success(function(data) {
                 $scope.poems = data; //response data
             });
     });
-=======
-	app.controller('PoemController', function() {
-		this.poems = samplePoems;
-		this.getPoem = function() {
-			var newPoem = {};
-			while(!newPoem.complete) {
-			newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
-			}
-			return newPoem;
-		};
+//	app.controller('PoemController', function() {
+//		this.poems = samplePoems;
+//		this.getPoem = function() {
+//			var newPoem = {};
+//			while(!newPoem.complete) {
+//			newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
+//			}
+//			return newPoem;
+//		};
 		// this.getPoems =  function($scope, $http) {
 		// 	$http.get('/api/index.html')
   //           .success(function(data) {
@@ -26,9 +28,15 @@
   //           .error(function(data) {
   //               console.log('error: ' + data);
   //           });
+<<<<<<< HEAD
         };
 	});
 >>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
+=======
+  //      };
+	//});
+//>>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
+>>>>>>> add-tests
 
 	app.controller("LineController", function() {
 		function completePoem(poem) {
@@ -45,32 +53,6 @@
 			completePoem(poem);
 		}
 	});
-
-	var samplePoems = [{
-		title: "Sample Poem",
-		numLines: 3,
-		type: "Haiku",
-		lines: ["this is a first line,", "But the second is best,", "and the third is last."],
-		complete: true
-	}, {
-		title: "Poem 2",
-		numLines: 3,
-		type: "Haiku",
-		lines: ['An old silent pond...', 'A frog jumps into the pond,'],
-		complete: false
-	}, {
-		title: "Poem 3",
-		numLines: 3,
-		type: "Haiku",
-		lines: ["Light of the moon"],
-		complete: false
-	}, {
-		title: "Poem 4",
-		numLines: 3,
-		type: "Haiku",
-		lines: ["A cricket disturbed", "the sleeping child; on the porch", "a man smoked and smiled."],
-		complete: true
-	}];
 })();
 
 
