@@ -1,14 +1,26 @@
 (function() {
 	var app = angular.module('poemy', []);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> add-tests
 	app.controller('PoemController', function($scope, $http) {
-	    $http.get('/api/poems')
+	    	$http.get('/api/poems')
             .success(function(data) {
                 $scope.poems = data; //response data
-            });
+            });	
+        
+        //function to get random poem
+        // this.getPoem = function() {
+			// 	var newPoem = {};
+			// 	while(!newPoem.complete) {
+				// 	newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
+			// 	}
+			// 	return newPoem;
+		// };
+		
+		//clicker function to add new poem to index
+		// $("#getPoem").on("click", function() {
+			// 	var newPoem = this.getPoem();
+			// 	this.closest(".row").find(".poem-box").html(newPoem)
+			// });
+		
     });
 //	app.controller('PoemController', function() {
 //		this.poems = samplePoems;
@@ -28,15 +40,9 @@
   //           .error(function(data) {
   //               console.log('error: ' + data);
   //           });
-<<<<<<< HEAD
-        };
-	});
->>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
-=======
   //      };
 	//});
 //>>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
->>>>>>> add-tests
 
 	app.controller("LineController", function() {
 		function completePoem(poem) {
