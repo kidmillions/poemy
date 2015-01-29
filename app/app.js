@@ -6,20 +6,19 @@
                 $scope.poems = data; //response data
             });	
         
-        //function to get random poem
-        // this.getPoem = function() {
-			// 	var newPoem = {};
-			// 	while(!newPoem.complete) {
-				// 	newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
-			// 	}
-			// 	return newPoem;
-		// };
-		
-		//clicker function to add new poem to index
-		// $("#getPoem").on("click", function() {
-			// 	var newPoem = this.getPoem();
-			// 	this.closest(".row").find(".poem-box").html(newPoem)
-			// });
+        	//function to get random poem
+        	$scope.getPoem = function() {
+				var newPoem = {};
+				while(!newPoem.complete) {
+			 	newPoem = $scope.poems[Math.floor(Math.random()*($scope.poems.length))];
+			 	}
+			 	return newPoem;
+			 };
+			
+			//clicker function to add new poem to index
+			
+
+			//Determine numLines value based on poem.type
 		
     });
 //	app.controller('PoemController', function() {
@@ -45,6 +44,8 @@
 //>>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
 
 	app.controller("LineController", function() {
+		
+		//mark poem as complete
 		function completePoem(poem) {
 			if (poem.numLines > poem.lines.length) {
 				poem.complete = false;
@@ -53,10 +54,20 @@
 			}
 		};
 		this.newLine = "";
+
+		//add new line to poem and find new poem
 		this.addNewLine = function(poem) {
+			//Needed for this method:
+				//Add new line to poem (POST)
+				//Get rid of this poem
+				//select and pass new (random) poem into controller
+			var $btn = $("#getPoem").find("button").button('loading');
+			console.log("adding line")
 			poem.lines.push(this.newLine);
 			this.newLine = "";
 			completePoem(poem);
+			console.log("finished")
+			$btn.button('reset')
 		}
 	});
 })();
