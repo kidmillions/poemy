@@ -5,43 +5,30 @@
             .success(function(data) {
                 $scope.poems = data; //response data
             });	
-        
-        	//function to get random poem
-        	$scope.getPoem = function() {
-				var newPoem = {};
-				while(!newPoem.complete) {
-			 	newPoem = $scope.poems[Math.floor(Math.random()*($scope.poems.length))];
-			 	}
-			 	return newPoem;
-			 };
-			
-			//clicker function to add new poem to index
-			
 
+            // var randomIndex = $scope.poems[Math.floor(Math.random()*($scope.poems.length))];
+            
+
+            // function getPoem(poems) {
+            // 	return poems[randomIndex];
+            // };
+            
+            // this.currentPoem = getPoem($scope.poems);
+        	
+
+        	//function to get random poem
+    //     	$scope.getPoem = function() {
+				// var newPoem = {};
+				// while(!newPoem.complete) {
+			 // 	newPoem = $scope.poems[Math.floor(Math.random()*($scope.poems.length))];
+			 // 	}
+			 // 	return newPoem;
+			 // };
+			
 			//Determine numLines value based on poem.type
 		
     });
-//	app.controller('PoemController', function() {
-//		this.poems = samplePoems;
-//		this.getPoem = function() {
-//			var newPoem = {};
-//			while(!newPoem.complete) {
-//			newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
-//			}
-//			return newPoem;
-//		};
-		// this.getPoems =  function($scope, $http) {
-		// 	$http.get('/api/index.html')
-  //           .success(function(data) {
-  //               $scope.poems = data;
-  //               console.log(data);
-  //           })
-  //           .error(function(data) {
-  //               console.log('error: ' + data);
-  //           });
-  //      };
-	//});
-//>>>>>>> 80a919ea1a6d5743564fcba9f366e5f536280d79
+
 
 	app.controller("LineController", function() {
 		
