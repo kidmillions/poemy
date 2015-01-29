@@ -16,11 +16,7 @@
 			 };
 			
 			//clicker function to add new poem to index
-			$("#getPoem").on("click", "button", function(event) {
-				event.preventDefault();
-				var newPoem = $scope.getPoem();
-				$(this).find(".poem-box").html(newPoem);
-			});
+			
 
 			//Determine numLines value based on poem.type
 		
@@ -38,11 +34,19 @@
 		};
 		this.newLine = "";
 
-		//add new line to poem
+		//add new line to poem and find new poem
 		this.addNewLine = function(poem) {
+			//Needed for this method:
+				//Add new line to poem (POST)
+				//Get rid of this poem
+				//select and pass new (random) poem into controller
+			var $btn = $("#getPoem").find("button").button('loading');
+			console.log("adding line")
 			poem.lines.push(this.newLine);
 			this.newLine = "";
 			completePoem(poem);
+			console.log("finished")
+			$btn.button('reset')
 		}
 	});
 
