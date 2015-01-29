@@ -10,6 +10,7 @@
 		<h1 class="text-center">POEMY</h1>
 		<hr />
 		<div ng-controller="PoemController as poemCtrl">
+			<button id="getPoem">Get Poem</button>
 			<div class="row">
 				<h2>Incomplete Poems</h2>
 				<div class="col-md-4 poem-box" ng-repeat="poem in poemCtrl.poems" ng-hide="poem.complete">

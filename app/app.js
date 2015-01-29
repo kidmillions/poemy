@@ -2,15 +2,22 @@
 	var app = angular.module('poemy', []);
 	app.controller('PoemController', function() {
 		this.poems = samplePoems;
-		this.getPoems =  function($scope, $http) {
-			$http.get('/api/index.html')
-            .success(function(data) {
-                $scope.poems = data;
-                console.log(data);
-            })
-            .error(function(data) {
-                console.log('error: ' + data);
-            });
+		this.getPoem = function() {
+			var newPoem = {};
+			while(!newPoem.complete) {
+			newPoem = this.poems[Math.floor(Math.random()*this.poems.length)];
+			}
+			return newPoem;
+		};
+		// this.getPoems =  function($scope, $http) {
+		// 	$http.get('/api/index.html')
+  //           .success(function(data) {
+  //               $scope.poems = data;
+  //               console.log(data);
+  //           })
+  //           .error(function(data) {
+  //               console.log('error: ' + data);
+  //           });
         };
 	});
 
@@ -59,9 +66,12 @@
 
 
 
-//GET request to display one poems
+//GET request to display one poem
 	//pass poem object to PoemController
 
-//POST new line from addNewLine 
+//POST new line from addNewLine to poem
+	//match ID
 
 //Button listener POST
+	//POST newLine
+	//GET new poem
