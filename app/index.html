@@ -9,13 +9,13 @@
 	<body>
 		<h1 class="text-center">POEMY</h1>
 		<hr />
-		<div class="row" ng-controller="PoemController as poemCtrl">
-			<button id="getPoem">Get Poem</button>
-			<div class="poem-box col-md-12"></div>
-			<!-- <div class="row">
+		<div ng-controller="PoemController as poemCtrl">
+			<!-- <button id="getPoem">Get Poem</button> -->
+			<!-- <div class="poem-box col-md-12"></div> -->
+			<div class="row">
 				<h2>Incomplete Poems</h2>
-				<div class="col-md-4 poem-box" ng-repeat="poem in poemCtrl.poems" ng-hide="poem.complete">
-					<h3>{{poems.poem.title}}</h3>
+				<div class="col-md-4 poem-box" ng-repeat="poem in poems" ng-hide="poem.complete">
+					<h3>{{poem.title}}</h3>
 					<div ng-repeat="line in poem.lines">{{line}}</div>	
 					 <form name="lineForm" ng-controller="LineController as lineCtrl" ng-submit="lineCtrl.addNewLine(poem)">
 					 	<div>{{lineCtrl.newLine}}</div>
@@ -26,13 +26,13 @@
 			<hr />
 			<div class="row">
 				<h2>Completed Poems</h2>
-				<div class="col-md-4 poem-box" ng-repeat="poem in poemCtrl.poems" ng-show="poem.complete">
-					<h3>{{poems.poem.title}}</h3>
+				<div class="col-md-4 poem-box" ng-repeat="poem in poems" ng-show="poem.complete">
+					<h3>{{poem.title}}</h3>
 					<div ng-repeat="line in poem.lines">{{line}}</div>	
 				</div>
-			</div> -->
+			</div>
 		</div>
-	<script type="text/javascript" src="app/assets/js/angular.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
 	</body>

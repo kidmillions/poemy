@@ -2,6 +2,7 @@
 
 var os = require('os');
 var ifaces = os.networkInterfaces();
+var localip = '';
 
 Object.keys(ifaces).forEach(function (ifname) {
     var alias = 0;
@@ -16,8 +17,14 @@ Object.keys(ifaces).forEach(function (ifname) {
         } else {
             // this interface has only one ipv4 adress
             //console.log(ifname, iface.address);
-            module.exports.localip = iface.address;
+            localip = iface.address;
         }
     });
 });
 
+//var config = {
+//    port: '3000',
+//    databasUrl: '',
+//};
+
+module.exports.localip = localip;
