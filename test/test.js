@@ -6,11 +6,11 @@ var expect = require('expect.js'),
 describe('The Poemy Server', function () {
     
     before(function () {
-       // server.listen(config.port);
+        server.listen(config.port);
     })
 
     after(function () {
-        //server.close();
+        server.close();
     })
 
     //use apiPath such as /api/peoms, make sure to include '/' in front

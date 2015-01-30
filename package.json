@@ -2,7 +2,7 @@
   "name": "poemy",
   "version": "0.0.1",
   "description": "A collaborative poetry web app",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
