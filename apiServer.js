@@ -1,41 +1,55 @@
 var models = require('./models'),
     http = require('http');
 
-module.exports = function apiServer(req, res, callback) {
+module.exports = function apiServer(uri, req, res, callback) {
+    
+    //Good Request! Will be served!
+    function goodRes (poem_data) {
+        res.writeHead(200, { 'Content-Type' : 'application/json' });
+        res.write(JSON.stringify(poem_data));
+        res.end();
+    }
 
+    //Bad Request! Bad Bad Bad!
+    function badRes (err) {
+        res.writeHead(404);
+        res.end();
+        console.error(err);
+    }
+
+    var pathArray = uri.split('/');
+    
+    if (pathArray === undefined) { badRes(new Error('the api shouldn\'t have been routed this bad request, undefined')) }
+    
+    switch (pathArray[2]) {
+        // find all poems
+        case 'poems':
+            models.poem.find(function (err, poems) {
+                if (err) return badRes(err);
+                console.log('served req for poems');
+                goodRes(poems);
+            });
+            break;
+        //find one random poem
+        case 'random_poem':
+            models.poem.findOneRandom(function (err, poem) {
+                if (err) return badRes(err);
+                console.log('serverd req for random poem');
+                goodRes(poem);
+            });
+            break;
+        //find a poem with its ID
+        case 'poem':
+            var id = pathArray[3];
+            if (id === undefined) { badRes(new Error('asked for single poem, but didn\'t provide ID like poem/ID')) }
+            models.poem.findOne({ '_id' : id }).exec( function (err, poem) {
+                if (err) return badRes(err);
+                console.log('served req for poem with id: ' + id );
+                goodRes(poem);
+            });
+            break;
+        default:
+            badRes(new Error('API could not return a because task value in url didn\'t match to a proper API call \(ie api/poems \)'));
+            break;
+    }
 }
-
-//    pathArray = req.url.split('/');
-//        if (req.url === '/api/poems') {
-//                res.writeHead(200, { 'Content-Type' : 'application/json' });
-//                        console.log('request made to api/poems');
-//                                models.poem.find(function (err, poems) {
-//                                            if (err) return console.error(err);
-//                                                        // console.log('requested poems\n' + poems);
-//                                                                    res.write(JSON.stringify(poems));
-//                                                                                res.end();
-//                                                                                        });
-//                                                                                            } else if ( req.url ===  '/api/random_poem') {
-//                                                                                                    res.writeHead(200, { 'Content-Type' : 'application/json' });
-//                                                                                                            console.log('request made to api/random_poem');
-//                                                                                                                    models.poem.findOneRandom(function (err, poem) {
-//                                                                                                                                if (err) return console.error(err);
-//                                                                                                                                            res.write(JSON.stringify(poem));
-//                                                                                                                                                        res.end();
-//                                                                                                                                                                });
-//                                                                                                                                                                    } else if ( pathArray[2] === 'poem' ) {
-//                                                                                                                                                                            if ( pathArray[3] === undefined) { console.log('acessed api/poem, but didn\'t provide id like: /api/poem/id ') }
-//                                                                                                                                                                                    models.poem.findOne({ '_id' : pathArray[3] }).exec(function (err, poem) {
-//                                                                                                                                                                                                if (err) return console.error(err);
-//                                                                                                                                                                                                            res.write(JSON.stringify(poem));
-//                                                                                                                                                                                                                        res.end();
-//                                                                                                                                                                                                                                });
-//
-//                                                                                                                                                                                                                                        console.log('trying to find id = ' + pathArray[3]);
-//                                                                                                                                                                                                                                            } else {
-//                                                                                                                                                                                                                                                    res.writeHead(404);
-//                                                                                                                                                                                                                                                            res.end('nothing here');
-//                                                                                                                                                                                                                                                                }
-//
-//                                                                                                                                                                                                                                                                    if(callback !== undefined) callback();
-//                                                                                                                                                                                                                                                                    }

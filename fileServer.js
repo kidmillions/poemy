@@ -4,6 +4,9 @@ var path = require('path'),
     url = require('url');
 
 module.exports = function fileServer(file, uri, req, res, callback) {
+    if (uri === '/') { 
+        file += 'app/index.html'
+    }
     var ext = path.extname(file),
         type = '';
         //var uri = url.parse(req.url).pathname,
