@@ -7,6 +7,7 @@ var http = require('http'),
     fileServer = require('./fileServer');
 
 module.exports = http.createServer(function (req, res) { 
+    console.log('----new request----');
     var uri = url.parse(req.url).pathname,
         file = path.join(process.cwd(), uri);
     //route /api calls to api server

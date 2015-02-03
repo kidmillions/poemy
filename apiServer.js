@@ -14,6 +14,7 @@ module.exports = function apiServer(uri, req, res, callback) {
     function badRes (err) {
         res.writeHead(404);
         res.end();
+        console.log('404');
         console.error(err);
     }
 
