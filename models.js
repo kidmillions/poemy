@@ -12,7 +12,8 @@ var poemSchema = mongoose.Schema({
 var userSchema = mongoose.Schema({
     name: String, 
     email: String,
-    passHash: String
+    //saved in database as a hash
+    pass: String
 });
 
 //midware

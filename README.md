@@ -15,3 +15,5 @@ var config = {
 
 module.exports = config
 ```
+
+User validation inspired by and in somecases shamelessly copied from https://github.com/braitsch/node-login, rewritten to remove custom cryptology and instead use bcrypt 
