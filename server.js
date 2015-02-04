@@ -6,10 +6,15 @@ var http = require('http'),
     apiServer = require('./apiServer'),
     fileServer = require('./fileServer');
 
-module.exports = http.createServer(function (req, res) { 
-    console.log('----new request----');
+
+function parseCookies (req) {
+    console.log(req.headers.cookie);
+}
+
+module.exports = http.createServer(function (req, res) { ;
     var uri = url.parse(req.url).pathname,
         file = path.join(process.cwd(), uri);
+    parseCookies(req);
     //route /api calls to api server
     if (uri.split('/')[1] === 'api') {
         apiServer(uri, req, res);

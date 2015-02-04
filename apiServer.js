@@ -5,7 +5,10 @@ module.exports = function apiServer(uri, req, res, callback) {
     
     //Good Request! Will be served!
     function goodRes (poem_data) {
-        res.writeHead(200, { 'Content-Type' : 'application/json' });
+        res.writeHead(200, { 
+            'Set-Cookie' : 'username=kenny',
+            'Content-Type' : 'application/json' 
+        });
         res.write(JSON.stringify(poem_data));
         res.end();
     }
