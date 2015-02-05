@@ -24,6 +24,7 @@
   "homepage": "https://github.com/kidmillions/poemy",
   "dependencies": {
     "bcrypt": "^0.8.1",
+    "chance": "^0.7.3",
     "emailjs": "^0.3.12",
     "expect.js": "^0.3.1",
     "mocha": "^2.1.0",

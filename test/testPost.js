@@ -9,7 +9,7 @@ var post_data = JSON.stringify({
 });
 
 var post_options = {
-    host: '192.168.1.52',
+    host: '192.168.1.100',
     port: '3000',
     path: '/signup',
     method: 'POST',
@@ -25,15 +25,16 @@ var post_req = http.request(post_options, function(res) {
     var responseString = '';
 
     res.on('data', function (chunk) {
-        responseString += data;
+        responseString += chunk;
     });
     res.on('end', function() {
+        console.log(res.body);
         var resultObject = JSON.parse(responseString); 
     });
 });
 
 post_req.on('error', function(err) {
-    console.log('OH NOES');
+    console.error(err);
 });
 
 post_req.write(post_data);

@@ -53,15 +53,17 @@ module.exports = http.createServer(function (req, res) { ;
                 }
             });
             req.on('end', function () {
-                var POST = body
-                console.log(body);
-                AM.addNewAccount(POST, function(err) {
+                var POST = JSON.parse(body);
+                console.log(POST);
+                console.log(typeof POST);
+                AM.addNewAccount(POST, function(err, user) {
                     if (err) {
                         res.writeHead(400);
                         res.end(err);
                     } else {
                         res.writeHead(200);
                         res.end('ok');
+                        console.log('added account: '+user.name);
                     }
                 });
             });
