@@ -3,8 +3,8 @@ var server = require('../server'),
     dbConnect = require('../connectDatabase');
     AM = require('../accountManager');
 
-dbConnect( config.databaseUrl );
-server.listen( config.port, console.log('server on'));
+//dbConnect( config.databaseUrl );
+//server.listen( config.port, console.log('server on'));
 
 AM.getAllRecords( function(err, users) {
     if (err) return console.log(err);

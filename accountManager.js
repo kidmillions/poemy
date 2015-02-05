@@ -35,7 +35,7 @@ exports.addNewAccount = function(newData, callback) {
                 newData.pass = hash;
                 newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
                 var newUser = new accounts(newData);
-                    newUser.save(function (err, fluffy) {
+                    newUser.save(function (err, newUser) {
                         if (err) return callback(err);
                         callback(null);
                         });
