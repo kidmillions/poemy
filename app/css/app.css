@@ -7,7 +7,12 @@ body {
 
 ul.menu {
   margin:0 auto;
-  width: 180px;
+  width: 356px;
+}
+
+ul {
+  text-align:center;
+  padding:0px;
 }
 
 li {
@@ -40,6 +45,7 @@ input:focus {
 }
 
 button {
+  padding:10px;
   margin: 0 auto;
   margin-top:10px;
   height:40px;
@@ -49,6 +55,10 @@ button {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+}
+
+button:focus {
+  outline:none;
 }
 
 input.ng-dirty.ng-valid {
@@ -68,4 +78,22 @@ input.ng-dirty.ng-invalid {
 
 h1 {
   text-align:center;
+}
+
+ul.center {
+  padding:0px;
+}
+
+li.error {
+  color: #ee7676;
+}
+
+li.success {
+  color:white;
+}
+
+h1.big {
+  margin-top:50px;
+  font-size:72px;
+  margin-bototm:0px;
 }

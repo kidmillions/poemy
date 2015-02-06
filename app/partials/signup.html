@@ -1,8 +1,12 @@
 <div class="centerCard">
 	<h1>Signup</h1>
-	<input ng-model="user.name" type="text" placeholder="   Name"/>
-	<input ng-model="user.email" type="email" placeholder="   Email"/>
-	<input ng-model="user.pass" type="password" placeholder="   Password"/>
-	<input type="password" placeholder="   Confirm Password"/>
+	<ul class="center">
+		<li class="error">{{error}}</li>
+		<li class="success">{{success}}</li>
+	</ul>
+	<input ng-model="user.name" type="text" placeholder="   Name" required/>
+	<input ng-model="user.email" type="email" placeholder="   Email" required/>
+	<input ng-model="user.pass" type="password" placeholder="   Password"required/>
+	<input type="password" placeholder="   Confirm Password" required/>
 	<button ng-hide="empty" ng-click="postUser()">Get Account</button>
 <div>

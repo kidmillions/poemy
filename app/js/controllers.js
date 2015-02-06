@@ -5,8 +5,15 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
     $scope.valueFromService = UtilSrvc.helloWorld("Amy");
 });
 
-Poemy.controller("MyCtrl2", function ($scope) {
+Poemy.controller("HomeCtrl", function ($scope, $http) {
 
+  $http.get('/api/random_poem')
+    .success(function(data, status, headers, config) {
+       $scope.poem = data;
+    })
+    .error(function(data, status, headers, config) {
+      alert(data);
+    })
 });
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
@@ -19,17 +26,27 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
     });
 });
 
+Poemy.controller("LoginCtrl", function ($scope, $http) {
+});
+
 Poemy.controller("SignupCtrl", function ($scope, $http) {
 
+
+
   $scope.postUser = function () {
-    alert($scope.user)
+
+    $scope.success = '';
+    $scope.error = '';
+
     $http.post('/signup', $scope.user)
       .success(function(data, status, headers, config) {
-        alert(data);
+        $scope.success = 'your account was succesfully made!';
       })
       .error(function(data, status, headers, config) {
-        alert(status);
+        $scope.error = data;
       });
+
+    $scope.user = '';
   };
 
 });
