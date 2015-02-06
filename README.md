@@ -1,7 +1,7 @@
 # poemy
 poem collaboration app
 
-<img src="http://s14.postimg.org/m6nhvq8zz/Screen_Shot_2015_02_06_at_3_40_19_PM.png"/>
+![screenshot](screenie_1.png "screenie")
 
 #CONFIG
 
