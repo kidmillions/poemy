@@ -1,21 +1,11 @@
-(function() {
-	var Poemy = angular.module('Poemy', [
-        "Poemy.controllers",
-        "Poemy.services",
-        "Poemy.directives",
-        "Poemy.filters",
-        "ngRoute",
-        "ngResource"
-    ]);
-
-    App.config(function ($routeProvider) {
-        $routeProvider
-            .when('/view1', {
-                templateUrl: 'view/view1.html'
-            })
-            .when('/view2', {
-                templateUrl: 'view/view2.html'
-            })
-            .otherwise({redirectTo : 'view1'});
-    });
-}());
+//(function() {
+//	var Poemy = angular.module('Poemy', [
+//        "app/jsPoemy.controllers",
+//        "appjs/Poemy.services",
+//        "js/Poemy.directives",
+//        "js/Poemy.filters",
+//				"app/js/Poemy.config"
+//        "js/ngRoute",
+//        "js/ngResource"
+//    ]);
+//}());

@@ -1,5 +1,6 @@
 var models = require('./models'),
-    http = require('http');
+    http = require('http'),
+    AM = require('./accountManager');
 
 module.exports = function apiServer(uri, req, res, callback) {
     
@@ -24,7 +25,7 @@ module.exports = function apiServer(uri, req, res, callback) {
     var pathArray = uri.split('/');
     
     if (pathArray === undefined) { badRes(new Error('the api shouldn\'t have been routed this bad request, undefined')) }
-    
+    console.log(pathArray[2]);    
     switch (pathArray[2]) {
         // find all poems
         case 'poems':
@@ -50,6 +51,14 @@ module.exports = function apiServer(uri, req, res, callback) {
                 if (err) return badRes(err);
                 console.log('served req for poem with id: ' + id );
                 goodRes(poem);
+            });
+            break;
+        //find all users
+        case 'users':
+            AM.getAllRecords( function(err, users) {
+                if (err) return badRes(err);
+                console.log('served req for all users');
+                goodRes(users);
             });
             break;
         default:

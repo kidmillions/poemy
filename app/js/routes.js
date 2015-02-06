@@ -1,22 +1,38 @@
 'use strict';
 
-var myApp = angular.module('myApp', []);
+var Poemy = angular.module('Poemy', []);
 
-myApp.config(function($routeProvider) {
+Poemy.config(function($routeProvider) {
     $routeProvider.when(
-    	'/view1', 
+    	'/login',
     	{
-    		templateUrl: 'partials/partial1.html', 
-    		controller: 'MyCtrl1'
-    	});
+    		templateUrl: 'app/partials/login.html',
+    		controller: 'LoginCtrl'
+    	}
+    );
     $routeProvider.when(
-    	'/view2', 
+    	'/signup',
     	{
-    		templateUrl: 'partials/partial2.html', 
-    		controller: 'MyCtrl2'
-    	});
+    		templateUrl: 'app/partials/signup.html',
+    		controller: 'SignupCtrl'
+    	}
+    );
+    $routeProvider.when(
+      '/users',
+      {
+        templateUrl: 'app/partials/users.html',
+        controller: 'UsersCtrl'
+      }
+    );
+    $routeProvider.when(
+      '/',
+      {
+        templateUrl: 'app/partials/home.html',
+        controller: 'HomeCtrl'
+      }
+    );
     $routeProvider.otherwise(
         {
-            redirectTo: '/view1'
+            redirectTo: '/'
         });
 });
