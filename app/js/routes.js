@@ -1,6 +1,6 @@
 'use strict';
 
-var Poemy = angular.module('Poemy', []);
+var Poemy = angular.module('Poemy', ['ngMd5']);
 
 Poemy.config(function($routeProvider) {
     $routeProvider.when(

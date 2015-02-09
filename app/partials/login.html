@@ -1,11 +1,13 @@
 <div class="centerCard">
-	<h1>Login</h1>
-	<ul class="center">
-		<li class="error">{{error}}</li>
-		<li class="success">{{success}}</li>
-	</ul>
-	<input ng-model="user.name" type="text" placeholder="   Name" required/>
-	<input ng-model="user.email" type="email" placeholder="   Email" required/>
-	<input ng-model="user.pass" type="password" placeholder="   Password"required/>
-	<button ng-hide="empty" ng-click="postUser()">Log In</button>
+	<form name="login">
+		<h1>Login</h1>
+		<ul class="center">
+			<li class="error">{{error}}</li>
+			<li class="success">{{success}}</li>
+		</ul>
+		<input ng-model="user.name" type="text" placeholder="   Name" required/>
+		<input ng-model="user.email" type="email" placeholder="   Email" required/>
+		<input ng-model="user.pass" type="password" placeholder="   Password"required/>
+		<button ng-hide="empty" ng-click="postUser()">Log In</button>
+	</form>
 <div>

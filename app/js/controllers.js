@@ -30,8 +30,15 @@ Poemy.controller("LoginCtrl", function ($scope, $http) {
 });
 
 Poemy.controller("SignupCtrl", function ($scope, $http) {
-
-
+  $scope.user = {};
+  $scope.submit = function(formData, validity) {
+    console.log('clicked submit');
+    if(validity) {
+      $scope.success = 'submitting: ' + JSON.stringify(formData);
+    } else {
+      $scope.error = 'There were errors';
+    }
+  }
 
   $scope.postUser = function () {
 

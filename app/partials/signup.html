@@ -1,12 +1,42 @@
 <div class="centerCard">
-	<h1>Signup</h1>
-	<ul class="center">
-		<li class="error">{{error}}</li>
-		<li class="success">{{success}}</li>
-	</ul>
-	<input ng-model="user.name" type="text" placeholder="   Name" required/>
-	<input ng-model="user.email" type="email" placeholder="   Email" required/>
-	<input ng-model="user.pass" type="password" placeholder="   Password"required/>
-	<input type="password" placeholder="   Confirm Password" required/>
-	<button ng-hide="empty" ng-click="postUser()">Get Account</button>
+	<form
+		name="signupForm"
+		ng-submit="submitted = true; signupForm.submit(user, signupForm.$valid)"
+		novalidation>
+
+		<div get-gravatar email="{{user.email}}">
+			<img id="gravatar" src="https://secure.gravatar.com/avatar/d906407444bb64915fc0feae3384876f?s=200&d=mm"></img>
+		</div>
+		<h1>Signup</h1>
+		<ul class="center" ng-if="submitted">
+			<li class="error">{{error}}</li>
+			<li class="success">{{success}}</li>
+		</ul>
+		<input
+			name = "username"
+			ng-model="user.name"
+			type="text"
+			placeholder="   Name"
+			unique-username
+			required/>
+		<input
+			ng-model="user.email"
+			type="email" placeholder="   Email"
+			required/>
+		<input
+			ng-model="user.pass"
+			type="password"
+			placeholder="   Password"
+			required/>
+		<input
+			name="confirm_pass"
+			type="password"
+			placeholder="   Confirm Password"
+			required/>
+		<button
+			ng-hide="!signupForm.$valid"
+			ng-click="submit(user, signupForm.$valid)">
+			Get Account
+		</button>
+	</form>
 <div>

@@ -20,4 +20,38 @@ Poemy.directive('version', function(version) {
   };
 });
 
-// you may add as much directives as you want below
+Poemy.directive('getGravatar', function(md5,$timeout) {
+  return function(scope, elm, attrs) {
+    function checkAndGetGrav () {
+        attrs.$observe("email", function(newValue) {
+          var email = newValue;
+          var tag ='';
+          if ((email !== null) && (email !== undefined) && (email !== '')){
+            var hash = md5.createHash(email.toLowerCase());
+          }
+          var src = 'https://secure.gravatar.com/avatar/' + hash + '?s=200&d=mm'
+          tag = '<img src=' + src + ' id="gravatar" class="img-responsive"/>'
+          elm.find('img#gravatar').replaceWith(tag);
+        });
+    }
+    scope.$on('$viewContentLoaded', checkAndGetGrav());
+  }
+});
+
+Poemy.directive('uniqueUsername', function($http) {
+  return {
+    require : 'ngModel',
+    link : function(scope, elm, attrs, ctrl) {
+      elm.on('change', function (e) {
+        var username = elm.val();
+        $http.get('/api/username-exists/' + username)
+          .success(function(data, status, headers, config) {
+            ctrl.$setValidity('unique', status);
+          })
+          .error(
+            ctrl.$setValidiy('unique', status)
+          );
+      });
+    }
+  }
+});
