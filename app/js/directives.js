@@ -44,13 +44,17 @@ Poemy.directive('uniqueUsername', function($http) {
     link : function(scope, elm, attrs, ctrl) {
       elm.on('change', function (e) {
         var username = elm.val();
+        if (( username !== undefined) && ( username!== null) && ( username !== '')) {
         $http.get('/api/username-exists/' + username)
           .success(function(data, status, headers, config) {
-            ctrl.$setValidity('unique', status);
+            console.log(data);
+            ctrl.$setValidity('unique', Boolean(data));
           })
-          .error(
-            ctrl.$setValidiy('unique', status)
-          );
+          .error( function(data, status, headers, config) {
+            console.log(data);
+            ctrl.$setValidiy('unique', Boolean(data));
+          });
+        }
       });
     }
   }

@@ -46,7 +46,10 @@ module.exports = function apiServer(uri, req, res, callback) {
         //find a poem with its ID
         case 'poem':
             var id = pathArray[3];
-            if (id === undefined) { badRes(new Error('asked for single poem, but didn\'t provide ID like poem/ID')) }
+            if (id === undefined) {
+                badRes(new Error('asked for single poem, but didn\'t provide ID like poem/ID')) 
+                break;
+            }
             models.poem.findOne({ '_id' : id }).exec( function (err, poem) {
                 if (err) return badRes(err);
                 console.log('served req for poem with id: ' + id );
@@ -54,11 +57,23 @@ module.exports = function apiServer(uri, req, res, callback) {
             });
             break;
         //find all users
-        case 'users':
+        case 'users': 
             AM.getAllRecords( function(err, users) {
                 if (err) return badRes(err);
                 console.log('served req for all users');
                 goodRes(users);
+            });
+            break;
+        case 'username-exists': 
+            var nameToFind = pathArray[3];
+            if ((nameToFind === undefined) || (nameToFind === null) || (nameToFind === '')) {
+                badRes('asked for invalid name to validate');
+                break;
+            }
+            AM.usernameExists( nameToFind, function(err, exists) {
+                if (err) return badRes(err);
+                goodRes(exists);
+                console.log('served req for does username exist?: ' + nameToFind + ': ' + exists);
             });
             break;
         default:

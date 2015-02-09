@@ -8,7 +8,7 @@
 			<img id="gravatar" src="https://secure.gravatar.com/avatar/d906407444bb64915fc0feae3384876f?s=200&d=mm"></img>
 		</div>
 		<h1>Signup</h1>
-		<ul class="center" ng-if="submitted">
+		<ul class="center" ng-show="signupForm.username.unique">
 			<li class="error">{{error}}</li>
 			<li class="success">{{success}}</li>
 		</ul>

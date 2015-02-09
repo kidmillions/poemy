@@ -48,6 +48,14 @@ exports.addNewAccount = function(newData, callback) {
 //exports.updateAccount = function(newData, callback) {
  //   accounts.findOne({user:newData.user}
 
+exports.usernameExists = function(nameToFind, callback) {
+    accounts.findOne({ name : nameToFind}, function (err, user) {
+        if (err) return callback(err)
+        if (user === null) return callback(null, false)
+        callback(null, true);
+    });
+}
+
 //account lookup helpers
 exports.getAllRecords = function(callback) {
     accounts.find(function (err, users) {
