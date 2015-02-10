@@ -8,17 +8,27 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <ul class="menu">
-    <li><a href="#/login">login</a></li>
-    <li><a href="#/signup">signup</a></li>
-    <li><a href="#/users">users</a></li>
-    <li><a href="#/home">home</a></li>
-  </ul>
+  <header class="home-header">
+    <i class="icon-logo"><h1>Poemy</h1></i>
+    <p class="header-blurb">
+      Let's make a poem together, or fail hard at it...
+    </p>
+    <nav>
+      <ul class="menu">
+        <li><a href="#/login">login</a></li>
+        <li><a href="#/signup">signup</a></li>
+        <li><a href="#/users">users</a></li>
+        <li><a href="#/home">home</a></li>
+      </ul>
+    </nav>
+    <p class="bottom-info">+About</p>
+  </header>
 
   <div ng-view></div>
   <script src="app/lib/vendors/jquery.min.js"></script>
   <script src="app/lib/angular/angular.js"></script>
   <script src="app/lib/vendors/angular-md5.js"></script>
+  <script src="app/lib/angular/angular-route.js"></script>
   <script src="app/js/routes.js"></script>
   <script src="app/js/services.js"></script>
   <script src="app/js/controllers.js"></script>

@@ -76,6 +76,18 @@ module.exports = function apiServer(uri, req, res, callback) {
                 console.log('served req for does username exist?: ' + nameToFind + ': ' + exists);
             });
             break;
+        case 'email-exists':
+            var emailToFind = pathArray[3];
+            if ((emailToFind === undefined) || (emailToFind === null) || (emailToFind === '')){
+                badRes('asked for invalid email to validate');
+                break;
+            }
+            AM.emailExists( emailToFind, function(err, exists) {
+                if(err) return badRes(err);
+                goodRes(exists);
+                console.log('served rq for does username exist?L ' + emailToFind + ': ' + exists);
+            });
+            break;
         default:
             badRes(new Error('API could not return a because task value in url didn\'t match to a proper API call \(ie api/poems \)'));
             break;

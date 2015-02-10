@@ -2,16 +2,15 @@
 	<form
 		name="signupForm"
 		ng-submit="submitted = true; signupForm.submit(user, signupForm.$valid)"
-		novalidation>
+		no-validation
+		>
 
 		<div get-gravatar email="{{user.email}}">
 			<img id="gravatar" src="https://secure.gravatar.com/avatar/d906407444bb64915fc0feae3384876f?s=200&d=mm"></img>
 		</div>
+
 		<h1>Signup</h1>
-		<ul class="center" ng-show="signupForm.username.unique">
-			<li class="error">{{error}}</li>
-			<li class="success">{{success}}</li>
-		</ul>
+
 		<input
 			name = "username"
 			ng-model="user.name"
@@ -20,10 +19,13 @@
 			unique-username
 			required/>
 		<input
+			name = "email"
 			ng-model="user.email"
 			type="email" placeholder="   Email"
+			unique-email
 			required/>
 		<input
+			name="password"
 			ng-model="user.pass"
 			type="password"
 			placeholder="   Password"
@@ -31,8 +33,11 @@
 		<input
 			name="confirm_pass"
 			type="password"
+			ng-model="user.confirm"
 			placeholder="   Confirm Password"
-			required/>
+			required
+			compare-to="user.password"
+			/>
 		<button
 			ng-hide="!signupForm.$valid"
 			ng-click="submit(user, signupForm.$valid)">

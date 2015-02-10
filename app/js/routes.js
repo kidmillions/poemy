@@ -1,8 +1,8 @@
 'use strict';
 
-var Poemy = angular.module('Poemy', ['ngMd5']);
+var Poemy = angular.module('Poemy', ['ngRoute','ngMd5']);
 
-Poemy.config(function($routeProvider) {
+Poemy.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when(
     	'/login',
     	{
@@ -35,4 +35,4 @@ Poemy.config(function($routeProvider) {
         {
             redirectTo: '/'
         });
-});
+}]);

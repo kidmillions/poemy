@@ -49,7 +49,15 @@ exports.addNewAccount = function(newData, callback) {
  //   accounts.findOne({user:newData.user}
 
 exports.usernameExists = function(nameToFind, callback) {
-    accounts.findOne({ name : nameToFind}, function (err, user) {
+    accounts.findOne({ name : nameToFind }, function (err, user) {
+        if (err) return callback(err)
+        if (user === null) return callback(null, false)
+        callback(null, true);
+    });
+}
+
+exports.emailExists = function(emailToFind, callback) {
+    accounts.findOne({ email : emailToFind }, function (err, user) {
         if (err) return callback(err)
         if (user === null) return callback(null, false)
         callback(null, true);
