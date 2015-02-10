@@ -65,29 +65,30 @@ Poemy.directive('getGravatar', function(md5,$timeout) {
   }
 });
 
-Poemy.directive('uniqueUsername', function($http) {
+Poemy.directive('uniqueUsername', ['$http', '$q', function($http, $q) {
   return {
     require : 'ngModel',
-    link : function(scope, elm, attrs, ctrl) {
-      elm.on('change', function (e) {
-        var username = elm.val();
-        if (( username !== undefined) && ( username!== null) && ( username !== '')) {
-        $http.get('/api/username-exists/' + username)
-          .success(function(data, status, headers, config) {
-            console.log('username found?:' + data);
-            if (Boolean(data) == false) { scope.signupForm.username.$setValidity('unique', false); }
-            if (Boolean(data) == true) { scope.signupForm.username.$setValidity('unique', true); }
-            //scope.signupForm.username.$setValidity('unique', Boolean(data));
+    link : function(scope, elm, attrs, ngModel) {
+      ngModel.$asyncValidators.usernameAvailable = function(modelValue, viewValue) {
+        var value = viewValue || modelValue;
+        var defer = $q.defer();
+        $http.get('/api/username-exists/' + value)
+          .success(function(data) {
+            var valid = Boolean(data);
+            if (valid == true) {
+              defer.reject('exists');
+            } else {
+              defer.resolve();
+            }
           })
-          .error( function(data, status, headers, config) {
-            console.log(data);
-            //scope.signupForm.username.$setValidiy('unique', Boolean(data));
+          .error(function(data) {
+            defer.reject('broke');
           });
-        }
-      });
+        return defer.promise;
+      };
     }
   }
-});
+}]);
 
 Poemy.directive('uniqueEmail', function($http) {
   return {
@@ -124,12 +125,36 @@ Poemy.directive('compareTo', function() {
             console.log(ngModel.$valid);
 
             ngModel.$validators.compareTo = function(modelValue) {
-                return modelValue == scope.otherModelValue;
+                var validity = (modelValue !== scope.otherModelValue);
+                console.log('passwords_match?: ' + validity);
+                return validity;
             };
-
             scope.$watch("otherModelValue", function() {
               ngModel.$validate();
             });
         }
     };
+});
+
+Poemy.directive('patternValidator', function() {
+  return {
+    require : 'ngModel',
+    link : function(scope, element, attrs, ngModel) {
+      ngModel.$validators.patternCharacters = function(value) {
+        var REQUIRED_PATTERNS = [
+          /\d+/,    //numeric values
+          /[a-z]+/, //lowercase values
+          /[A-Z]+/, //uppercase values
+          /\W+/,    //special characters
+          /^\S+$/   //no whitespace allowed
+        ];
+        var status = true;
+        angular.forEach(REQUIRED_PATTERNS, function (pattern) {
+          status = status && pattern.test(value);
+        });
+        console.log('incorrect pattern?: ' + status);
+        return status;
+      }
+    }
+  }
 });

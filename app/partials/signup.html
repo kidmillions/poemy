@@ -2,7 +2,7 @@
 	<form
 		name="signupForm"
 		ng-submit="submitted = true; signupForm.submit(user, signupForm.$valid)"
-		no-validation
+		novalidate
 		>
 
 		<div get-gravatar email="{{user.email}}">
@@ -14,6 +14,9 @@
 		<input
 			name = "username"
 			ng-model="user.name"
+			ng-model-options="{
+				debounce: { 'default' :500 },
+				updateOn: 'blur' }"
 			type="text"
 			placeholder="   Name"
 			unique-username
@@ -36,7 +39,7 @@
 			ng-model="user.confirm"
 			placeholder="   Confirm Password"
 			required
-			compare-to="user.password"
+			compare-to="user.pass"
 			/>
 		<button
 			ng-hide="!signupForm.$valid"
