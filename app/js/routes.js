@@ -39,7 +39,7 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
         templateUrl: 'app/partials/home.html',
         controller: 'HomeCtrl',
         data: {
-          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor]
+          authorizedRoles: [USER_ROLES.all]
         }
       }
     );
@@ -50,10 +50,10 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
 }]);
 
 Poemy.run(function ($rootScope, AUTH_EVENTS, AuthService) {
-  $rootScope.$on('$routeChangeStart', function (next, current) {
-    console.log(current.authorizedRoles);
-    var authorizedRoles = next.authorizedRoles;
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    var authorizedRoles = next.data.authorizedRoles;
       if (!AuthService.isAuthorized(authorizedRoles)) {
+        console.log('wont let you in');
         event.preventDefault();
         if (AuthService.isAuthenticated()) {
           //user is not allowed, but logged in

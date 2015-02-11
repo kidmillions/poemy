@@ -20,28 +20,6 @@ Poemy.directive('version', function(version) {
   };
 });
 
-Poemy.directive('validChars', [function() {
-  return {
-    restrict : 'A',
-    link: function(scope, elm, attrs) {
-      elm.on('change', function (e) {
-        var value = scope.user.name;
-        var valid = /[0-9]+/.test(value) &&
-                    /[a-z]+/.test(value) &&
-                    /[A-Z]+/.test(value) &&
-                    /\W+/.test(value);
-        //console.log(scope.signupForm.$valid);
-        //console.log(scope.signupForm.username.$invalid);
-        scope.signupForm.username.$setValidity('validChars', valid );
-        console.log(scope.signupForm.username.$invalid);
-        //console.log(valid);
-      });
-    }
-  }
-}]);
-
-
-
 Poemy.directive('getGravatar', function(md5,$timeout) {
   return function(scope, elm, attrs) {
     function checkAndGetGrav () {
@@ -118,12 +96,8 @@ Poemy.directive('compareTo', function() {
             otherModelValue: "=compareTo"
         },
         link: function(scope, element, attributes, ngModel) {
-
-            console.log(ngModel.$valid);
-
             ngModel.$validators.compareTo = function(modelValue) {
                 var validity = (modelValue == scope.otherModelValue);
-                console.log('passwords_match?: ' + validity);
                 return validity;
             };
             scope.$watch("otherModelValue", function() {
@@ -149,7 +123,6 @@ Poemy.directive('patternValidator', function() {
         angular.forEach(REQUIRED_PATTERNS, function (pattern) {
           status = status && pattern.test(value);
         });
-        console.log('incorrect pattern?: ' + status);
         return status;
       }
     }

@@ -1,10 +1,12 @@
 'use strict';
 
 Poemy.controller('ApplicationController', function (
+  $rootScope,
   $scope,
   USER_ROLES,
-  AuthService) {
-    
+  AuthService,
+  AUTH_EVENTS) {
+
     $scope.currentUser = null;
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
@@ -12,6 +14,13 @@ Poemy.controller('ApplicationController', function (
     $scope.setCurrentUser = function (user) {
       $scope.currentUser = user;
     };
+
+    //make guest session if no session
+    //if(AuthService.isAuthenticated() === false) {
+    //  var guest = AuthService.makeGuest();
+    //  $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+    //  $scope.setCurrentUser(guest);
+    //}
 
 });
 

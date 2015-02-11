@@ -36,7 +36,7 @@ Poemy.constant('AUTH_EVENTS', {
 });
 
 Poemy.constant('USER_ROLES', {
-  all: '*',
+  all: 'all',
   admin: 'admin',
   editor: 'editor',
   guest: 'guest'
@@ -49,6 +49,7 @@ Poemy.factory('AuthService', function ($http, Session) {
     return $http
       .post('/', credentials)
       .then(function (res) {
+        Session.destroy();
         Session.create(
           res.data.id,
           res.data.user.id,
@@ -56,6 +57,15 @@ Poemy.factory('AuthService', function ($http, Session) {
         return res.data.user;
       });
   };
+
+  //authService.makeGuest = function () {
+  //  Session.create(null, 'g', 'guest');
+  //  return {
+  //    role : 'guest',
+  //    name : 'guest',
+  //    email : 'none'
+  //  }
+  //}
 
   authService.isAuthenticated = function () {
     return !!Session.userId;
@@ -65,8 +75,13 @@ Poemy.factory('AuthService', function ($http, Session) {
     if (!angular.isArray(authorizedRoles)) {
       authorizedRoles = [authorizedRoles];
     }
-    return (authService.isAuthenticated() &&
-      authorizedRoles.indexOf(Session.userRole) !== -1);
+    var roleMatch = false;
+    if (Session.userRole === authorizedRoles[0] || authorizedRoles[0] == 'all') {
+        roleMatch = true;
+      }
+    var authenticated = (roleMatch)
+    //console.log('authenticated: ' + authenticated)
+    return authenticated;
   };
 
   return authService;
