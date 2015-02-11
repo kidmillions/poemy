@@ -224,7 +224,17 @@ h1.big {
 
 
 /* navel panel styles */
+
+.menu {
+  li {
+    text-align: center;
+    &:hover {
+      background-color: rgb(57, 147, 168);
+    }
+  }
+}
+
 .activePanel {
-  background-color: green;
+  background-color: rgb(131, 68, 148);
 }
 

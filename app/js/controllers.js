@@ -134,10 +134,10 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
 
 Poemy.controller("NavController", ["$scope", function($scope) {
   $scope.panel = 4;
-  $scope.setPanel = function(selectedPanel) {
+  $scope.selectPanel = function(selectedPanel) {
       $scope.panel = selectedPanel;
     };
-  $scope.isSet = function(value) {
+  $scope.isSelected = function(value) {
      return $scope.panel === value; 
     };
 
