@@ -54,11 +54,7 @@ Poemy.directive('getGravatar', function(md5,$timeout) {
           var src = 'https://secure.gravatar.com/avatar/' + hash + '?s=200&d=mm';
           var $newElm = $('<img src=' + src + ' id="gravatar" class="img-responsive"/>');
           var oldElm = elm.find('img#gravatar');
-          oldElm.fadeOut(500, function () {
-            oldElm.replaceWith($newElm);
-            $newElm.fadeIn(500, function () {
-            })
-          });
+          oldElm.replaceWith($newElm);
         });
     }
     scope.$on('$viewContentLoaded', checkAndGetGrav());
@@ -90,29 +86,30 @@ Poemy.directive('uniqueUsername', ['$http', '$q', function($http, $q) {
   }
 }]);
 
-Poemy.directive('uniqueEmail', function($http) {
+Poemy.directive('uniqueEmail', ['$http', '$q', function($http, $q) {
   return {
     require : 'ngModel',
-    link : function(scope, elm, attrs, ctrl) {
-      elm.on('change', function (e) {
-        var username = elm.val();
-        var valid = false;
-        if (( username !== undefined) && ( username!== null) && ( username !== '')) {
-        $http.get('/api/email-exists/' + username)
-          .success(function(data, status, headers, config) {
-            valid = Boolean(data);
-            console.log('email unique?: ' + data);
-            scope.signupForm.email.$setValidity('unique', valid);
+    link : function(scope, elm, attrs, ngModel) {
+      ngModel.$asyncValidators.emailAvailable = function(modelValue, viewValue) {
+        var value = viewValue || modelValue;
+        var defer = $q.defer();
+        $http.get('/api/email-exists/' + value)
+          .success(function(data) {
+            var valid = Boolean(data);
+            if (valid == true) {
+              defer.reject('exists');
+            } else {
+              defer.resolve();
+            }
           })
-          .error( function(data, status, headers, config) {
-            console.log(data);
-            scope.signupForm.email.$setValidity('unique', false);
+          .error(function(data) {
+            defer.reject('broke');
           });
-        }
-      });
+        return defer.promise;
+      };
     }
   }
-});
+}]);
 
 Poemy.directive('compareTo', function() {
     return {
@@ -125,7 +122,7 @@ Poemy.directive('compareTo', function() {
             console.log(ngModel.$valid);
 
             ngModel.$validators.compareTo = function(modelValue) {
-                var validity = (modelValue !== scope.otherModelValue);
+                var validity = (modelValue == scope.otherModelValue);
                 console.log('passwords_match?: ' + validity);
                 return validity;
             };

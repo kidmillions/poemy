@@ -1,5 +1,20 @@
 'use strict';
 
+Poemy.controller('ApplicationController', function (
+  $scope,
+  USER_ROLES,
+  AuthService) {
+    
+    $scope.currentUser = null;
+    $scope.userRoles = USER_ROLES;
+    $scope.isAuthorized = AuthService.isAuthorized;
+
+    $scope.setCurrentUser = function (user) {
+      $scope.currentUser = user;
+    };
+
+});
+
 Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
     $scope.aVariable = 'anExampleValueWithinScope';
     $scope.valueFromService = UtilSrvc.helloWorld("Amy");
@@ -27,35 +42,46 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
 });
 
 Poemy.controller("LoginCtrl", function ($scope, $http) {
+  $scope.credentials = {
+    username: '',
+    password: ''
+  }
+  $scope.login = function (credentials) {
+    AuthService.login(credentials).then(function (user) {
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      $scope.setCurrentUser(user);
+    }, function () {
+      $rootScope.$broatcast(AUTH_EVENTS.loginFailed);
+    });
+  };
 });
 
 Poemy.controller("SignupCtrl", function ($scope, $http) {
-  $scope.user = {
-    name : ''
-  }
+  $scope.success = '';
+
   $scope.submit = function(formData, validity) {
     console.log('clicked submit');
     if(validity) {
-      $scope.success = 'submitting: ' + JSON.stringify(formData);
+      var user = {
+        name : $scope.user.name,
+        email : $scope.user.email,
+        pass : $scope.user.pass
+      }
+      postUser(user);
     } else {
-      $scope.error = 'There were errors';
+      alert('There were errors');
     }
   }
 
-  $scope.postUser = function () {
+  var postUser = function (userData) {
 
-    $scope.success = '';
-    $scope.error = '';
-
-    $http.post('/signup', $scope.user)
+    $http.post('/signup', JSON.stringify(userData))
       .success(function(data, status, headers, config) {
         $scope.success = 'your account was succesfully made!';
       })
       .error(function(data, status, headers, config) {
-        $scope.error = data;
+        $scope.success = data;
       });
-
-    $scope.user = '';
   };
 
 });

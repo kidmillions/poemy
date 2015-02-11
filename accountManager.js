@@ -4,18 +4,20 @@ var models = require('./models'),
     accounts = models.user;
 
 //Login Validations
-exports.autoLogin = function(user, pass, callback) {
-    accounts.findOne({user:user}, function(err, user) {
+exports.autoLogin = function(name, pass, callback) {
+    accounts.findOne({name : name}, function(err, user) {
+        if (err) return callback(err);
         if (user) {
-            user.pass == pass ? callback(user) : callback(null);
+            user.pass == pass ? callback(null, user) : callback('user found, password did not match', null);
         } else {
-            callback(null);
+            callback('no user found', null);
         }
     });
 }
 
-exports.manualLogin = function(user, pass, callback) {
-    accounts.findOne({user:user}, function(err, user) {
+exports.manualLogin = function(name, pass, callback) {
+    accounts.findOne({name:name}, function(err, user) {
+        if (err) return callback(err);
         if (user == null) return callback('user-not-found');
         bcrypt.compare(pass, user.pass, function(err, res) {
             if (res) return callback(null, user);

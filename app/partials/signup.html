@@ -11,6 +11,11 @@
 
 		<h1>Signup</h1>
 
+		<div ng-if="$scope.success !== ''">
+			{{success}}
+		</div>
+
+		<div class="input-div">
 		<input
 			name = "username"
 			ng-model="user.name"
@@ -18,31 +23,77 @@
 				debounce: { 'default' :500 },
 				updateOn: 'blur' }"
 			type="text"
-			placeholder="   Name"
+			placeholder="   Username"
 			unique-username
 			required/>
+			<i
+				ng-if="signupForm.username.$dirty"
+				ng-class="{ good : signupForm.username.$valid, bad : signupForm.username.$invalid }"/>
+		</div>
+		<div ng-messages="signupForm.username.$error" ng-if="signupForm.username.$dirty" class="err-messages">
+			<p ng-message="required" class="some-message">you should have a name!</p>
+			<p ng-message="usernameAvailable" class="some-message">username already taken</p>
+		</div>
+		<div class="input-div">
 		<input
 			name = "email"
 			ng-model="user.email"
+			ng-model-options="{
+				debounce: { 'default' :500 },
+				updateOn: 'blur' }"
 			type="email" placeholder="   Email"
 			unique-email
 			required/>
+			<i
+				ng-if="signupForm.email.$dirty"
+				ng-class="{good : signupForm.email.$valid, bad : signupForm.email.$invalid}"/>
+		</div>
+		<div ng-messages="signupForm.email.$error" ng-if="signupForm.email.$dirty" class="err-messages">
+			<p ng-message="required" class="some-message">you should provide an email!</p>
+			<p ng-message="emailAvailable" class="some-message">email already in use, did you mean to <a href="#/login">log in?</a></p>
+			<p ng-message="email" class="some-message">that doesn't look like an email...</p>
+		</div>
+		<div class="input-div">
 		<input
 			name="password"
 			ng-model="user.pass"
+			ng-model-options="{
+				debounce: { 'default' :500 },
+				updateOn: 'keyup' }"
 			type="password"
 			placeholder="   Password"
+			minlength="8"
 			required/>
+			<i
+				ng-if="signupForm.password.$dirty"
+				ng-class="{good : signupForm.password.$valid, bad : signupForm.password.$invalid}"/>
+		</div>
+		<div ng-messages="signupForm.password.$error" ng-if="signupForm.password.$dirty" class="err-messages">
+			<p ng-message="required" class="some-message">you should provide an password!</p>
+			<p ng-message="minlength" class="some-message">passwords should be atleast 8 chars long</p>
+		</div>
+		<div class="input-div">
 		<input
 			name="confirm_pass"
 			type="password"
 			ng-model="user.confirm"
+			ng-model-options="{
+				debounce: { 'default' :500 },
+				updateOn: 'keyup' }"
 			placeholder="   Confirm Password"
 			required
 			compare-to="user.pass"
 			/>
+			<i
+				ng-if="signupForm.confirm_pass.$dirty"
+				ng-class="{good : signupForm.confirm_pass.$valid, bad : signupForm.confirm_pass.$invalid}"/>
+		</div>
+		<div ng-messages="signupForm.confirm_pass.$error" ng-if="signupForm.confirm_pass.$dirty" class="err-messages">
+			<p ng-message="required" class="some-message">you should provide an password!</p>
+			<p ng-message="compareTo" class="some-message">passwords don't match!</p>
+		</div>
 		<button
-			ng-hide="!signupForm.$valid"
+			ng-show="signupForm.$valid"
 			ng-click="submit(user, signupForm.$valid)">
 			Get Account
 		</button>
