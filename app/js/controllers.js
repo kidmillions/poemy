@@ -31,13 +31,40 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
 
 Poemy.controller("HomeCtrl", function ($scope, $http) {
 
-  $http.get('/api/random_poem')
-    .success(function(data, status, headers, config) {
+  var newPoems = $http.get('/api/random_poem');
+  
+  newPoems.success(function(data, status, headers, config) {
        $scope.poem = data;
     })
     .error(function(data, status, headers, config) {
       alert(data);
     })
+
+
+  //watch text input for data
+  $scope.$watch("newLine", function(line) {
+    $scope.newLine = line;
+  })
+
+  //submit data when ready
+  $scope.submit = function(data) {
+      console.log("button clicked");
+      $scope.poem.lines.push(data);
+      var newPoem = $scope.poem;
+      postLine(newPoem);
+    };
+
+  //function that actually makes POST
+  var postLine = function(poem) {
+    $http.post('/api/random_poem', poem)
+      .success(function(data, status, headers, config) {
+        $scope.success = 'your poem was succesfully saved!';
+        console.log("new line posted");
+      })
+      .error(function(data, status, headers, config) {
+        $scope.success = data;
+    });
+  }
 });
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
