@@ -31,15 +31,23 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
 
 Poemy.controller("HomeCtrl", function ($scope, $http) {
 
-  var newPoems = $http.get('/api/random_poem');
-  
-  newPoems.success(function(data, status, headers, config) {
+  var getNewPoems = function() {
+    $http.get('/api/random_poem')
+    .success(function(data, status, headers, config) {
        $scope.poem = data;
     })
     .error(function(data, status, headers, config) {
       alert(data);
     })
+  };
 
+  $http.get('/api/random_poem')
+    .success(function(data, status, headers, config) {
+       $scope.poem = data;
+    })
+    .error(function(data, status, headers, config) {
+      alert(data);
+    })
 
   //watch text input for data
   $scope.$watch("newLine", function(line) {
@@ -52,6 +60,8 @@ Poemy.controller("HomeCtrl", function ($scope, $http) {
       $scope.poem.lines.push(data);
       var newPoem = $scope.poem;
       postLine(newPoem);
+      $scope.newLine = '';
+      getNewPoems();
     };
 
   //function that actually makes POST
@@ -59,7 +69,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http) {
     $http.post('/api/random_poem', poem)
       .success(function(data, status, headers, config) {
         $scope.success = 'your poem was succesfully saved!';
-        console.log("new line posted");
+        console.log("new line submitted");
       })
       .error(function(data, status, headers, config) {
         $scope.success = data;
@@ -121,5 +131,16 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
   };
 
 });
+
+Poemy.controller("NavController", ["$scope", function($scope) {
+  $scope.panel = 4;
+  $scope.setPanel = function(selectedPanel) {
+      $scope.panel = selectedPanel;
+    };
+  $scope.isSet = function(value) {
+     return $scope.panel === value; 
+    };
+
+}]);
 
 // you may add more controllers below

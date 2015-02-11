@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Poemy</title>
   <link rel="stylesheet" href="app/css/normalize.css"/>
+  <link rel="stylesheet" href="app/css/animate.css"/>
   <link rel="stylesheet" href="app/css/app.css"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
@@ -13,12 +14,12 @@
     <p class="header-blurb">
       Let's make a poem together, or fail hard at it...
     </p>
-    <nav>
+    <nav ng-controller="NavController">
       <ul class="menu">
-        <li><a href="#/login">login</a></li>
-        <li><a href="#/signup">signup</a></li>
-        <li><a href="#/users">users</a></li>
-        <li><a href="#/home">home</a></li>
+        <li ng-class="{activePanel: isSelected(1)}"><a href="#/login" ng-click="selectPanel(1)">login</a></li>
+        <li ng-class="{activePanel: isSelected(2)}"><a href="#/signup" ng-click="selectPanel(2)">signup</a></li>
+        <li ng-class="{activePanel: isSelected(3)}"><a href="#/users" ng-click="selectPanel(3)">users</a></li>
+        <li ng-class="{activePanel: isSelected(4)}"><a href="#/home" ng-click="selectPanel(4)">home</a></li>
       </ul>
     </nav>
     <p class="bottom-info">+About</p>
@@ -26,6 +27,10 @@
 
   <div ng-view></div>
   <script src="app/lib/vendors/jquery.min.js"></script>
+  <!-- Notification plugin for JQuery -->
+  <script type="text/javascript" src="app/js/noty/jquery.noty.js"></script>
+  <script type="text/javascript" src="app/js/noty/themes/default.js"></script>
+  <script type="text/javascript" src="app/js/noty/layouts/top.js"></script>
   <script src="app/lib/angular/angular.js"></script>
   <script src="app/lib/vendors/angular-md5.js"></script>
   <script src="app/lib/angular/angular-route.js"></script>
