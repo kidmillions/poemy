@@ -31,13 +31,66 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
 
 Poemy.controller("HomeCtrl", function ($scope, $http) {
 
-  $http.get('/api/random_poem')
+  var getNewPoems = function() {
+    $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
        $scope.poem = data;
     })
     .error(function(data, status, headers, config) {
       alert(data);
     })
+  };
+
+  getNewPoems();
+
+  //watch text input for data
+  $scope.$watch("newLine", function(line) {
+    $scope.newLine = line;
+  })
+
+  //submit data when ready
+  $scope.submit = function(data) {
+      console.log("button clicked");
+      $scope.poem.lines.push(data);
+      var newPoem = $scope.poem;
+      // animateOut(newPoem);
+      postLine(newPoem);
+      $scope.newLine = '';
+      getNewPoems();
+    };
+
+  //function that actually makes POST
+  var postLine = function(poem) {
+    $http.post('/api/random_poem', poem)
+      .success(function(data, status, headers, config) {
+        $scope.success = 'New Line Added. GOOD FOR YOU.';
+        console.log("new line submitted");
+        noty({text: $scope.success,
+            animation: {
+              open: 'animated bounceInLeft', 
+              close: 'animated bounceOutLeft', 
+              easing:  'swing', 
+              speed: 500
+            }
+        });
+      })  
+      .error(function(data, status, headers, config) {
+        $scope.success = data;
+    });
+  }
+
+  //instigating animations and notifications
+  // $scope.leavingPoem = null;
+  // $scope.enteringPoem = null;
+
+  // $scope.animateOut = function(poem) {
+  //   return $scope.leavingPoem = poem;
+  // };
+
+  // $scope.animateIn = function(poem) {
+  //   return $scope.enteringPoem = poem;
+  // }
+
 });
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
@@ -98,5 +151,16 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
   };
 
 });
+
+Poemy.controller("NavController", ["$scope", function($scope) {
+  $scope.panel = 4;
+  $scope.selectPanel = function(selectedPanel) {
+      $scope.panel = selectedPanel;
+    };
+  $scope.isSelected = function(value) {
+     return $scope.panel === value; 
+    };
+
+}]);
 
 // you may add more controllers below
