@@ -50,19 +50,23 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
     });
 });
 
-Poemy.controller("LoginCtrl", function ($scope, $http) {
+Poemy.controller("LoginCtrl", function ($scope) {
+
   $scope.credentials = {
     username: '',
     password: ''
   }
+
   $scope.login = function (credentials) {
+    console.log('clicked');
     AuthService.login(credentials).then(function (user) {
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $scope.setCurrentUser(user);
     }, function () {
       $rootScope.$broatcast(AUTH_EVENTS.loginFailed);
     });
-  };
+  }
+
 });
 
 Poemy.controller("SignupCtrl", function ($scope, $http) {

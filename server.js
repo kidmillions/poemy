@@ -16,8 +16,8 @@ function parseCookies (req) {
         var pair = cookie.split('='),
             cookie_name = pair[0],
             cookie_value = pair[1]
-        cookies[i] = { 
-            name : cookie_name, 
+        cookies[i] = {
+            name : cookie_name,
             value : cookie_value
         };
     });
@@ -73,4 +73,3 @@ module.exports = http.createServer(function (req, res) { ;
         fileServer(file, uri, req, res);
     }
 });
-

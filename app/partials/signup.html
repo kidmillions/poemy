@@ -1,7 +1,7 @@
 <div class="centerCard">
 	<form
 		name="signupForm"
-		ng-submit="submitted = true; signupForm.submit(user, signupForm.$valid)"
+		ng-submit="submit(user, signupForm.$valid)"
 		novalidate
 		>
 
@@ -23,7 +23,7 @@
 				debounce: { 'default' :500 },
 				updateOn: 'blur' }"
 			type="text"
-			placeholder="   Username"
+			placeholder="   Userame"
 			unique-username
 			required/>
 			<i
@@ -94,7 +94,7 @@
 		</div>
 		<button
 			ng-show="signupForm.$valid"
-			ng-click="submit(user, signupForm.$valid)">
+			type ="submit">
 			Get Account
 		</button>
 	</form>

@@ -1,15 +1,18 @@
 <div class="centerCard-login">
-	<form name="login">
+	<form
+		name="login"
+		ng-submit="$scope.login(credentials)"
+		novalidate>
 		<h1>Login</h1>
 		<input
-			ng-model="user.nameOrEmail"
+			ng-model="credentials.username"
 			type="text" placeholder="   Username or Email"
 			required/>
 		<input
-			ng-model="user.pass"
+			ng-model="credentials.password"
 			type="password"
 			placeholder="   Password"
 			required/>
-		<button ng-hide="empty" ng-click="postUser()">Log In</button>
+		<button type="submit">Log In</button>
 	</form>
 <div>

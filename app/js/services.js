@@ -47,7 +47,7 @@ Poemy.factory('AuthService', function ($http, Session) {
 
   authService.login = function (credentials) {
     return $http
-      .post('/', credentials)
+      .post('/login', JSON.stringiy(credentials))
       .then(function (res) {
         Session.destroy();
         Session.create(

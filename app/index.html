@@ -10,6 +10,7 @@
 <body ng-controller="ApplicationController">
   <header class="home-header">
     <i class="icon-logo"><h1>Poemy</h1></i>
+    <h2 ng-if="isAuthorized">{{currentUser.name}}</h2>
     <p class="header-blurb">
       Let's make a poem together, or fail hard at it...
     </p>
