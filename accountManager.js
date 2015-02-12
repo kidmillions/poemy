@@ -15,7 +15,9 @@ exports.autoLogin = function(name, pass, callback) {
     });
 }
 
-exports.manualLogin = function(name, pass, callback) {
+exports.manualLogin = function(credentials, callback) {
+    var name = credentials.name;
+    var pass = credentials.pass;
     accounts.findOne({name:name}, function(err, user) {
         if (err) return callback(err);
         if (user == null) return callback('user-not-found');
@@ -36,6 +38,7 @@ exports.addNewAccount = function(newData, callback) {
             bcrypt.hash(newData.pass, salt, function(err, hash) {
                 newData.pass = hash;
                 newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
+                newData.role = 'editor';
                 var newUser = new accounts(newData);
                     newUser.save(function (err, newUser) {
                         if (err) return callback(err);

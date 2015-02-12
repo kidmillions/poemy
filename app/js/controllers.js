@@ -67,13 +67,13 @@ Poemy.controller("HomeCtrl", function ($scope, $http) {
         console.log("new line submitted");
         noty({text: $scope.success,
             animation: {
-              open: 'animated bounceInLeft', 
-              close: 'animated bounceOutLeft', 
-              easing:  'swing', 
+              open: 'animated bounceInLeft',
+              close: 'animated bounceOutLeft',
+              easing:  'swing',
               speed: 500
             }
         });
-      })  
+      })
       .error(function(data, status, headers, config) {
         $scope.success = data;
     });
@@ -103,20 +103,20 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
     });
 });
 
-Poemy.controller("LoginCtrl", function ($scope) {
+Poemy.controller("LoginCtrl", function (AUTH_EVENTS, $rootScope, $scope, AuthService) {
 
   $scope.credentials = {
-    username: '',
-    password: ''
+    name: '',
+    pass: ''
   }
 
-  $scope.login = function (credentials) {
-    console.log('clicked');
+  $scope.requestLogin = function (credentials) {
+    console.log(credentials);
     AuthService.login(credentials).then(function (user) {
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $scope.setCurrentUser(user);
     }, function () {
-      $rootScope.$broatcast(AUTH_EVENTS.loginFailed);
+      $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
     });
   }
 
@@ -158,7 +158,7 @@ Poemy.controller("NavController", ["$scope", function($scope) {
       $scope.panel = selectedPanel;
     };
   $scope.isSelected = function(value) {
-     return $scope.panel === value; 
+     return $scope.panel === value;
     };
 
 }]);

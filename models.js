@@ -10,10 +10,12 @@ var poemSchema = mongoose.Schema({
 });
 
 var userSchema = mongoose.Schema({
-    name: String, 
+    name: String,
     email: String,
     //saved in database as a hash
-    pass: String
+    pass: String,
+    role : String,
+    date : Date
 });
 
 //midware

@@ -47,12 +47,13 @@ Poemy.factory('AuthService', function ($http, Session) {
 
   authService.login = function (credentials) {
     return $http
-      .post('/login', JSON.stringiy(credentials))
+      .post('/api/login', JSON.stringify(credentials))
       .then(function (res) {
+        console.log(res.data);
         Session.destroy();
         Session.create(
-          res.data.id,
-          res.data.user.id,
+          'u',
+          res.data.user._id,
           res.data.user.role);
         return res.data.user;
       });
@@ -117,6 +118,3 @@ Poemy.factory('AuthInterceptor', function ($rootScope,
       }
     };
 });
-
-
-

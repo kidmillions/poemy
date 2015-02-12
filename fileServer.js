@@ -19,7 +19,8 @@ module.exports = function fileServer(file, uri, req, res, callback) {
             '.json' : 'application/json',
             '.png' : 'image/png',
             '.jpg' : 'image/jpg',
-            '.wav' : 'audio/wav'
+            '.wav' : 'audio/wav',
+            '.ico' : 'image/ico'
         };
         console.log('req: "'+uri+'" ext: '+ext);
         for(var i in fileExtensionTypes) {

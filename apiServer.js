@@ -91,9 +91,10 @@ module.exports = function apiServer(uri, req, res, callback) {
             });
             break;
         case 'login':
-            if (req.method === 'POST') {
+            if (req.method == 'POST') {
               var body = '';
               req.on('data', function (data) {
+                body += data;
                 //end connection if floody or bad connection
                 if (body.length > 1e6) return badReq('Request Entity Too Large', 413);
               });

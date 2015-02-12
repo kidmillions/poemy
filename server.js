@@ -59,7 +59,7 @@ module.exports = http.createServer(function (req, res) { ;
                 AM.addNewAccount(POST, function(err, user) {
                     if (err) {
                         res.writeHead(400);
-                        res.end(err);
+                        res.end('Something Went Wrong');
                     } else {
                         res.writeHead(200);
                         res.end('ok');
