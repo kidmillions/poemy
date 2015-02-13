@@ -237,3 +237,9 @@ h1.big {
 .activePanel {
   background-color: rgb(131, 68, 148);
 }
+
+/*Animations for home PoemCards*/
+.bounceInRight {
+    -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+}
