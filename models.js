@@ -15,7 +15,7 @@ var userSchema = mongoose.Schema({
     //saved in database as a hash
     pass: String,
     role : String,
-    date : Date
+    date : { type: Date, default: Date.now }
 });
 
 //midware

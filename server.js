@@ -41,33 +41,6 @@ module.exports = http.createServer(function (req, res) { ;
     //route /api calls to api server
     if (uri.split('/')[1] === 'api') {
         apiServer(uri, req, res);
-    } else if (req.method === 'POST') {
-        if (uri === '/signup') {
-            var body = ''
-            req.on('data', function (data) {
-                body += data;
-                //end connection if floody or faulty client
-                if (body.length > 1e6) {
-                    req.writeHead(413)
-                    res.end('Request Entity Too Large');
-                }
-            });
-            req.on('end', function () {
-                var POST = JSON.parse(body);
-                console.log(POST);
-                console.log(typeof POST);
-                AM.addNewAccount(POST, function(err, user) {
-                    if (err) {
-                        res.writeHead(400);
-                        res.end('Something Went Wrong');
-                    } else {
-                        res.writeHead(200);
-                        res.end('ok');
-                        console.log('added account: '+user.name);
-                    }
-                });
-            });
-        }
     } else {
     //route everything else to serve files
         fileServer(file, uri, req, res);

@@ -141,7 +141,7 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
 
   var postUser = function (userData) {
 
-    $http.post('/signup', JSON.stringify(userData))
+    $http.post('/api/signup', JSON.stringify(userData))
       .success(function(data, status, headers, config) {
         $scope.success = 'your account was succesfully made!';
       })
