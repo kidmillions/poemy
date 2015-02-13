@@ -34,6 +34,16 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
       }
     );
     $routeProvider.when(
+      '/poems',
+      {
+        templateUrl: 'app/partials/poems.html',
+        controller: 'PoemsCtrl',
+        data: {
+          authorizedRoles: [USER_ROLES.all]
+        }
+      }
+    );
+    $routeProvider.when(
       '/home',
       {
         templateUrl: 'app/partials/home.html',

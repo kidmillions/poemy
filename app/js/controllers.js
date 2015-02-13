@@ -51,6 +51,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
     $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
        $scope.poem = data;
+       $scope.loadPoems();
     })
     .error(function(data, status, headers, config) {
       alert(data);
@@ -73,6 +74,19 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       $scope.newLine = '';
       $scope.getRandomPoem();
   };
+
+  $scope.loadPoems = function () {
+      $scope.poem.lines.forEach(function(line, l_int) {
+        $http.get('/api/line/'+line)
+          .success(function(data, status, headers, config) {
+            $scope.poem.lines[l_int] = data.content;
+            console.log(line);
+          })
+          .error(function(data, status, headers, config) {
+            alert(data);
+          });
+      })
+  }
 
   //function that actually makes POST
   var postLine = function() {
@@ -122,6 +136,34 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
       alert(data);
     });
 });
+
+Poemy.controller("PoemsCtrl", function ($scope, $http) {
+  $scope.poems = {};
+  $http.get('/api/poems')
+    .success(function(data, status, headers, config) {
+      $scope.poems = data;
+      $scope.loadPoems();
+    })
+    .error(function(data, status, headers, config) {
+      alert(data);
+    });
+
+  $scope.loadPoems = function () {
+    $scope.poems.forEach(function (poem, p_int) {
+      poem.lines.forEach(function(line, l_int) {
+        $http.get('/api/line/'+line)
+          .success(function(data, status, headers, config) {
+            $scope.poems[p_int].lines[l_int] = data.content;
+            console.log(line);
+          })
+          .error(function(data, status, headers, config) {
+            alert(data);
+          });
+      })
+    });
+  }
+});
+
 
 Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$scope', 'AuthService', function ($cookieStore, AUTH_EVENTS, $rootScope, $scope, AuthService) {
 
