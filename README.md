@@ -28,3 +28,12 @@ User Authentication created with the help of this great article https://medium.c
 -switch to https
 -move controller logic to services
 -change model so that lines know what user posted them
+-poem types and validations
+-profile pages
+-create poem with type choice
+-Titles - before or after completion?
+-Line Count
+-Contributions Count
+-Top Contributers Page
+-About Page (more like 'OH GOD WHY?!' page)
+-poetry types educational info

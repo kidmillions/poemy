@@ -36,6 +36,7 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
 });
 
 Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
+
   $scope.poem = {};
 
   $scope.makeNewPoem = function() {
@@ -50,13 +51,15 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
   $scope.getRandomPoem = function() {
     $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
-       $scope.poem = data;
-       $scope.loadPoems();
+      $scope.poem = data;
+      $scope.loadPoems(data);
     })
     .error(function(data, status, headers, config) {
       alert(data);
     })
   };
+
+  $scope.getRandomPoem();
 
   //watch text input for data
   $scope.$watch("newLine", function(line) {
@@ -75,7 +78,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       $scope.getRandomPoem();
   };
 
-  $scope.loadPoems = function () {
+  $scope.loadPoems = function (data) {
       $scope.poem.lines.forEach(function(line, l_int) {
         $http.get('/api/line/'+line)
           .success(function(data, status, headers, config) {
