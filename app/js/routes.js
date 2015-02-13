@@ -1,6 +1,6 @@
 'use strict';
 
-var Poemy = angular.module('Poemy', ['ngRoute','ngMd5','ngMessages', 'ngAnimate']);
+var Poemy = angular.module('Poemy', ['ngRoute','ngMd5','ngMessages', 'ngAnimate', 'ngCookies']);
 
 Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLES) {
     $routeProvider.when(
@@ -29,12 +29,12 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
         templateUrl: 'app/partials/users.html',
         controller: 'UsersCtrl',
         data: {
-          authorizedRoles: [USER_ROLES.admin]
+          authorizedRoles: [USER_ROLES.all]
         }
       }
     );
     $routeProvider.when(
-      '/',
+      '/home',
       {
         templateUrl: 'app/partials/home.html',
         controller: 'HomeCtrl',
@@ -45,7 +45,7 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
     );
     $routeProvider.otherwise(
         {
-            redirectTo: '/'
+            redirectTo: '/home'
         });
 }]);
 

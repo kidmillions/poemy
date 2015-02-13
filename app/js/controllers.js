@@ -5,14 +5,20 @@ Poemy.controller('ApplicationController', function (
   $scope,
   USER_ROLES,
   AuthService,
-  AUTH_EVENTS) {
+  AUTH_EVENTS,
+  $cookies) {
 
     $scope.currentUser = null;
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
 
-    $scope.setCurrentUser = function (user) {
+    $scope.setCurrentUser = function (user, $cookies) {
       $scope.currentUser = user;
+      var sessionObj = {
+        'name' : user.name,
+        'hash' : user.hash
+      }
+      $cookies.dot = sessionObj;
     };
 
     //make guest session if no session
@@ -29,9 +35,19 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
     $scope.valueFromService = UtilSrvc.helloWorld("Amy");
 });
 
-Poemy.controller("HomeCtrl", function ($scope, $http) {
+Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
+  $scope.poem = {};
 
-  var getNewPoems = function() {
+  $scope.makeNewPoem = function() {
+    //if (!AuthService.isAuthenticated()) return console.log('must be logged in to do this')
+    return $http
+      .post('/api/new_poem', '')
+      .then(function (res) {
+        $scope.poem = res.data
+      });
+  }
+
+  $scope.getRandomPoem = function() {
     $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
        $scope.poem = data;
@@ -41,8 +57,6 @@ Poemy.controller("HomeCtrl", function ($scope, $http) {
     })
   };
 
-  getNewPoems();
-
   //watch text input for data
   $scope.$watch("newLine", function(line) {
     $scope.newLine = line;
@@ -50,18 +64,24 @@ Poemy.controller("HomeCtrl", function ($scope, $http) {
 
   //submit data when ready
   $scope.submit = function(data) {
+      $scope.newLine = data
       console.log("button clicked");
       $scope.poem.lines.push(data);
       var newPoem = $scope.poem;
       // animateOut(newPoem);
-      postLine(newPoem);
+      postLine();
       $scope.newLine = '';
-      getNewPoems();
-    };
+      $scope.getRandomPoem();
+  };
 
   //function that actually makes POST
-  var postLine = function(poem) {
-    $http.post('/api/random_poem', poem)
+  var postLine = function() {
+    var newLine = {
+      poem : $scope.poem._id,
+      content : $scope.newLine,
+      _creator : $scope.currentUser
+    }
+    $http.post('/api/new_line', newLine)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
         console.log("new line submitted");
@@ -103,14 +123,14 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
     });
 });
 
-Poemy.controller("LoginCtrl", function (AUTH_EVENTS, $rootScope, $scope, AuthService) {
+Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$scope', 'AuthService', function ($cookieStore, AUTH_EVENTS, $rootScope, $scope, AuthService) {
 
   $scope.credentials = {
     name: '',
     pass: ''
   }
 
-  $scope.requestLogin = function (credentials) {
+  $scope.requestLogin = function (credentials, $cookieStore) {
     console.log(credentials);
     AuthService.login(credentials).then(function (user) {
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
@@ -120,7 +140,7 @@ Poemy.controller("LoginCtrl", function (AUTH_EVENTS, $rootScope, $scope, AuthSer
     });
   }
 
-});
+}]);
 
 Poemy.controller("SignupCtrl", function ($scope, $http) {
   $scope.success = '';

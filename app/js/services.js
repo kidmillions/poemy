@@ -42,20 +42,21 @@ Poemy.constant('USER_ROLES', {
   guest: 'guest'
 });
 
-Poemy.factory('AuthService', function ($http, Session) {
+Poemy.factory('AuthService', function ($http, $cookies, Session) {
   var authService = {};
 
-  authService.login = function (credentials) {
+  authService.login = function (credentials, $cookies) {
     return $http
       .post('/api/login', JSON.stringify(credentials))
       .then(function (res) {
-        console.log(res.data);
+        var user = res.data;
+        console.log(user);
         Session.destroy();
         Session.create(
           'u',
-          res.data.user._id,
-          res.data.user.role);
-        return res.data.user;
+          user._id,
+          user.role);
+        return user;
       });
   };
 

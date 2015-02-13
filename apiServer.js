@@ -1,6 +1,7 @@
 var models = require('./models'),
     http = require('http'),
-    AM = require('./accountManager');
+    AM = require('./accountManager'),
+    PM = require('./poemManager');
 
 module.exports = function apiServer(uri, req, res, callback) {
 
@@ -21,28 +22,25 @@ module.exports = function apiServer(uri, req, res, callback) {
       if (code === undefined) code = 404
         res.writeHead(code);
         res.end();
-        console.log(code);
-        console.error(err);
+        console.log(code + ': ' + err);
     }
 
-    function AuthService (accountManagementFunction) {
-      if (req.method == 'POST') {
-        var body = '';
-        req.on('data', function (data) {
-          body += data;
-          //end connection if floody or bad connection
-          if (body.length > 1e6) return badReq('Request Entity Too Large', 413);
-        });
-        req.on('end', function () {
-          var POST = JSON.parse(body);
-          accountManagementFunction(POST, function(err, user, message) {
-            if (err) return badRes(err);
-            goodRes(user, 200, user.name + ': ' + message);
+    function postService ( managementFunction ) {
+      if (req.method !== 'POST') return badRes('Method Not Allowed', 405);
+      var body = '';
+      req.on('data', function (data) {
+        body += data;
+        //end connection if flooded or bad connection
+        if (body.length > 1e6) return badReq('Request Entity Too Large', 413);
+      });
+      req.on('end', function () {
+        var POST = undefined
+        body.length < 1 ? POST = {} : POST = JSON.parse(body);
+        managementFunction(POST, function(err, data, message) {
+          if (err) return badRes(err);
+          goodRes(data, 200, data._id + ': ' + message);
           });
-        });
-      } else {
-        badRes('Method Not Allowed', 405);
-      }
+      });
     }
 
     var pathArray = uri.split('/');
@@ -112,11 +110,19 @@ module.exports = function apiServer(uri, req, res, callback) {
                 console.log('served rq for does username exist?L ' + emailToFind + ': ' + exists);
             });
             break;
+        //Auth
         case 'login':
-            AuthService( AM.manualLogin );
+            postService( AM.manualLogin );
             break;
         case 'signup':
-            AuthService( AM.addNewAccount );
+            postService( AM.addNewAccount );
+            break;
+        //Poems
+        case 'new_poem':
+            postService( PM.addNewPoem );
+            break;
+        case 'new_line':
+            postService( PM.addNewLine );
             break;
         default:
             badRes(new Error('API could not return a because task value in url didn\'t match to a proper API call \(ie api/poems \)'));
