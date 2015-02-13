@@ -21,3 +21,10 @@ module.exports = config
 User validation inspired by and in somecases shamelessly copied from https://github.com/braitsch/node-login, rewritten to remove custom cryptology and instead use bcrypt
 
 User Authentication created with the help of this great article https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec
+
+# TODO
+-make log-ins persistant over sessions
+-store sessions in database
+-switch to https
+-move controller logic to services
+-change model so that lines know what user posted them
