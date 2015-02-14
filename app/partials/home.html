@@ -1,8 +1,10 @@
 <h1 class="big">Poemy</h1>
 <div class="centerCard">
-	<div class="poemCard">
+	<div class="poemCard" ng-class="animateCard">
 		<h2>{{poem.title}}</h2>
-		<h3 ng-repeat="line in poem.lines">{{line}}</h3>
+		<div ng-class="animateLine">
+			<h3 ng-repeat="line in poem.lines">{{line}}</h3>
+		</div>
 	</div>
 	<input type="text" ng-model="newLine" />
 	<div class="line-submit-container">
@@ -10,5 +12,5 @@
 		<div class="note-container"></div>
 	</div>
 	<button ng-click='makeNewPoem()'>Create New Poem</button>
-	<button ng-click='getRandomPoem()'>Get Random Poem</button>
+	<button ng-click='getRandomPoem()'>Skip this one...</button>
 </div>
