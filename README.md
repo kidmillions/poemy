@@ -39,7 +39,6 @@ User Authentication created with the help of this great article https://medium.c
 -poetry types educational info
 
 (Chris additional TODO)
--animations for main ui
 -skip poem function
 - fix notifications
 - front-end validations

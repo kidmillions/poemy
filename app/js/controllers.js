@@ -82,7 +82,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       $scope.newLine = '';
 
       $scope.getRandomPoem();
-      $scope.animateLine = "animated bounceInRight";
+      $scope.animateLine = "animated bounce";
   };
 
   $scope.loadPoems = function (data) {
@@ -111,16 +111,32 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
         console.log("new line submitted");
         noty({text: $scope.success,
+            theme: 'relax',
+            type: 'success',
+            layout: "top",
             animation: {
-              open: 'animated bounceInLeft',
-              close: 'animated bounceOutLeft',
+              open: 'animated bounceIn',
+              close: 'animated bounceOut',
               easing:  'swing',
               speed: 500
-            }
+            },
+            timeout: 1500
         });
       })
       .error(function(data, status, headers, config) {
         $scope.success = data;
+        noty({text: 'Sorry, there was an error: ' + $scope.success,
+            theme: 'relax',
+            type: 'error', 
+            layout: "top",
+            animation: {
+              open: 'animated bounceIn',
+              close: 'animated bounceOut',
+              easing:  'swing',
+              speed: 500
+            },
+            timeout: 1500
+        });
     });
   }
 
