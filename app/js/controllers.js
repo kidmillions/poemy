@@ -170,6 +170,8 @@ Poemy.controller("PoemsCtrl", function ($scope, $http) {
 
 Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$scope', 'AuthService', function ($cookieStore, AUTH_EVENTS, $rootScope, $scope, AuthService) {
 
+  $scope.success = ''
+
   $scope.credentials = {
     name: '',
     pass: ''
@@ -180,8 +182,9 @@ Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$
     AuthService.login(credentials).then(function (user) {
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $scope.setCurrentUser(user);
-    }, function () {
+    }, function (data) {
       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+      $scope.success = data.statusText;
     });
   }
 

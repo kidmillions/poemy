@@ -4,6 +4,11 @@
 		ng-submit="requestLogin(credentials)"
 		novalidate>
 		<h1>Login</h1>
+
+		<div ng-if="$scope.success !== ''">
+			{{success}}
+		</div>
+
 		<input
 			ng-model="credentials.name"
 			type="text" placeholder="   Username or Email"
