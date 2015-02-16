@@ -5,6 +5,7 @@
 			<tr>
 				<td>Name</td>
 				<td>Email</td>
+				<td>Contributions</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -12,6 +13,7 @@
 					ng-class="{oddRow: $odd}">
 					<td>{{user.name}}</td>
 					<td>{{user.email}}</td>
+					<td>{{user.contributions.length}}</td>
 			</tr>
 		</tbody>
 	</table>

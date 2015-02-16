@@ -78,18 +78,6 @@ module.exports = function apiServer(uri, req, res, callback) {
                 goodRes(poem);
             });
             break;
-        //find a line with its ID
-        case 'line':
-            var id = pathArray[3];
-            if (id === undefined) {
-                badRes(new Error('asked for single line, but didn\'t provide ID like poem/ID'))
-                break;
-            }
-            models.line.findOne({ '_id' : id }).exec( function (err, line) {                  if (err) return badRes(err);
-                console.log('served req for line with id: ' + id );
-                goodRes(line);
-            });
-            break;
         //find all users
         case 'users':
             AM.getAllRecords( function(err, users) {

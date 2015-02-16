@@ -29,7 +29,7 @@ User Authentication created with the help of this great article https://medium.c
 - store sessions in database
 - switch to https...?
 - move controller logic to services
-<s>- change model so that lines know what user posted them</s>
+- <s>change model so that lines know what user posted them</s>
 - poem types and validations (Chris)
 - profile pages (Chris will create UI frontend)
 - create poem with type choice
@@ -42,3 +42,4 @@ User Authentication created with the help of this great article https://medium.c
 - skip poem function
 - fix notifications
 - front-end validations
+- make a special page for each poem?

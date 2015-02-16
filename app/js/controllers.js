@@ -142,6 +142,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
 });
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
+  $scope.user = {};
   $http.get('/api/users')
     .success(function(data, status, headers, config) {
       $scope.users = data;
@@ -156,26 +157,10 @@ Poemy.controller("PoemsCtrl", function ($scope, $http) {
   $http.get('/api/poems')
     .success(function(data, status, headers, config) {
       $scope.poems = data;
-      $scope.loadPoems();
     })
     .error(function(data, status, headers, config) {
       alert(data);
     });
-
-  $scope.loadPoems = function () {
-    $scope.poems.forEach(function (poem, p_int) {
-      poem.lines.forEach(function(line, l_int) {
-        $http.get('/api/line/'+line)
-          .success(function(data, status, headers, config) {
-            $scope.poems[p_int].lines[l_int] = data.content;
-            console.log(line);
-          })
-          .error(function(data, status, headers, config) {
-            alert(data);
-          });
-      })
-    });
-  }
 });
 
 

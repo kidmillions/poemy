@@ -1,13 +1,10 @@
 <div class="centerCard">
 	<h1>ALL THE POEMS!</h1>
-	<button ng-click="loadPoems()">load info</button>
 	<table>
 		<tbody>
 			<tr ng-repeat="poem in poems"
 					ng-class="{oddRow: $odd}">
-					<td>{{poem.title}}</td>
-					<td>{{poem._id}}</td>
-					<td>{{poem.lines}}</td>
+					<td>{{poem}}</td>
 			</tr>
 		</tbody>
 	</table>
