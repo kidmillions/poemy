@@ -36,7 +36,7 @@ var userSchema = mongoose.Schema({
         poem: { type: String, ref: 'Poem' },
 
         //cashed values of contributions
-        poem_name: { type: String },
+        poem_title: { type: String },
         line_content: { type: String }
       }
     ]

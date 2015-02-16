@@ -55,7 +55,6 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
     $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
       $scope.poem = data;
-      $scope.loadPoems(data);
       $scope.animateLine = "animated bounceInRight";
     })
     .error(function(data, status, headers, config) {
@@ -75,9 +74,9 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       $scope.newLine = data
       console.log("button clicked");
       $scope.poem.lines.push(data);
-      var newPoem = $scope.poem;
       // animateOut(newPoem);
       postLine();
+      $scope.getRandomPoem();
       $scope.animateCard = "animated bounceOutLeft";
       $scope.newLine = '';
 
@@ -85,27 +84,15 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       $scope.animateLine = "animated bounce";
   };
 
-  $scope.loadPoems = function (data) {
-      $scope.animateCard = "";
-      $scope.poem.lines.forEach(function(line, l_int) {
-        $http.get('/api/line/'+line)
-          .success(function(data, status, headers, config) {
-            $scope.poem.lines[l_int] = data.content;
-            console.log(line);
-          })
-          .error(function(data, status, headers, config) {
-            alert(data);
-          });
-      })
-  }
-
   //function that actually makes POST
   var postLine = function() {
     var newLine = {
       poem : $scope.poem._id,
       content : $scope.newLine,
-      _creator : $scope.currentUser
+      username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
+      title : $scope.poem.title
     }
+    console.log(newLine.username);
     $http.post('/api/new_line', newLine)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
@@ -127,7 +114,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
         $scope.success = data;
         noty({text: 'Sorry, there was an error: ' + $scope.success,
             theme: 'relax',
-            type: 'error', 
+            type: 'error',
             layout: "top",
             animation: {
               open: 'animated bounceIn',

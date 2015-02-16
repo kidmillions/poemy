@@ -1,9 +1,17 @@
 <h1 class="big">Poemy</h1>
-<div class="centerCard">
+<div ng-if="poem == null" class="centerCard">
+	<h1>There's no poems left here!</h1>
+	<button ng-click='makeNewPoem()'>Create New Poem</button>
+</div>
+<div ng-if="poem != null" class="centerCard">
 	<div class="poemCard" ng-class="animateCard">
+		<h2 ng-if="currentUser != null">Hello, {{currentUser.name}}</h2>
 		<h2>{{poem.title}}</h2>
+		<h3>This poem is a <strong><i>{{poem.type}}</i></strong></h3>
 		<div ng-class="animateLine">
-			<h3 ng-repeat="line in poem.lines">{{line}}</h3>
+			<div ng-repeat="line in poem.lines">
+				<h3>{{line.content}}		<i><span>{{line.creator}}</span></i></h3>
+			</div>
 		</div>
 	</div>
 	<input type="text" ng-model="newLine" />
@@ -11,6 +19,5 @@
 		<button ng-click="submit(newLine)">Don't be shy. Add your line.</button>
 		<div class="note-container"></div>
 	</div>
-	<button ng-click='makeNewPoem()'>Create New Poem</button>
 	<button ng-click='getRandomPoem()'>Skip this one...</button>
 </div>

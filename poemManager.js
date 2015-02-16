@@ -1,7 +1,7 @@
 var models = require('./models'),
     account = models.user,
     poem = models.poem,
-    line = models.line;
+    user = models.user;
 
 exports.addNewPoem = function(newData, callback) {
     var newPoem = new poem(newData);
@@ -13,32 +13,51 @@ exports.addNewPoem = function(newData, callback) {
 }
 
 
-exports.addNewLine = function(newData, callback) {
+exports.addNewLine = function(newLine, callback) {
 
+    // newLine OBJECT STLYE
     // {
-    //  content: 'string of content'
-    //  username: 'string name'
+    //    poem: 'string of poem._id',
+    //    content: 'string of content',
+    //    username: 'string name',
+    //    title: 'string title',
     //  }
     //
-    //
-    //
-    //
-    //var newLine = new line(newData);
-    //save line
-    //newLine.save(function (err, newLine) {
-    //  if (err) return callback(err);
-    //  console.log(newLine);
-    //  callback(null, newLine, 'new line');
-    //});
-    //update poem
-    poem.findOne({'_id' : newData.poem}, function (err, updated_poem) {
+
+    if (newLine.username === null) {
+      newLine.username = 'Anonymous';
+    }
+
+    var line = {
+      content : newLine.content,
+      creator : newLine.username
+    }
+
+    var contribution = {
+      poem : newLine.poem,
+      poem_title : newLine.title,
+      line_content : newLine.content
+    }
+
+    poem.findOne({'_id' : newLine.poem}, function (err, updated_poem) {
       if (err) return console.log(err);
       console.log(updated_poem);
-      //updated_poem.lines
-      updated_poem.lines.push(newData);
+      updated_poem.lines.push(line);
       updated_poem.save(updated_poem, {safe: true}, function(err){
         if (err) return console.log(err);
-        console.log('poem updated');
+        console.log(newLine.title + ' updated: "' + newLine.content + '"' );
       });
     });
+
+    user.findOne({'name' : newLine.username }, function (err, updated_user) {
+      if (updated_user == null) return console.log('no user of this name, posting annnonymously');
+      if (err) return console.log(err);
+      console.log(updated_user);
+      updated_user.contributions.push(contribution);
+      updated_user.save(updated_user, {safe: true}, function(err) {
+        if(err) return console.log(err);
+        console.log('contribution saved for ' + updated_user.name );
+      });
+    });
+
 }
