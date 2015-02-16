@@ -41,5 +41,4 @@ User Authentication created with the help of this great article https://medium.c
 - poetry types educational info
 - skip poem function
 - fix notifications
-- front-end validations
 - make a special page for each poem?
