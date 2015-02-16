@@ -40,7 +40,6 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
   $scope.poem = {};
 
   $scope.animateCard = '';
-  $scope.animateLine = '';
 
   $scope.makeNewPoem = function() {
     //if (!AuthService.isAuthenticated()) return console.log('must be logged in to do this')
@@ -55,7 +54,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
     $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
       $scope.poem = data;
-      $scope.animateLine = "animated bounceInRight";
+      $scope.animateCard = "animated bounceInRight";
     })
     .error(function(data, status, headers, config) {
       alert(data);
@@ -79,7 +78,7 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       $scope.getRandomPoem();
       $scope.animateCard = "animated bounceOutLeft";
       $scope.newLine = '';
-
+      console.log("completed")
       $scope.getRandomPoem();
       $scope.animateLine = "animated bounce";
   };
