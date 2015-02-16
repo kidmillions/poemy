@@ -23,22 +23,22 @@ User validation inspired by and in somecases shamelessly copied from https://git
 User Authentication created with the help of this great article https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec
 
 # TODO
--make log-ins persistant over sessions
--store sessions in database
--switch to https
--move controller logic to services
--change model so that lines know what user posted them
--poem types and validations (Chris)
--profile pages (Chris will create UI frontend)
--create poem with type choice
--Titles - before or after completion? Chris: After completion, within poem page
--Line Count
--Contributions Count
--Top Contributers Page
--About Page (more like 'OH GOD WHY?!' page)
--poetry types educational info
-
-(Chris additional TODO)
--skip poem function
+- make log-ins persistant over sessions
+- auto-ridirect to home after long in
+- caching in poem documents to prevent n+1 problem
+- store sessions in database
+- switch to https...?
+- move controller logic to services
+- change model so that lines know what user posted them
+- poem types and validations (Chris)
+- profile pages (Chris will create UI frontend)
+- create poem with type choice
+- Titles after completion on poem page
+- Line Count
+- Contributions Count
+- Top Contributers Page
+- About Page (more like 'OH GOD WHY?!' page)
+- poetry types educational info
+- skip poem function
 - fix notifications
 - front-end validations

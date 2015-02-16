@@ -14,8 +14,3 @@ models.poem.remove({}, function(err) {
     if (err) return console.log(err);
     console.log('poems removed');
 });
-
-models.line.remove({}, function(err) {
-    if (err) return console.log(err);
-    console.log('lines removed');
-});
