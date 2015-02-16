@@ -1,7 +1,7 @@
 <div class="centerCard">
 	<form
 		name="signupForm"
-		ng-submit="submit(user, signupForm.$valid)"
+		ng-submit="signupForm.$isvalid && submit(user, signupForm.$valid)"
 		novalidate
 		>
 
