@@ -1,5 +1,5 @@
 <h1 class="big">{{currentUser.name}}'s Poems</h1>
-<div ng-repeat="poem in poems">
+<div class="centerCard" ng-repeat="poem in currentUser.contributions">
 	<div>
 		<h2>{{poem.poem_title}}</h2>
 		<div>{{poem.line_content}}</div>
