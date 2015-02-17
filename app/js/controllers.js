@@ -131,19 +131,6 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
         });
     });
   }
-
-  //instigating animations and notifications
-  // $scope.leavingPoem = null;
-  // $scope.enteringPoem = null;
-
-  // $scope.animateOut = function(poem) {
-  //   return $scope.leavingPoem = poem;
-  // };
-
-  // $scope.animateIn = function(poem) {
-  //   return $scope.enteringPoem = poem;
-  // }
-
 });
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
@@ -213,6 +200,18 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
     $http.post('/api/signup', JSON.stringify(userData))
       .success(function(data, status, headers, config) {
         $scope.success = 'your account was succesfully made!';
+        noty({text: $scope.success,
+            theme: 'relax',
+            type: 'success',
+            layout: "top",
+            animation: {
+              open: 'animated bounceIn',
+              close: 'animated bounceOut',
+              easing:  'swing',
+              speed: 500
+            },
+            timeout: 1500
+        });
       })
       .error(function(data, status, headers, config) {
         $scope.success = data;
@@ -232,14 +231,9 @@ Poemy.controller("NavController", ["$scope", function($scope) {
 
 }]);
 
-// you may add more controllers below
-// Poemy.controller("PoemCardController", ["$scope", "cardAnimation", function($scope, cardAnimation) {
+Poemy.controller("UserCtrl", function ($scope, AuthService, Session) {
+  var user = $scope.currentUser;
+  //must filter poems for this user only
+  $scope.poems = user.contrbutions;
 
-// }]);
-
-
-// Poemy.animation("cardAnimation", function() {
-//   return {
-//     animate:
-//   }
-// })
+});

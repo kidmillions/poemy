@@ -86,6 +86,19 @@ module.exports = function apiServer(uri, req, res, callback) {
                 goodRes(users);
             });
             break;
+        //find a user with its Name
+        case 'user':
+            var name = pathArray[3];
+            if (name === undefined) {
+                badRes(new Error('asked for single user, but didn\'t provide existing name'))
+                break;
+            }
+            models.user.findOne({ 'name' : name }).exec( function (err, user) {
+                if (err) return badRes(err);
+                console.log('served req for user with name: ' + name );
+                goodRes(user);
+            });
+            break;
         case 'username-exists':
             var nameToFind = pathArray[3];
             if ((nameToFind === undefined) || (nameToFind === null) || (nameToFind === '')) {
