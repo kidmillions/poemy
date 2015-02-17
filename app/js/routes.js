@@ -55,7 +55,7 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
     );
 
     $routeProvider.when(
-      '/user/:id',
+      '/user/:name',
       {
         templateUrl: 'app/partials/user.html',
         controller: 'UserCtrl',

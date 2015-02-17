@@ -86,16 +86,16 @@ module.exports = function apiServer(uri, req, res, callback) {
                 goodRes(users);
             });
             break;
-        //find a user with its ID
+        //find a user with its Name
         case 'user':
-            var id = pathArray[3];
-            if (id == undefined) {
-                badRes(new Error('asked for single user, but didn\'t provide existing id'))
+            var name = pathArray[3];
+            if (name === undefined) {
+                badRes(new Error('asked for single user, but didn\'t provide existing name'))
                 break;
             }
-            models.user.findOne({ '_id' : id }).exec( function (err, user) {
+            models.user.findOne({ 'name' : name }).exec( function (err, user) {
                 if (err) return badRes(err);
-                console.log('served req for user with id: ' + id );
+                console.log('served req for user with name: ' + name );
                 goodRes(user);
             });
             break;
