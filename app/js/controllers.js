@@ -38,8 +38,13 @@ Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
 Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
 
   $scope.poem = {};
-
+  $scope.started = false;
   $scope.animateCard = '';
+  $scope.animateType = '';
+
+  $scope.getStarted = function() {
+    $scope.started = true;
+  }
 
   $scope.makeNewPoem = function() {
     //if (!AuthService.isAuthenticated()) return console.log('must be logged in to do this')
@@ -51,10 +56,13 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
   }
 
   $scope.getRandomPoem = function() {
+    $scope.animateCard = "animated bounceOutLeft";
+    $scope.animateType = 'animated fadeOutDown';
     $http.get('/api/random_poem')
     .success(function(data, status, headers, config) {
       $scope.poem = data;
       $scope.animateCard = "animated bounceInRight";
+      $scope.animateType = 'animated fadeInDown';
     })
     .error(function(data, status, headers, config) {
       alert(data);
@@ -76,11 +84,9 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       // animateOut(newPoem);
       postLine();
       $scope.getRandomPoem();
-      $scope.animateCard = "animated bounceOutLeft";
       $scope.newLine = '';
       console.log("completed")
       $scope.getRandomPoem();
-      $scope.animateLine = "animated bounce";
   };
 
   //function that actually makes POST
