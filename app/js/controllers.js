@@ -6,28 +6,27 @@ Poemy.controller('ApplicationController', function (
   USER_ROLES,
   AuthService,
   AUTH_EVENTS,
-  $cookies) {
+  $cookies,
+  $location) {
+
+    var loginOnLoad = function (user_info) {
+      if (user_info == null) return
+      AuthService.autoLogin(user_info).then(function (user) {
+        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+        $scope.setCurrentUser(user);
+      }, function (data) {
+      });
+    }
 
     $scope.currentUser = null;
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
+    $scope.isAuthenticated = AuthService.isAuthenticated;
+    loginOnLoad(AuthService.userFromCookies());
 
-    $scope.setCurrentUser = function (user, $cookies) {
+    $scope.setCurrentUser = function (user) {
       $scope.currentUser = user;
-      var sessionObj = {
-        'name' : user.name,
-        'hash' : user.hash
-      }
-      $cookies.dot = sessionObj;
     };
-
-    //make guest session if no session
-    //if(AuthService.isAuthenticated() === false) {
-    //  var guest = AuthService.makeGuest();
-    //  $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-    //  $scope.setCurrentUser(guest);
-    //}
-
 });
 
 
@@ -152,7 +151,7 @@ Poemy.controller("PoemsCtrl", function ($scope, $http) {
 });
 
 
-Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$scope', 'AuthService', function ($cookieStore, AUTH_EVENTS, $rootScope, $scope, AuthService) {
+Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$scope', 'AuthService', '$location', function ($cookieStore, AUTH_EVENTS, $rootScope, $scope, AuthService, $location) {
 
   $scope.success = ''
 
@@ -161,11 +160,11 @@ Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$
     pass: ''
   }
 
-  $scope.requestLogin = function (credentials, $cookieStore) {
-    console.log(credentials);
+  $scope.requestLogin = function (credentials) {
     AuthService.login(credentials).then(function (user) {
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $scope.setCurrentUser(user);
+      $location.path('/home');
     }, function (data) {
       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
       $scope.success = data.statusText;
@@ -216,7 +215,7 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
 
 });
 
-Poemy.controller("NavController", ["$scope", function($scope) {
+Poemy.controller("NavController", ["$scope", 'AuthService', function($scope, AuthService) {
   $scope.panel = 4;
   $scope.selectPanel = function(selectedPanel) {
       $scope.panel = selectedPanel;
@@ -224,7 +223,10 @@ Poemy.controller("NavController", ["$scope", function($scope) {
   $scope.isSelected = function(value) {
      return $scope.panel === value;
     };
-
+  $scope.logout = function() {
+    AuthService.logout();
+    $scope.setCurrentUser(null);
+  }
 }]);
 
 Poemy.controller("UserCtrl", ["$scope", "Authservice", "Session", function ($scope, AuthService, Session) {

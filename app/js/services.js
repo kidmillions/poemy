@@ -42,32 +42,56 @@ Poemy.constant('USER_ROLES', {
   guest: 'guest'
 });
 
-Poemy.factory('AuthService', function ($http, $cookies, Session) {
+Poemy.factory('AuthService', function ($http, $cookies, $location, Session) {
   var authService = {};
 
-  authService.login = function (credentials, $cookies) {
+  authService.login = function (credentials) {
     return $http
       .post('/api/login', JSON.stringify(credentials))
       .then(function (res) {
         var user = res.data;
-        console.log(user);
         Session.destroy();
         Session.create(
           'u',
           user._id,
-          user.role);
+          user.role,
+          user.pass,
+          user.name
+          );
         return user;
       });
   };
 
-  //authService.makeGuest = function () {
-  //  Session.create(null, 'g', 'guest');
-  //  return {
-  //    role : 'guest',
-  //    name : 'guest',
-  //    email : 'none'
-  //  }
-  //}
+  authService.autoLogin = function (credentials) {
+    return $http
+      .post('/api/auto_login', JSON.stringify(credentials))
+      .then(function (res) {
+        var user = res.data;
+        Session.destroy();
+        Session.create(
+          'u',
+          user._id,
+          user.role,
+          user.pass,
+          user.name
+          );
+        return user;
+      });
+  };
+
+  authService.userFromCookies = function () {
+    if ($cookies.se) {
+      return JSON.parse($cookies.se);
+    } else {
+      console.log('user not registered in cookies');
+      return null
+    }
+  }
+
+  authService.logout = function () {
+    console.log('logggeddouutt');
+    Session.destroy();
+  }
 
   authService.isAuthenticated = function () {
     return !!Session.userId;
@@ -89,16 +113,22 @@ Poemy.factory('AuthService', function ($http, $cookies, Session) {
   return authService;
 });
 
-Poemy.service('Session', function () {
-  this.create = function (sessionId, userId, userRole) {
+Poemy.service('Session', function ($cookies) {
+  this.create = function (sessionId, userId, userRole, userHash, userName) {
     this.id = sessionId;
     this.userId = userId;
     this.userRole = userRole;
+    var sessionObj = {
+      'name' : userName,
+      'pass' : userHash
+    }
+    $cookies.se = JSON.stringify(sessionObj);
   };
   this.destroy = function () {
     this.id = null;
     this.userId = null;
     this.userRole = null;
+    $cookies.se = null;
   }
   return this;
 });
@@ -129,6 +159,6 @@ Poemy.factory('PoemRetrieval', function($scope, $http) {
     .error(function(data, status, headers, config) {
       alert(data);
     });
-    
+
     return $scope.poems
 })

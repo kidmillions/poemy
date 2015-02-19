@@ -127,6 +127,9 @@ module.exports = function apiServer(uri, req, res, callback) {
         case 'login':
             postService( AM.manualLogin );
             break;
+        case 'auto_login' :
+            postService( AM.autoLogin );
+            break;
         case 'signup':
             postService( AM.addNewAccount );
             break;

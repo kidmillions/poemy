@@ -69,6 +69,5 @@ exports.findUserPoem = function(poemTitle, callback) {
     console.log(poem);
     //reveal single poem object
     return poem;
-  }
-}
+  });
 }

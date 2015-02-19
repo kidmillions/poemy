@@ -4,7 +4,10 @@ var models = require('./models'),
     accounts = models.user;
 
 //Login Validations
-exports.autoLogin = function(name, pass, callback) {
+exports.autoLogin = function(credentials, callback) {
+    console.log('autologin! : ' + credentials);
+    var name = credentials.name;
+    var pass = credentials.pass;
     accounts.findOne({name : name}, function(err, user) {
         if (err) return callback(err);
         if (user) {

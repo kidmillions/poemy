@@ -23,9 +23,9 @@ User validation inspired by and in somecases shamelessly copied from https://git
 User Authentication created with the help of this great article https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec
 
 # TODO
-- make log-ins persistant over sessions
-- auto-ridirect to home after long in
-- caching in poem documents to prevent n+1 problem
+- <s>make log-ins persistant over sessions</s>
+- <s>auto-ridirect to home after long in</s>
+- <s>caching in poem documents to prevent n+1 problem</s>
 - store sessions in database
 - switch to https...?
 - move controller logic to services
