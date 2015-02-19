@@ -30,10 +30,6 @@ Poemy.controller('ApplicationController', function (
 
 });
 
-Poemy.controller("MyCtrl1", function ($scope, UtilSrvc) {
-    $scope.aVariable = 'anExampleValueWithinScope';
-    $scope.valueFromService = UtilSrvc.helloWorld("Amy");
-});
 
 Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
 
@@ -231,9 +227,9 @@ Poemy.controller("NavController", ["$scope", function($scope) {
 
 }]);
 
-Poemy.controller("UserCtrl", function ($scope, AuthService, Session) {
+Poemy.controller("UserCtrl", ["$scope", "Authservice", "Session", function ($scope, AuthService, Session) {
   var user = $scope.currentUser;
   //must filter poems for this user only
   $scope.poems = user.contrbutions;
 
-});
+}]);

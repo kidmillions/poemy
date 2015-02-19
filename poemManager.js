@@ -61,3 +61,14 @@ exports.addNewLine = function(newLine, callback) {
     });
 
 }
+
+
+exports.findUserPoem = function(poemTitle, callback) {
+  poem.find({'title' : poemTitle}, function (err, poem) {
+    if (err) return console.log(err);
+    console.log(poem);
+    //reveal single poem object
+    return poem;
+  }
+}
+}

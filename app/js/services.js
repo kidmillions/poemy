@@ -119,3 +119,16 @@ Poemy.factory('AuthInterceptor', function ($rootScope,
       }
     };
 });
+
+
+Poemy.factory('PoemRetrieval', function($scope, $http) {
+  $http.get('/api/poems')
+    .success(function(data, status, headers, config) {
+      $scope.poems = data;
+    })
+    .error(function(data, status, headers, config) {
+      alert(data);
+    });
+    
+    return $scope.poems
+})
