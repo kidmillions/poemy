@@ -1,3 +1,9 @@
+@import 'foundation';
+@import 'foundation.min';
+@import 'animate';
+@import 'normalize';
+
+
 /* app css stylesheet */
 body {
   font-family: 'Open Sans', sans-serif;
@@ -238,8 +244,23 @@ h1.big {
   background-color: rgb(131, 68, 148);
 }
 
-/*Animations for home PoemCards*/
-.bounceInRight {
-    -webkit-animation-duration: 3s;
-          animation-duration: 3s;
+/* home styles */
+#entrance-text-2 {
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
 }
+#entrance-text-3 {
+  -webkit-animation-delay: 4s;
+  -moz-animation-delay: 4s;
+}
+#entrance-text-4 {
+  -webkit-animation-delay: 5s;
+  -moz-animation-delay: 5s;
+}
+
+.creatorBox {
+  position: fixed;
+  background-color: #3A9BB2;
+  border-radius: 10px;
+}
+

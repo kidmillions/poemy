@@ -1,25 +1,43 @@
 <h1 class="big">Poemy</h1>
-<div ng-if="poem == null" class="centerCard">
-	<h1>There's no poems left here!</h1>
-	<button ng-click='makeNewPoem()'>Create New Poem</button>
+<div ng-if="poem == null">
+	<div class="row">
+		<h1 class="text-center">There's no poems left here!</h1>
+		<button ng-click='makeNewPoem()'>Create New Poem</button>
+	</div>
 </div>
-<div ng-if="poem != null" class="centerCard">
-	<div class="poemCard" ng-class="animateCard">
-		<h2 ng-if="currentUser != null">Hello, {{currentUser.name}}</h2>
-		<h2>{{poem.title}}</h2>
-		<h3>This poem is a <strong><i>{{poem.type}}</i></strong></h3>
-		<div>
-			<div ng-repeat="line in poem.lines">
-				<h3>{{line.content}}		<i><span>{{line.creator}}</span></i></h3>
-			</div>
+<div ng-if="poem != null" class="text-center">
+	<div class="row" ng-if="!started">
+		<div class="small-12 columns">
+			<h3 class="animated bounceIn" id="entrance-text-1">Create something nice</h3>
+			<h3 class="animated bounceIn" id="entrance-text-2">Together with those you love</h3>
+			<h3 class="animated bounceIn" id="entrance-text-3">With a simple click...</h3>
+			<button class="animated fadeInUp" id="entrance-text-4" ng-click="getStarted()">Get Started</button>
 		</div>
 	</div>
-	<form name="newLineForm" ng-submit="newLineForm.$valid && submit(newLine)" novalidate>
-		<input type="text" ng-model="newLine" required />
-		<div class="line-submit-container">
-			<button>Don't be shy. Add your line.</button>
+	<div ng-show="started">
+		<div class="row">
+			<div class="small-12 columns"><h2 ng-if="currentUser != null">Hello, {{currentUser.name}}</h2></div>
+			<div class="small-12 columns"><h3>This poem is a <strong ng-class="animateType"><i>{{poem.type}}</i></strong></h3></div>	
 		</div>
-	</form>
-	<button ng-click='makeNewPoem()'>Create New Poem</button>
-	<button ng-click='getRandomPoem()'>Skip this one...</button>
+		<div class="row" ng-class="animateCard">
+			<div class="small-12 columns"><h2>{{poem.title}}</h2></div>
+			<hr>
+			<div class= "poemBox" ng-repeat="line in poem.lines">
+				<div class="small-9 small-centered columns">
+					<div class="row">
+						<div class="small-12 columns"><h3>{{line.content}}</h3></div>
+						<div class="small-2 columns creatorBox"><h5>{{line.creator}}</h5></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form name="newLineForm" ng-submit="newLineForm.$valid && submit(newLine)" novalidate>
+			<input type="text" ng-model="newLine" required />
+			<div class="line-submit-container">
+				<button>Don't be shy. Add your line.</button>
+			</div>
+		</form>
+		<button ng-click='makeNewPoem()'>Create New Poem</button>
+		<button ng-click='getRandomPoem()'>Skip this one...</button>
+	</div>
 </div>
