@@ -6709,11 +6709,7 @@ a {
   color: #aaa; }
 
 input {
-  position: relative;
-  padding: 10px;
   margin: 0 auto;
-  height: 20px;
-  width: 180px;
   margin-top: 10px;
   border: none;
   -moz-border-radius: 5px;

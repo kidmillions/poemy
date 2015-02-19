@@ -1,7 +1,7 @@
 <h1 class="big">{{currentUser.name}}'s Poems</h1>
-<div class="centerCard" ng-repeat="poem in currentUser.contributions">
-	<div>
+<div class="row" ng-repeat="poem in currentUser.contributions">
+	<div class="small-3 columns">
 		<h2>{{poem.poem_title}}</h2>
-		<div>{{poem.line_content}}</div>
+		<div><p>{{poem.line_content}}</p></div>
 	</div>
 </div>s
