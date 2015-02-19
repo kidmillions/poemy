@@ -79,6 +79,23 @@ Poemy.factory('AuthService', function ($http, $cookies, $location, Session) {
       });
   };
 
+  authService.signup = function (userData) {
+    return $http
+      .post('/api/signup', JSON.stringify(userData))
+      .then(function (res) {
+        var user = res.data;
+        Session.destroy();
+        Session.create(
+          'u',
+          user._id,
+          user.role,
+          user.pass,
+          user.name
+          );
+        return user;
+      });
+  };
+
   authService.userFromCookies = function () {
     if ($cookies.se) {
       return JSON.parse($cookies.se);

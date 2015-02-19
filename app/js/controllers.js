@@ -173,7 +173,7 @@ Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$
 
 }]);
 
-Poemy.controller("SignupCtrl", function ($scope, $http) {
+Poemy.controller("SignupCtrl", function ($rootScope, $scope, $http, $location, AUTH_EVENTS, AuthService) {
   $scope.success = '';
 
   $scope.submit = function(formData, validity) {
@@ -191,26 +191,26 @@ Poemy.controller("SignupCtrl", function ($scope, $http) {
   }
 
   var postUser = function (userData) {
-
-    $http.post('/api/signup', JSON.stringify(userData))
-      .success(function(data, status, headers, config) {
-        $scope.success = 'your account was succesfully made!';
-        noty({text: $scope.success,
-            theme: 'relax',
-            type: 'success',
-            layout: "top",
-            animation: {
-              open: 'animated bounceIn',
-              close: 'animated bounceOut',
-              easing:  'swing',
-              speed: 500
-            },
-            timeout: 1500
-        });
-      })
-      .error(function(data, status, headers, config) {
-        $scope.success = data;
+    AuthService.signup(userData).then(function (user) {
+      $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+      $scope.setCurrentUser(user);
+      $location.path('/home');
+      noty({text: $scope.success,
+          theme: 'relax',
+          type: 'success',
+          layout: "top",
+          animation: {
+            open: 'animated bounceIn',
+            close: 'animated bounceOut',
+            easing:  'swing',
+            speed: 500
+          },
+          timeout: 1500
       });
+    }, function (data) {
+      $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+      $scope.success = data;
+    });
   };
 
 });
