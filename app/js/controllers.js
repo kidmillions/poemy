@@ -235,3 +235,16 @@ Poemy.controller("UserCtrl", ["$scope", "Authservice", "Session", function ($sco
   $scope.poems = user.contrbutions;
 
 }]);
+
+Poemy.controller("PoemCtrl", ["$scope", "$http",function ($scope, $http) {
+  $http.get('api/poem/:id')
+    .success(function(data, status, headers, config) {
+      $scope.poem = data;
+    })
+    .error(function(data, status, headers, config) {
+      alert(data);
+    });
+}]);
+
+
+

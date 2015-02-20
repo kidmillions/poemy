@@ -65,6 +65,17 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
       }
     );
 
+    $routeProvider.when(
+      '/poem/:id',
+      {
+        templateUrl: 'app/partials/poem.html',
+        controller: 'PoemCtrl',
+        data: {
+          authorizedRoles: [USER_ROLES.all]
+        }
+      }
+    );
+
     $routeProvider.otherwise(
         {
             redirectTo: '/home'
