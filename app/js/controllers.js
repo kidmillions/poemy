@@ -261,7 +261,6 @@ Poemy.controller("UserCtrl", function (
       if(Session.userID == $scope.user.id) $scope.isSelf = true;
     })
     .error(function(data, status, headers, config) {
-      alert(data);
     });
 
 });
@@ -276,9 +275,7 @@ Poemy.controller("PoemCtrl",function (
   $http.get('api/poem/' + poemID)
     .success(function(data, status, headers, config) {
       $scope.poem = data;
-      console.log(data);
     })
     .error(function(data, status, headers, config) {
-      console.log(data);
     });
 });
