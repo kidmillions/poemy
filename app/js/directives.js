@@ -184,7 +184,10 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
         })
         .then(function (res) {
           $scope.poem = res.data
-        });  
+        });
+
+        //redirect route to home.html, somehow
+        
       };
     },
     alias: "poem"

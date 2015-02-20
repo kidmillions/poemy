@@ -42,21 +42,16 @@ Poemy.controller("HomeCtrl", function (
   $scope.started = true;
   $scope.animateCard = '';
   $scope.animateType = '';
+  $scope.showNewPoemForm = false;
 
   $scope.getStarted = function() {
     $scope.started = true;
   }
 
   $scope.makeNewPoem = function() {
-    //if (!AuthService.isAuthenticated()) return console.log('must be logged in to do this')
-    //post poem title and poem length
-
-    return $http
-      .post('/api/new_poem', '')
-      .then(function (res) {
-        $scope.poem = res.data
-      });
+    $scope.showNewPoemForm = true;
   }
+
 
   $scope.getRandomPoem = function() {
     $scope.animateCard = "animated bounceOutLeft";

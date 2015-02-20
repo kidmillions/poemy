@@ -5,7 +5,10 @@
 		<button ng-click='makeNewPoem()'>Create New Poem</button>
 	</div>
 </div>
-<div ng-if="poem != null" class="text-center">
+<div class="row">
+	<div new-poem-form ng-show="showNewPoemForm"></div>
+</div>
+<div ng-if="poem != null" ng-hide="showNewPoemForm" class="text-center">
 	<div class="row" ng-if="!started">
 		<div class="small-12 columns">
 			<h3 class="animated bounceIn" id="entrance-text-1">Create something nice</h3>
@@ -30,9 +33,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div new-poem-form></div>
 		</div>
 		<form name="newLineForm" ng-submit="newLineForm.$valid && submit(newLine)" novalidate>
 			<input type="text" ng-model="newLine" required />	
