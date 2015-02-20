@@ -24,7 +24,7 @@
         <li ng-class="{activePanel: isSelected(3)}"><a href="#/users" ng-click="selectPanel(3)">users</a></li>
         <li ng-class="{activePanel: isSelected(4)}"><a href="#/home" ng-click="selectPanel(4)">home</a></li>
         <li ng-class="{activePanel: isSelected(5)}"><a href="#/poems" ng-click="selectPanel(5)">poems</a></li>
-        <li ng-class="{activePanel: isSelected(6)}"><a ng-href="#/user/{{currentUser.name}}" ng-click="selectPanel(6)">user profile</a></li>
+        <li ng-if="currentUser" ng-class="{activePanel: isSelected(6)}"><a ng-href="#/user/{{currentUser.name}}" ng-click="selectPanel(6)">your profle</a></li>
       </ul>
     </nav>
     <p class="bottom-info">+About</p>

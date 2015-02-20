@@ -84,7 +84,11 @@ Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLE
 
 Poemy.run(function ($rootScope, AUTH_EVENTS, AuthService) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    var authorizedRoles = next.data.authorizedRoles;
+    try {
+      var authorizedRoles = next.data.authorizedRoles;
+    } catch(e) {
+      console.log('poo');
+    }
       if (!AuthService.isAuthorized(authorizedRoles)) {
         console.log('wont let you in');
         event.preventDefault();
