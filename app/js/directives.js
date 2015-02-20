@@ -143,7 +143,7 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
           $scope.type = type;
       });
 
-      
+
       $scope.postPoem = function() {
         var brandNewPoem = {
           poem: $scope.poem._id,

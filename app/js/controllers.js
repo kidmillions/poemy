@@ -9,6 +9,8 @@ Poemy.controller('ApplicationController', function (
   $cookies,
   $location) {
 
+    window.disqus_shortname = 'poemy';
+
     var loginOnLoad = function (user_info) {
       if (user_info == null) return
       AuthService.autoLogin(user_info).then(function (user) {
@@ -127,6 +129,23 @@ Poemy.controller("HomeCtrl", function (
         });
     });
   }
+
+  //left and right key bindings
+  $(document).keydown(function(e) {
+    switch(e.which) {
+        case 37: // left
+          console.log('left');
+        break;
+
+        case 39: // right
+          console.log('right');
+          $scope.getRandomPoem();
+        break;
+
+        default: return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+});
 });
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
