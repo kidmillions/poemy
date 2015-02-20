@@ -100,13 +100,11 @@ Poemy.factory('AuthService', function ($http, $cookies, $location, Session) {
     if ($cookies.se) {
       return JSON.parse($cookies.se);
     } else {
-      console.log('user not registered in cookies');
       return null
     }
   }
 
   authService.logout = function () {
-    console.log('logggeddouutt');
     Session.destroy();
   }
 
@@ -145,7 +143,7 @@ Poemy.service('Session', function ($cookies) {
     this.id = null;
     this.userId = null;
     this.userRole = null;
-    $cookies.se = null;
+    delete $cookies.se;
   }
   return this;
 });
