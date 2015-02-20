@@ -1,6 +1,6 @@
 'use strict';
 
-var Poemy = angular.module('Poemy', ['ngRoute','ngMd5','ngMessages', 'ngAnimate', 'ngCookies']);
+var Poemy = angular.module('Poemy', ['ngRoute','ngMd5','ngMessages', 'ngAnimate', 'ngCookies', 'ngDisqus']);
 
 Poemy.config(['$routeProvider', 'USER_ROLES', function($routeProvider, USER_ROLES) {
     $routeProvider.when(

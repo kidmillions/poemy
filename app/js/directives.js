@@ -142,7 +142,7 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
           $scope.type = type;
       });
 
-      
+
       $scope.postPoem = function() {
         var newPoem = {
           content : [],
@@ -187,7 +187,7 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
         });
 
         //redirect route to home.html, somehow
-        
+
       };
     },
     alias: "poem"

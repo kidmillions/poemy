@@ -9,6 +9,8 @@ Poemy.controller('ApplicationController', function (
   $cookies,
   $location) {
 
+    window.disqus_shortname = 'poemy';
+
     var loginOnLoad = function (user_info) {
       if (user_info == null) return
       AuthService.autoLogin(user_info).then(function (user) {
