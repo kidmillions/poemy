@@ -1,6 +1,36 @@
-<div class="centerCard" ng-repeat="poem in currentUser.contributions">
+<div class="centerCard">
 	<div>
-		<h2>{{poem.poem_title}}</h2>
-		<div>{{poem.line_content}}</div>
+		<h1>{{poem.title}}</h1>
+		<p><i>{{poem.type}}</i></p>
+		<div class= "poemBox" ng-repeat="line in poem.lines">
+			<div class="small-9 small-centered columns">
+				<div class="row">
+					<h3>{{line.content}}</h3>
+					<h5>
+						<a ng-if="line.creator !== 'Anonymous'" href="#/user/{{line.creator}}">
+							<i>{{line.creator}}</i>
+						</a>
+						<i ng-if="line.creator == 'Anonymous'">
+							{{line.creator}}
+						</i>
+					</h5>
+				</div>
+			</div>
+		</div>
 	</div>
+	<div id="disqus_thread"></div>
+	<!-- Disquss Integration -->
+	<script type="text/javascript">
+		var disqus_shortname = 'poemy'; // required: replace example with your forum shortname
+
+		/* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() {
+				var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+				(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
 </div>

@@ -22,7 +22,9 @@ Poemy.controller('ApplicationController', function (
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
     $scope.isAuthenticated = AuthService.isAuthenticated;
-    loginOnLoad(AuthService.userFromCookies());
+    if (AuthService.userFromCookies() != null) {
+      loginOnLoad(AuthService.userFromCookies());
+    }
 
     $scope.setCurrentUser = function (user) {
       $scope.currentUser = user;
@@ -30,7 +32,11 @@ Poemy.controller('ApplicationController', function (
 });
 
 
-Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
+Poemy.controller("HomeCtrl", function (
+  $scope,
+  $http,
+  AuthService,
+  Session) {
 
   $scope.poem = {};
   $scope.started = true;
@@ -94,11 +100,9 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
       username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
       title : $scope.poem.title
     }
-    console.log(newLine.username);
     $http.post('/api/new_line', newLine)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
-        console.log("new line submitted");
         noty({text: $scope.success,
             theme: 'relax',
             type: 'success',
@@ -153,7 +157,13 @@ Poemy.controller("PoemsCtrl", function ($scope, $http) {
 });
 
 
-Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$scope', 'AuthService', '$location', function ($cookieStore, AUTH_EVENTS, $rootScope, $scope, AuthService, $location) {
+Poemy.controller("LoginCtrl", function (
+  $cookieStore,
+  AUTH_EVENTS,
+  $rootScope,
+  $scope,
+  AuthService,
+  $location) {
 
   $scope.success = ''
 
@@ -173,9 +183,16 @@ Poemy.controller("LoginCtrl", [ '$cookieStore', 'AUTH_EVENTS', '$rootScope' , '$
     });
   }
 
-}]);
+});
 
-Poemy.controller("SignupCtrl", function ($rootScope, $scope, $http, $location, AUTH_EVENTS, AuthService) {
+Poemy.controller("SignupCtrl", function (
+  $rootScope,
+  $scope,
+  $http,
+  $location,
+  AUTH_EVENTS,
+  AuthService) {
+
   $scope.success = '';
 
   $scope.submit = function(formData, validity) {
@@ -217,7 +234,7 @@ Poemy.controller("SignupCtrl", function ($rootScope, $scope, $http, $location, A
 
 });
 
-Poemy.controller("NavController", ["$scope", 'AuthService', function($scope, AuthService) {
+Poemy.controller("NavController", function($scope, AuthService) {
   $scope.panel = 4;
   $scope.selectPanel = function(selectedPanel) {
       $scope.panel = selectedPanel;
@@ -229,24 +246,38 @@ Poemy.controller("NavController", ["$scope", 'AuthService', function($scope, Aut
     AuthService.logout();
     $scope.setCurrentUser(null);
   }
-}]);
+});
 
-Poemy.controller("UserCtrl", ["$scope", "Authservice", "Session", function ($scope, AuthService, Session) {
-  var user = $scope.currentUser;
-  //must filter poems for this user only
-  $scope.poems = user.contrbutions;
+Poemy.controller("UserCtrl", function (
+  $scope,
+  $routeParams,
+  $http,
+  AuthService,
+  Session) {
 
-}]);
+  $scope.username = ($routeParams.name);
 
-Poemy.controller("PoemCtrl", ["$scope", "$http",function ($scope, $http) {
-  $http.get('api/poem/:id')
+  $http.get('/api/user/' + $scope.username)
+    .success(function(data, status, headers, config) {
+      $scope.user = data;
+      if(Session.userID == $scope.user.id) $scope.isSelf = true;
+    })
+    .error(function(data, status, headers, config) {
+    });
+
+});
+
+Poemy.controller("PoemCtrl",function (
+  $scope,
+  $routeParams,
+  $http) {
+
+  var poemID = ($routeParams.id);
+
+  $http.get('api/poem/' + poemID)
     .success(function(data, status, headers, config) {
       $scope.poem = data;
     })
     .error(function(data, status, headers, config) {
-      alert(data);
     });
-}]);
-
-
-
+});

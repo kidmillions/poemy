@@ -21,6 +21,7 @@ exports.addNewLine = function(newLine, callback) {
     //    content: 'string of content',
     //    username: 'string name',
     //    title: 'string title',
+    //    completed: 'boolean'
     //  }
     //
 
@@ -43,6 +44,9 @@ exports.addNewLine = function(newLine, callback) {
       if (err) return console.log(err);
       console.log(updated_poem);
       updated_poem.lines.push(line);
+      if (newLine.completed) {
+        updated_poem.completed = newLine.completed;
+      }
       updated_poem.save(updated_poem, {safe: true}, function(err){
         if (err) return console.log(err);
         console.log(newLine.title + ' updated: "' + newLine.content + '"' );
