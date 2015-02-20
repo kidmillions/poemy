@@ -1,0 +1,18 @@
+<h2>Create a new poem</h2>
+<div class="row">
+	<form name="newPoemForm" ng-submit="newPoemForm.$valid && postPoem()" novalidate>
+		<label>This new poem is a: 
+			<select name = "poemtype" ngModel="type" required>
+				<option value="haiku">haiku</option>
+				<option value="limerick">limerick</option>
+				<option value="sonnet">sonnet</option>
+			</select>
+		</label>
+		<label>and give it a title:
+			<input type="text" ngModel="newTitle" required />
+		</label>
+		<p>{{newTitle}}</p>
+		<p>{{type}}</p>
+		<button>Let's start a poem</button>
+	</form>
+</div>

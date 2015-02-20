@@ -128,3 +128,65 @@ Poemy.directive('patternValidator', function() {
     }
   }
 });
+
+Poemy.directive('newPoemForm', ["$http", function($http) {
+  return {
+    restrict: "A",
+    templateUrl: "app/partials/new-poem.html",
+    controller: function($scope) {
+      var types = ["haiku", "limerick", "sonnet"];
+      $scope.$watch("newTitle", function(title) {
+          $scope.title = title;
+      });
+      $scope.$watch("type", function(type) {
+          $scope.type = type;
+      });
+
+      
+      $scope.postPoem = function() {
+        var newPoem = {
+          content : [],
+          username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
+          title : $scope.title
+        };
+
+        $http.post('/api/new_poem', newPoem)
+        .success(function(data, status, headers, config) {
+          $scope.success = 'New Poem Added!';
+          console.log("new poem submitted");
+          noty({text: $scope.success,
+            theme: 'relax',
+            type: 'success',
+            layout: "top",
+            animation: {
+              open: 'animated bounceIn',
+              close: 'animated bounceOut',
+              easing:  'swing',
+              speed: 500
+            },
+            timeout: 1500
+          });
+        })
+        .error(function(data, status, headers, config) {
+          $scope.success = data;
+          noty({text: 'Sorry, there was an error: ' + $scope.success,
+            theme: 'relax',
+            type: 'error',
+            layout: "top",
+            animation: {
+              open: 'animated bounceIn',
+              close: 'animated bounceOut',
+              easing:  'swing',
+              speed: 500
+            },
+            timeout: 1500
+          })
+        })
+        .then(function (res) {
+          $scope.poem = res.data
+        });  
+      };
+    },
+    alias: "poem"
+  };
+}]);

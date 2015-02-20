@@ -33,7 +33,7 @@ Poemy.controller('ApplicationController', function (
 Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
 
   $scope.poem = {};
-  $scope.started = false;
+  $scope.started = true;
   $scope.animateCard = '';
   $scope.animateType = '';
 
@@ -43,6 +43,8 @@ Poemy.controller("HomeCtrl", function ($scope, $http, AuthService, Session) {
 
   $scope.makeNewPoem = function() {
     //if (!AuthService.isAuthenticated()) return console.log('must be logged in to do this')
+    //post poem title and poem length
+
     return $http
       .post('/api/new_poem', '')
       .then(function (res) {
