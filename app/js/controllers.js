@@ -248,21 +248,37 @@ Poemy.controller("NavController", function($scope, AuthService) {
 
 Poemy.controller("UserCtrl", function (
   $scope,
+  $routeParams,
+  $http,
   AuthService,
   Session) {
 
-  var user = $scope.currentUser;
-  //must filter poems for this user only
-  $scope.poems = user.contrbutions;
+  $scope.username = ($routeParams.name);
 
-});
-
-Poemy.controller("PoemCtrl",function ($scope, $http) {
-  $http.get('api/poem/:id')
+  $http.get('/api/user/' + $scope.username)
     .success(function(data, status, headers, config) {
-      $scope.poem = data;
+      $scope.user = data;
+      if(Session.userID == $scope.user.id) $scope.isSelf = true;
     })
     .error(function(data, status, headers, config) {
       alert(data);
+    });
+
+});
+
+Poemy.controller("PoemCtrl",function (
+  $scope,
+  $routeParams,
+  $http) {
+
+  var poemID = ($routeParams.id);
+
+  $http.get('api/poem/' + poemID)
+    .success(function(data, status, headers, config) {
+      $scope.poem = data;
+      console.log(data);
+    })
+    .error(function(data, status, headers, config) {
+      console.log(data);
     });
 });
