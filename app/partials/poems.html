@@ -4,7 +4,8 @@
 		<tbody>
 			<tr ng-repeat="poem in poems"
 					ng-class="{oddRow: $odd}">
-					<td>{{poem}}</td>
+					<td><a href="#/poem/{{poem._id}}">{{poem.title}}</a></td>
+					<td>{{poem.lines[0].content}}</td>
 			</tr>
 		</tbody>
 	</table>
