@@ -132,6 +132,7 @@ Poemy.directive('patternValidator', function() {
 Poemy.directive('newPoemForm', ["$http", function($http) {
   return {
     restrict: "A",
+    require: '^ngModel',
     templateUrl: "app/partials/new-poem.html",
     controller: function($scope) {
       var types = ["haiku", "limerick", "sonnet"];
@@ -144,13 +145,15 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
 
       
       $scope.postPoem = function() {
-        var newPoem = {
+        var brandNewPoem = {
+          poem: $scope.poem._id,
           content : [],
           username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
-          title : $scope.title
+          title : $scope.title,
+          completed: false,
         };
 
-        $http.post('/api/new_poem', newPoem)
+        $http.post('/api/new_poem', brandNewPoem)
         .success(function(data, status, headers, config) {
           $scope.success = 'New Poem Added!';
           console.log("new poem submitted");
@@ -187,9 +190,9 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
         });
 
         //redirect route to home.html, somehow
-        
+
       };
     },
-    alias: "poem"
+    alias: "newPoem"
   };
 }]);

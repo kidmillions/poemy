@@ -8,7 +8,7 @@
           				<label for="right-label" class="right">This new poem is a: </label>
         			</div>
 		       		<div class="small-9 columns">
-			          	<select name = "poemtype" id="right-label" ngModel="type" required>
+			          	<select name="newpoemtype" id="right-label" ngModel="type" required>
 							<option value="haiku">haiku</option>
 							<option value="limerick">limerick</option>
 							<option value="sonnet">sonnet</option>
@@ -25,12 +25,12 @@
 				</label>
 			</div>
 		</div>
-		<div class="row text-center">
-			<p>{{newTitle}}</p>
-			<p>{{type}}</p>
-		</div>
 		<div class="row">
 			<button>Let's start a poem</button>
 		</div>
 	</form>
+	<div class="row text-center">
+			<p>{{newTitle}}</p>
+			<p>{{type}}</p>
+		</div>
 </div>
