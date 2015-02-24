@@ -134,27 +134,59 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
     restrict: "A",
     require: '^ngModel',
     templateUrl: "app/partials/new-poem.html",
-    controller: function($scope) {
-      var types = ["haiku", "limerick", "sonnet"];
+    scope: true,
+    controller: ["$scope", function($scope) {
+      $scope.newTitle;
+      $scope.newType;
+     
       $scope.$watch("newTitle", function(title) {
-          $scope.title = title;
-      });
-      $scope.$watch("type", function(type) {
-          $scope.type = type;
+          console.log("changing to: " + title);
+          $scope.newTitle = title;
+        })
+      };
+
+      var types = ["haiku", "limerick", "sonnet"];
+      
+      $scope.$watch("newType", function(type) {
+        console.log("changing to: " + type);
+          $scope.newType = type;
       });
 
 
-      $scope.postPoem = function() {
-        var brandNewPoem = {
-          poem: $scope.poem._id,
+
+      
+
+
+
+
+      $scope.brandNewPoem = {
+          poem : $scope.poem._id,
           content : [],
           username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
-          title : $scope.title,
-          completed: false,
+          title : $scope.newTitle,
+          completed : false, 
+          type : $scope.newType
+      };
+
+      $scope.submitNewPoem = function(data) {
+        console.log(data);
+        $scope.poem = data;
+        console.log("submit button clicked");
+        postPoem(data);
+        $scope.showNewPoemForm = false;
+        $scope.newTitle = '';
+        console.log("completed")
+        $scope.getRandomPoem();
         };
 
-        $http.post('/api/new_poem', brandNewPoem)
+
+
+
+
+      var postPoem = function(newPoem) {
+        $http.post('/api/new_poem', newPoem)
         .success(function(data, status, headers, config) {
+          console.log(data)
           $scope.success = 'New Poem Added!';
           console.log("new poem submitted");
           noty({text: $scope.success,
@@ -192,7 +224,7 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
         //redirect route to home.html, somehow
 
       };
-    },
+    }],
     alias: "newPoem"
   };
 }]);

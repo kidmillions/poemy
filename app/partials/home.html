@@ -6,7 +6,7 @@
 	</div>
 </div>
 <div class="row">
-	<div new-poem-form ng-show="showNewPoemForm"></div>
+	<div new-poem-form ng-if="showNewPoemForm"></div>
 </div>
 <div ng-if="poem != null" ng-hide="showNewPoemForm" class="text-center">
 	<div class="row" ng-if="!started">

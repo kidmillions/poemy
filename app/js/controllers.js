@@ -71,14 +71,10 @@ Poemy.controller("HomeCtrl", function (
 
   $scope.getRandomPoem();
 
-  //watch text input for data
-  $scope.$watch("newLine", function(line) {
-    $scope.newLine = line;
-  })
-
   //submit data when ready
   $scope.submit = function(data) {
-      $scope.newLine = data
+      console.log(data);
+      $scope.newLine = data;
       console.log("button clicked");
       $scope.poem.lines.push(data);
       // animateOut(newPoem);
@@ -100,6 +96,7 @@ Poemy.controller("HomeCtrl", function (
     $http.post('/api/new_line', newLine)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
+        console.log(newLine);
         noty({text: $scope.success,
             theme: 'relax',
             type: 'success',
