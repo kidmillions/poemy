@@ -138,37 +138,33 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
     controller: ["$scope", function($scope) {
       $scope.newTitle;
       $scope.newType;
-     
+
       $scope.$watch("newTitle", function(title) {
+          if (title === '') return
           console.log("changing to: " + title);
           $scope.newTitle = title;
-        })
-      };
+      });
 
       var types = ["haiku", "limerick", "sonnet"];
-      
+
       $scope.$watch("newType", function(type) {
+        if (type === '') return
         console.log("changing to: " + type);
           $scope.newType = type;
       });
 
+      $scope.submitNewPoem = function() {
 
+        $scope.brandNewPoem = {
+              content : [],
+              username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
+              title : $scope.newTitle,
+              completed : false,
+              type : $scope.newType
+        };
 
-      
+        var data = $scope.brandNewPoem;
 
-
-
-
-      $scope.brandNewPoem = {
-          poem : $scope.poem._id,
-          content : [],
-          username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
-          title : $scope.newTitle,
-          completed : false, 
-          type : $scope.newType
-      };
-
-      $scope.submitNewPoem = function(data) {
         console.log(data);
         $scope.poem = data;
         console.log("submit button clicked");
@@ -178,10 +174,6 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
         console.log("completed")
         $scope.getRandomPoem();
         };
-
-
-
-
 
       var postPoem = function(newPoem) {
         $http.post('/api/new_poem', newPoem)
