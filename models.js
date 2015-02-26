@@ -30,6 +30,7 @@ var userSchema = mongoose.Schema({
     //saved in database as a hash
     pass: String,
     role : String,
+    pic : String,
     date : { type: Date, default: Date.now },
     contributions : [
       {
