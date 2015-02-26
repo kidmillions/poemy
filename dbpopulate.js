@@ -1,5 +1,5 @@
 var mongoose = require('mongoose'),
-    models = require('./app/models'),
+    models = require('./models'),
     config = require('./config');
 
 dburl = config.databaseUrl

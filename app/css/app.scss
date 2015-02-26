@@ -5,17 +5,20 @@
 
 
 /* app css stylesheet */
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  background-color: rgb(90,46,46)
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Courier', sans-serif;
   color:white;
-  //background-color:#EBEBEB;
-  background-color:#9CDDC8;
 }
 
 /*header roll */
 
 header.home-header {
-  background-color: white;
+  background-color: rgb(42,44,49);
   position: fixed;
   top:0px;
   bottom: 0px;
@@ -23,11 +26,11 @@ header.home-header {
   width:195px;
   text-align: right;
   z-index: 3;
-  color:black;
+  color: white;
 }
 
 p.header-blurb {
-  color:#999;
+  color: white;
   font-size:18px;
 }
 
@@ -56,7 +59,7 @@ ul {
 }
 
 a {
-  color:#aaa;
+  color:white;
 }
 
 input {
@@ -80,20 +83,16 @@ input:focus {
 button {
   padding:10px;
   margin: 0 auto;
-  margin-top:10px;
-  height:40px;
+  margin-top:30px;
+  font-size: 26px;
   display:block;
-  background-color: #72a292;
-  border:none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
+  border: 1px solid white;
+  background-color: rgb(62,65,71);
+  color: white;
 }
 
 button.dis{
   //transition:.5s linear all;
-  color:#72a292;
-  background-color:#9CDDC8;
   -moz-box-shadow:    inset 0 0 0px 2px #72a292;
   -webkit-box-shadow: inset 0 0 0px 2px #72a292;
   box-shadow:         inset 0 0 0px 2px #72a292;
@@ -104,7 +103,6 @@ button:focus {
 }
 
 input.ng-dirty.ng-valid {
-  color:#686868;
   -moz-box-shadow:    inset 0 0 0px 2px #72a292;
   -webkit-box-shadow: inset 0 0 0px 2px #72a292;
   box-shadow:         inset 0 0 0px 2px #72a292;
@@ -112,7 +110,6 @@ input.ng-dirty.ng-valid {
 }
 
 input.ng-dirty.ng-invalid {
-    color: #ee7676;
     -moz-box-shadow:    inset 0 0 0px 2px #ee7676;
     -webkit-box-shadow: inset 0 0 0px 2px #ee7676;
     box-shadow:         inset 0 0 0px 2px #ee7676;
@@ -231,32 +228,171 @@ h1.big {
   li {
     text-align: center;
     &:hover {
-      background-color: rgb(57, 147, 168);
+      background-color: rgb(223,186,105);
     }
   }
 }
 
 .activePanel {
-  background-color: rgb(131, 68, 148);
+  background-color: rgb(62,65,71);
 }
 
 /* home styles */
-#entrance-text-2 {
-  -webkit-animation-delay: 2s;
-  -moz-animation-delay: 2s;
-}
-#entrance-text-3 {
-  -webkit-animation-delay: 4s;
-  -moz-animation-delay: 4s;
-}
-#entrance-text-4 {
-  -webkit-animation-delay: 5s;
-  -moz-animation-delay: 5s;
-}
+
+
 
 .creatorBox {
   position: fixed;
-  background-color: #3A9BB2;
-  border-radius: 10px;
+  background-color: black;
+  opacity: 0.4;
+  .creatorName {
+    color: white;
+  }
 }
 
+/* logo animation styles *?
+
+/* Main styles */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
+
+.text--transparent {
+  fill: transparent;
+}
+
+.anim-shape {
+  -webkit-transform-origin: 0x 150px;
+  -ms-transform-origin: 0x 150px;
+  transform-origin: 0x 150px;
+  -webkit-transform: scale(0, 1) translate(0, 0);
+  -ms-transform: scale(0, 1) translate(0, 0);
+  transform: scale(0, 1) translate(0, 0);
+  -webkit-animation: moving-panel 3s infinite alternate;
+  animation: moving-panel 3s infinite alternate;
+}
+
+.colortext .anim-shape:nth-child(1) {
+  fill: #0E1826;
+}
+
+.colortext .anim-shape:nth-child(2) {
+  fill: #166973;
+}
+
+.colortext .anim-shape:nth-child(3) {
+  fill: #65BFA6;
+}
+
+.colortext .anim-shape:nth-child(4) {
+  fill: #F2CD5C;
+}
+
+.colortext .anim-shape:nth-child(5) {
+  fill: #F26444;
+}
+
+.shadow {
+  -webkit-transform: translate(10px, 10px);
+  -ms-transform: translate(10px, 10px);
+  transform: translate(10px, 10px);
+}
+
+.anim-shape--shadow {
+  fill: #000;
+  fill-opacity: .2;
+}
+
+@-webkit-keyframes moving-panel {
+  100% {
+    -webkit-transform: scale(1, 1) translate(20px, 0);
+    transform: scale(1, 1) translate(20px, 0);
+  }
+}
+
+@keyframes moving-panel {
+  100% {
+    -webkit-transform: scale(1, 1) translate(20px, 0);
+    transform: scale(1, 1) translate(20px, 0);
+  }
+}
+
+
+/*logo animation styles */
+
+#big-title{
+    font-family: "courier";
+    color: white;
+    font-size: 3em;
+    width: 3.9em;
+    white-space:nowrap;
+    overflow:hidden;
+    -webkit-animation: type 0.5s steps(10, end);
+    animation: type 0.5s steps(10, end);
+    span{
+      animation: blink 1s infinite;
+      -webkit-animation: blink 1s infinite;
+    }
+}
+
+@keyframes type{
+    0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100; } 
+}
+
+@-webkit-keyframes type{
+   0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100; } 
+}
+
+
+@keyframes blink{
+  to{opacity: .0;}
+}
+
+@-webkit-keyframes blink{
+  to{opacity: .0;}
+}
+
+#entrance-text-1, #entrance-text-2 {
+  width: 22em;
+  white-space:nowrap;
+  overflow:hidden;
+  -webkit-animation: type 3s steps(60, end);
+  animation: type 3s steps(60, end);
+}
+
+#entrance-text-2 {
+  width: 13em;
+  span{
+      animation: blink 1s infinite;
+      -webkit-animation: blink 1s infinite;
+    }
+}
+
+#entrance-text-3 {
+  -webkit-animation-delay: 4.5s;
+  -moz-animation-delay: 4.5s;
+}
+
+.poemBox {
+  margin-top: 30px;
+/*  background-color: #D5CE9E;*/
+  color: black;
+  background-color: rgb(255,254,223);
+  -webkit-box-shadow: 6px 10px 66px -4px rgba(0,0,0,0.77);
+  -moz-box-shadow: 6px 10px 66px -4px rgba(0,0,0,0.77);
+  box-shadow: 6px 10px 66px -4px rgba(0,0,0,0.77);
+  border-radius: 25px;
+  h2, h3, h5 {
+    color: black;
+  }
+
+  .newline-input {
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 40px;
+    text-align: center;
+  }
+}

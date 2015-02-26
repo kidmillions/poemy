@@ -41,7 +41,7 @@ Poemy.controller("HomeCtrl", function (
   Session) {
 
   $scope.poem = {};
-  $scope.started = true;
+  $scope.started = false;
   $scope.animateCard = '';
   $scope.animateType = '';
   $scope.showNewPoemForm = false;

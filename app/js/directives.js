@@ -142,8 +142,7 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
       $scope.$watch("newTitle", function(title) {
           console.log("changing to: " + title);
           $scope.newTitle = title;
-        })
-      };
+      })  ;
 
       var types = ["haiku", "limerick", "sonnet"];
       
@@ -160,7 +159,7 @@ Poemy.directive('newPoemForm', ["$http", function($http) {
 
 
       $scope.brandNewPoem = {
-          poem : $scope.poem._id,
+          // poem : $scope.poem._id,
           content : [],
           username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
           title : $scope.newTitle,

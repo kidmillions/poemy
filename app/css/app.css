@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800);
 meta.foundation-version {
   font-family: "/5.5.1/"; }
 
@@ -1360,7 +1361,7 @@ p aside {
   font-style: italic; }
 
 /* Default header styles */
-h1, h2, h3, h4, h5, h6 {
+/*h1, h2, h3, h4, h5, h6 {
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   font-style: normal;
@@ -1369,12 +1370,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.2rem;
   margin-bottom: 0.5rem;
   line-height: 1.4; }
-
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
-  font-size: 60%;
-  color: #6f6f6f;
-  line-height: 0; }
-
+  h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+    font-size: 60%;
+    color: #6f6f6f;
+    line-height: 0; }*/
 h1 {
   font-size: 2.125rem; }
 
@@ -6665,13 +6664,15 @@ th {
 
 /* app css stylesheet */
 body {
-  font-family: 'Open Sans', sans-serif;
-  color: white;
-  background-color: #9CDDC8; }
+  background-color: #5a2e2e; }
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Courier', sans-serif;
+  color: white; }
 
 /*header roll */
 header.home-header {
-  background-color: white;
+  background-color: #2a2c31;
   position: fixed;
   top: 0px;
   bottom: 0px;
@@ -6679,10 +6680,10 @@ header.home-header {
   width: 195px;
   text-align: right;
   z-index: 3;
-  color: black; }
+  color: white; }
 
 p.header-blurb {
-  color: #999;
+  color: white;
   font-size: 18px; }
 
 ul.menu {
@@ -6706,7 +6707,7 @@ ul {
   padding: 0px; }
 
 a {
-  color: #aaa; }
+  color: white; }
 
 input {
   margin: 0 auto;
@@ -6726,18 +6727,14 @@ input:focus {
 button {
   padding: 10px;
   margin: 0 auto;
-  margin-top: 10px;
-  height: 40px;
+  margin-top: 30px;
+  font-size: 26px;
   display: block;
-  background-color: #72a292;
-  border: none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px; }
+  border: 1px solid white;
+  background-color: #3e4147;
+  color: white; }
 
 button.dis {
-  color: #72a292;
-  background-color: #9CDDC8;
   -moz-box-shadow: inset 0 0 0px 2px #72a292;
   -webkit-box-shadow: inset 0 0 0px 2px #72a292;
   box-shadow: inset 0 0 0px 2px #72a292; }
@@ -6746,13 +6743,11 @@ button:focus {
   outline: none; }
 
 input.ng-dirty.ng-valid {
-  color: #686868;
   -moz-box-shadow: inset 0 0 0px 2px #72a292;
   -webkit-box-shadow: inset 0 0 0px 2px #72a292;
   box-shadow: inset 0 0 0px 2px #72a292; }
 
 input.ng-dirty.ng-invalid {
-  color: #ee7676;
   -moz-box-shadow: inset 0 0 0px 2px #ee7676;
   -webkit-box-shadow: inset 0 0 0px 2px #ee7676;
   box-shadow: inset 0 0 0px 2px #ee7676; }
@@ -6842,27 +6837,134 @@ h1.big {
 .menu li {
   text-align: center; }
   .menu li:hover {
-    background-color: #3993a8; }
+    background-color: #dfba69; }
 
 .activePanel {
-  background-color: #834494; }
+  background-color: #3e4147; }
 
 /* home styles */
-#entrance-text-2 {
-  -webkit-animation-delay: 2s;
-  -moz-animation-delay: 2s; }
-
-#entrance-text-3 {
-  -webkit-animation-delay: 4s;
-  -moz-animation-delay: 4s; }
-
-#entrance-text-4 {
-  -webkit-animation-delay: 5s;
-  -moz-animation-delay: 5s; }
-
 .creatorBox {
   position: fixed;
-  background-color: #3A9BB2;
-  border-radius: 10px; }
+  background-color: black;
+  opacity: 0.4; }
+  .creatorBox .creatorName {
+    color: white; }
+
+/* logo animation styles *?
+
+/* Main styles */
+.text--transparent {
+  fill: transparent; }
+
+.anim-shape {
+  -webkit-transform-origin: 0x 150px;
+  -ms-transform-origin: 0x 150px;
+  transform-origin: 0x 150px;
+  -webkit-transform: scale(0, 1) translate(0, 0);
+  -ms-transform: scale(0, 1) translate(0, 0);
+  transform: scale(0, 1) translate(0, 0);
+  -webkit-animation: moving-panel 3s infinite alternate;
+  animation: moving-panel 3s infinite alternate; }
+
+.colortext .anim-shape:nth-child(1) {
+  fill: #0E1826; }
+
+.colortext .anim-shape:nth-child(2) {
+  fill: #166973; }
+
+.colortext .anim-shape:nth-child(3) {
+  fill: #65BFA6; }
+
+.colortext .anim-shape:nth-child(4) {
+  fill: #F2CD5C; }
+
+.colortext .anim-shape:nth-child(5) {
+  fill: #F26444; }
+
+.shadow {
+  -webkit-transform: translate(10px, 10px);
+  -ms-transform: translate(10px, 10px);
+  transform: translate(10px, 10px); }
+
+.anim-shape--shadow {
+  fill: #000;
+  fill-opacity: .2; }
+
+@-webkit-keyframes moving-panel {
+  100% {
+    -webkit-transform: scale(1, 1) translate(20px, 0);
+    transform: scale(1, 1) translate(20px, 0); } }
+@keyframes moving-panel {
+  100% {
+    -webkit-transform: scale(1, 1) translate(20px, 0);
+    transform: scale(1, 1) translate(20px, 0); } }
+/*logo animation styles */
+#big-title {
+  font-family: "courier";
+  color: white;
+  font-size: 3em;
+  width: 3.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-animation: type 0.5s steps(10, end);
+  animation: type 0.5s steps(10, end); }
+  #big-title span {
+    animation: blink 1s infinite;
+    -webkit-animation: blink 1s infinite; }
+
+@keyframes type {
+  0% {
+    width: 0; }
+  50% {
+    width: 0; }
+  100% {
+    width: 100; } }
+@-webkit-keyframes type {
+  0% {
+    width: 0; }
+  50% {
+    width: 0; }
+  100% {
+    width: 100; } }
+@keyframes blink {
+  to {
+    opacity: .0; } }
+@-webkit-keyframes blink {
+  to {
+    opacity: .0; } }
+#entrance-text-1, #entrance-text-2 {
+  width: 22em;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-animation: type 3s steps(60, end);
+  animation: type 3s steps(60, end); }
+
+#entrance-text-2 {
+  width: 13em; }
+  #entrance-text-2 span {
+    animation: blink 1s infinite;
+    -webkit-animation: blink 1s infinite; }
+
+#entrance-text-3 {
+  -webkit-animation-delay: 4.5s;
+  -moz-animation-delay: 4.5s; }
+
+.poemBox {
+  margin-top: 30px;
+  /*  background-color: #D5CE9E;*/
+  color: black;
+  background-color: #fffedf;
+  -webkit-box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
+  box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
+  border-radius: 25px; }
+  .poemBox h2, .poemBox h3, .poemBox h5 {
+    color: black; }
+  .poemBox .newline-input {
+    background-color: white;
+    color: black;
+    width: 50%;
+    height: 40px;
+    text-align: center; }
 
 /*# sourceMappingURL=app.css.map */
