@@ -1,28 +1,33 @@
-<h2 class="text-center">Create a new poem</h2>
-<div class="small-12 columns">
+<div class="row title-row">
+	<div class="small-12 columns"><h2 class="text-center">Create a new poem</h2></div>
+</div>
+<div class="small-8 small-centered columns">
 	<form name="newPoemForm" ng-submit="newPoemForm.$valid && submitNewPoem()" novalidate>
-		<div class="row">
-    		<div class="small-8 small-centered columns">
-      			<div class="row">
-       				<div class="small-3 columns">
-          				<label for="right-label" class="right">This new poem is a: </label>
-        			</div>
-		       		<div class="small-9 columns">
-			          	<select name="newpoemtype" id="right-label" ng-model="newType" required>
-							<option value="haiku">haiku</option>
-							<option value="limerick">limerick</option>
-							<option value="sonnet">sonnet</option>
-						</select>
-		        	</div>
-      			</div>
-    		</div>
-  		</div>
-
-  		<div class="row">
-  			<div class="small-6 small-centered columns">
-				<label>and give it a title:
-					<input type="text" ng-model="newTitle" required />
-				</label>
+		<div class="poemBox newPoemBox">
+			<div class="row">
+	    		<div class="small-12 small-centered columns text-center">
+	      			<div class="row">
+	       				<div class="small-6 columns">
+	          				<label for="right-label" class="center">This new poem is a: </label>
+	        			</div>
+			       		<div class="small-6 columns">
+				          	<select name="newpoemtype" id="right-label" ng-model="newType" required>
+								<option value="haiku">haiku</option>
+								<option value="limerick">limerick</option>
+								<option value="sonnet">sonnet</option>
+							</select>
+			        	</div>
+	      			</div>
+	    		</div>
+	  		</div>
+	  		<br>
+	  		<br>
+	  		<div class="row">
+	  			<div class="small-6 small-centered columns text-center">
+					<label>And give it a title:
+						<input type="text" ng-model="newTitle" required />
+					</label>
+				</div>
 			</div>
 		</div>
 		<div class="row">

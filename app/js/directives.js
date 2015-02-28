@@ -134,7 +134,7 @@ Poemy.directive('lineForm', ['$interval', function($interval) {
   return {
     restrict: "A",
     scope: true,
-    link: function(scope, elem, attrs) {
+    link: function($scope) {
       $('form').find('input').keypress(function(e) {
               // Enter pressed?
               if(e.which == 10 || e.which == 13) {
@@ -149,6 +149,7 @@ Poemy.directive('lineForm', ['$interval', function($interval) {
             break;
             case 39: // right
               console.log('right');
+              $scope.getRandomPoem();
             break;
 
             default: return; // exit this handler for other keys

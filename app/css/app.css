@@ -6666,7 +6666,7 @@ th {
 body {
   background-color: #5a2e2e; }
 
-h1, h2, h3, h4, h5, h6, p {
+h1, h2, h3, h4, h5, h6, p, label {
   font-family: 'Courier', sans-serif;
   color: white; }
 
@@ -6693,6 +6693,7 @@ ul.menu {
   text-align: right; }
 
 li {
+  font-family: "Courier";
   display: block;
   padding: 3px 30px 3px 0; }
 
@@ -6958,13 +6959,23 @@ h1.big {
   -moz-box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
   box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
   border-radius: 25px; }
-  .poemBox h2, .poemBox h3, .poemBox h5 {
+  .poemBox h2, .poemBox h3, .poemBox h5, .poemBox label {
     color: black; }
+  .poemBox label {
+    font-size: 25px; }
   .poemBox .newline-input {
     background-color: white;
     color: black;
     width: 50%;
     height: 40px;
     text-align: center; }
+
+/* new poem partial */
+.title-row {
+  margin-top: 130px; }
+
+.newPoemBox {
+  padding-top: 40px;
+  padding-bottom: 40px; }
 
 /*# sourceMappingURL=app.css.map */
