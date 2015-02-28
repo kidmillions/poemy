@@ -128,3 +128,33 @@ Poemy.directive('patternValidator', function() {
     }
   }
 });
+
+
+Poemy.directive('lineForm', ['$interval', function($interval) {
+  return {
+    restrict: "A",
+    scope: true,
+    link: function(scope, elem, attrs) {
+      $('form').find('input').keypress(function(e) {
+              // Enter pressed?
+              if(e.which == 10 || e.which == 13) {
+                  this.form.submit();
+              }
+      });
+      //left and right key bindings
+      $(document).keydown(function(e) {
+        switch(e.which) {
+            case 37: // left
+              console.log('left');
+            break;
+            case 39: // right
+              console.log('right');
+            break;
+
+            default: return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action (scroll / move caret)
+    });
+    }
+  };
+}])

@@ -27,24 +27,25 @@
 			<div class="small-12 columns"><h2 ng-if="currentUser != null">Hello, {{currentUser.name}}</h2></div>
 			<div class="small-12 columns"><h3>This poem is a <strong ng-class="animateType"><i>{{poem.type}}.</i></strong></h3></div>	
 		</div>
-		<div class="row" ng-class="animateCard">
-			<div class="small-8 small-centered columns poemBox">
-				<div class="row"><div class="small-12 columns"><h2>{{poem.title}}</h2></div></div>
-				<div ng-repeat="line in poem.lines">
+		<form line-form>
+			<div class="row" ng-class="animateCard">
+				<div class="small-8 small-centered columns poemBox">
+					<div class="row"><div class="small-12 columns"><h2>{{poem.title}}</h2></div></div>
+					<div ng-repeat="line in poem.lines">
+						<div class="row">
+							<div class="small-12 columns"><h3>{{line.content}}</h3></div>
+							<div class="small-1 columns creatorBox"><a class="creatorName" href="#/user/{{line.creator}}">{{line.creator}}</a></div>
+						</div>
+					</div>
 					<div class="row">
-						<div class="small-12 columns"><h3>{{line.content}}</h3></div>
-						<div class="small-1 columns creatorBox"><a class="creatorName" href="#/user/{{line.creator}}">{{line.creator}}</a></div>
+						<div class="small-12 columns"><input type="text" ng-model="newLine" class="newline-input" placeholder="add a line here" /></div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="small-12 columns"><input type="text" ng-model="newLine" class="newline-input" placeholder="add a line here" /></div>
-				</div>
 			</div>
-		</div>
-			
-		<div class="line-submit-container">
-			<button type="submit" ng-click="submit(newLine)">Don't be shy. Add your line.</button>
-		</div>
+			<div class="line-submit-container">
+				<button type="submit" ng-click="submit(newLine)">Don't be shy. Add your line.</button>
+			</div>
+		</form>
 		<div class="row">
 			<div class="small-6 columns"><a href="#/home/new"><button>Create New Poem</button></a></div>
 			<div class="small-6 columns"><button ng-click='getRandomPoem()'>Skip this one...</button></div>

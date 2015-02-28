@@ -41,11 +41,28 @@ Poemy.controller("HomeCtrl", function (
   Session) {
 
   $scope.poem = {};
-  $scope.started = false;
+  $scope.started = true;
   $scope.animateCard = '';
   $scope.animateType = '';
   $scope.showNewPoemForm = false;
   $scope.brandNewPoem = {};
+  
+  //set max lines for poem (logic should probably be put elsewhere)
+  // switch($scope.poem.type) {
+  //     case 'haiku':
+  //       $scope.poem.maxLines = 3;
+  //       break;
+  //     case 'limerick':
+  //       $scope.poem.maxLines = 5;
+  //       break;
+  //     case 'sonnet':
+  //       $scope.poem.maxLines = 10;
+  //     break;
+  //     default:
+  //       $scope.poem.maxLines = 5;
+  //   }
+  // }
+
 
   $scope.getStarted = function() {
     $scope.started = true;
@@ -75,7 +92,7 @@ Poemy.controller("HomeCtrl", function (
   //submit data when ready
   $scope.submit = function(data) {
       console.log(data);
-      $scope.newLine = data;
+      // $scope.newLine = data;
       console.log("button clicked");
       $scope.poem.lines.push(data);
       // animateOut(newPoem);
