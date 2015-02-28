@@ -12,9 +12,9 @@
 	</div>
 </div>
 <div class="row">
-	<div new-poem-form ng-if="showNewPoemForm"></div>
+	<div new-poem-form ng-if="showNewPoemForm == true"></div>
 </div>
-<div ng-if="poem != null" ng-hide="showNewPoemForm" class="text-center">
+<div ng-if="poem != null" ng-if="showNewPoemForm == false" class="text-center">
 	<div class="row" ng-if="!started">
 		<div class="small-12 columns">
 			<h2 id="entrance-text-1">Help your friends finish their poems.</h2>
@@ -46,7 +46,7 @@
 			<button type="submit" ng-click="submit(newLine)">Don't be shy. Add your line.</button>
 		</div>
 		<div class="row">
-			<div class="small-6 columns"><button ng-click='makeNewPoem()'>Create New Poem</button></div>
+			<div class="small-6 columns"><a href="#/home/new"><button>Create New Poem</button></a></div>
 			<div class="small-6 columns"><button ng-click='getRandomPoem()'>Skip this one...</button></div>
 		</div>
 	</div>
