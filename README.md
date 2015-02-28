@@ -39,6 +39,4 @@ User Authentication created with the help of this great article https://medium.c
 - Top Contributers Page
 - About Page (more like 'OH GOD WHY?!' page)
 - poetry types educational info
-- skip poem function
 - fix notifications
-- make a special page for each poem?
