@@ -176,7 +176,26 @@ Poemy.factory('PoemRetrieval', function($scope, $http) {
     });
 
     return $scope.poems
-})
+});
 
 
+Poemy.factory('Poems', ['$http', function PoemsFactory ($http) {
+  return {
+    random: function() {
+      return $http.get('/api/random_poem');
+    },
+    line: function(line) {
+      return $http.post('/api/new_line', line);
+    },
+    all: function() {
+      return $http.get('/api/poems');
+    },
+    one: function(id) {
+      return $http.get('api/poem/' + id);
+    },
+    newPoem: function(poem) {
+      return $http.post('/api/new_poem', poem);
+    }
+  };
+}]);
 

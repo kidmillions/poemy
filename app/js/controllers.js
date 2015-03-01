@@ -34,11 +34,10 @@ Poemy.controller('ApplicationController', function (
 });
 
 
-Poemy.controller("HomeCtrl", function (
+Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', function (
   $scope,
-  $http,
   AuthService,
-  Session) {
+  Session, Poems) {
 
   $scope.poem = {};
   $scope.started = true;
@@ -76,8 +75,7 @@ Poemy.controller("HomeCtrl", function (
   $scope.getRandomPoem = function() {
     $scope.animateCard = "animated bounceOutLeft";
     $scope.animateType = 'animated fadeOutDown';
-    $http.get('/api/random_poem')
-    .success(function(data, status, headers, config) {
+    Poems.random().success(function(data, status, headers, config) {
       $scope.poem = data;
       $scope.animateCard = "animated bounceInRight";
       $scope.animateType = 'animated fadeInDown';
@@ -111,7 +109,7 @@ Poemy.controller("HomeCtrl", function (
       username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
       title : $scope.poem.title
     }
-    $http.post('/api/new_line', newLine)
+      Poems.line(newLine)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
         console.log(newLine);
@@ -145,7 +143,7 @@ Poemy.controller("HomeCtrl", function (
     });
   }
 
-});
+}]);
 
 Poemy.controller("UsersCtrl", function ($scope, $http) {
   $scope.user = {};
@@ -158,16 +156,16 @@ Poemy.controller("UsersCtrl", function ($scope, $http) {
     });
 });
 
-Poemy.controller("PoemsCtrl", function ($scope, $http) {
+Poemy.controller("PoemsCtrl", ["$scope", "Poems", function ($scope, Poems) {
   $scope.poems = {};
-  $http.get('/api/poems')
+    Poems.all()
     .success(function(data, status, headers, config) {
       $scope.poems = data;
     })
     .error(function(data, status, headers, config) {
       alert(data);
     });
-});
+}]);
 
 
 Poemy.controller("LoginCtrl", function (
@@ -280,23 +278,23 @@ Poemy.controller("UserCtrl", function (
 
 });
 
-Poemy.controller("PoemCtrl",function (
+Poemy.controller("PoemCtrl", ['$scope', "$routeParams", 'Poems', function (
   $scope,
-  $routeParams,
-  $http) {
+  $routeParams, 
+  Poems) {
 
   var poemID = ($routeParams.id);
 
-  $http.get('api/poem/' + poemID)
+  Poems.one(poemID)
     .success(function(data, status, headers, config) {
       $scope.poem = data;
     })
     .error(function(data, status, headers, config) {
     });
-});
+}]);
 
 
-Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', function($scope, $controller, $http, $location) {
+Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 'Poems', function($scope, $controller, $http, $location, Poems) {
   $controller('HomeCtrl', {$scope: $scope});
 
   $scope.newTitle;
@@ -337,8 +335,8 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
     postPoem(data);
   };
 
-  var postPoem = function(newPoem) {
-    $http.post('/api/new_poem', newPoem)
+  var postPoem = function(poem) {
+    Poems.newPoem(poem)
     .success(function(data, status, headers, config) {
       console.log(data)
       $scope.success = 'New Poem Added!';
