@@ -38,7 +38,7 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   $scope,
   AuthService,
   Session, Poems, Notifications) {
-  $scope.started = true;
+  $scope.started = false;
   $scope.poem = {};
   $scope.brandNewPoem = {};
   
@@ -57,13 +57,15 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   //       $scope.poem.maxLines = 5;
   //   }
   // }
+
+
    $scope.getPoem = function() {
     Poems.random()
     .success(function(data, status, headers, config) {
       $scope.poem = data;
       $scope.animateCard = "animated bounceInRight";
       $scope.animateType = 'animated fadeInDown';
-      $scope.newLine = '';
+      $scope.lastLine = data.lines[data.lines.length - 1];
     })
     .error(function(data, status, headers, config) {
       alert(data);
@@ -79,33 +81,34 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
     $scope.getPoem();
   };
 
- 
-
-  //submit data when ready
-  $scope.submit = function(data) {
-      console.log(data);
-      postLine();
-      $scope.getAnimatedPoem();
-  };
-
   //function that actually makes POST
-  var postLine = function() {
-    var newLine = {
+  var postLine = function(newLine) {
+    var newLineContribution = {
       poem : $scope.poem._id,
-      content : $scope.newLine,
+      content : newLine,
       username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
       title : $scope.poem.title
     }
-      Poems.line(newLine)
+      Poems.line(newLineContribution)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
         Notifications($scope.success, 'success');
+        console.log('success');
       })
       .error(function(data, status, headers, config) {
         $scope.success = data;
         Notifications($scope.success, 'error');
     });
-  }
+  };
+
+  //submit data when ready
+  $scope.submit = function(data) {
+      console.log(data);
+      postLine(data);
+      $scope.getAnimatedPoem();
+  };
+
+  
 
 }]);
 
@@ -287,6 +290,7 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
     $scope.poem = data;
     console.log("submit button clicked");
     postPoem(data);
+    $location.path('#/home');
   };
 
   var postPoem = function(poem) {
@@ -297,14 +301,14 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
       Notifications($scope.success, 'success');
       $scope.newTitle = '';
       $scope.getRandomPoem();
-      $location.path('#/home');
+      
     })
     .error(function(data, status, headers, config) {
       $scope.success = data;
       Notifications($scope.success, 'error');
     })
     .then(function (res) {
-      $scope.poem = res.data
+      $scope.poem = res.data;
     });
   };
 }]);
