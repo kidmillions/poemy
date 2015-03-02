@@ -13,6 +13,12 @@
 			<div class="small-12 columns"><h3>This poem is a <strong ng-class="animateType"><i>{{poem.type}}.</i></strong></h3></div>	
 		</div>
 		<form line-form>
+			<div class="row">
+				<div class="small-10 small-centered columns helpBox">
+				<h4><strong>How to become a poet, one line at a time.</strong></h4>
+				<h5>Some strangers have started a poem. You job is to help them finish. Add a line in the box, or press the right keyboard key to look at another poem.</h5>
+				</div>
+			</div>
 			<div class="row" ng-class="animateCard">
 				<div class=" small-8 small-centered columns poemBox">
 					<div class="row"><div class="small-12 columns"><h2>{{poem.title}}</h2></div></div>
@@ -27,12 +33,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="small-10 small-centered columns helpBox">
-				<h4><strong>How to become a poet, one line at a time.</strong></h4>
-				<h5>Some strangers have started a poem. You job is to help them finish. Add a line in the box, or press the right keyboard key to look at another poem.</h5>
-				</div>
-			</div>
+		
 			<div class="line-submit-container">
 				<button type="submit" ng-click="submit(newLine)">Don't be shy. Add your line.</button>
 			</div>

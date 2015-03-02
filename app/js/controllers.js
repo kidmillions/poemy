@@ -57,35 +57,35 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   //       $scope.poem.maxLines = 5;
   //   }
   // }
-
-  $scope.getRandomPoem = function() {
-    $scope.animateCard = "animated bounceOutLeft";
-    $scope.animateType = 'animated fadeOutDown';
+   $scope.getPoem = function() {
     Poems.random()
     .success(function(data, status, headers, config) {
       $scope.poem = data;
       $scope.animateCard = "animated bounceInRight";
       $scope.animateType = 'animated fadeInDown';
+      $scope.newLine = '';
     })
     .error(function(data, status, headers, config) {
       alert(data);
     })
   };
 
-  $scope.getRandomPoem();
+  $scope.getPoem();
+  
+
+  $scope.getAnimatedPoem = function() {
+    $scope.animateCard = "animated bounceOutLeft";
+    $scope.animateType = 'animated fadeOutDown';
+    $scope.getPoem();
+  };
+
+ 
 
   //submit data when ready
   $scope.submit = function(data) {
       console.log(data);
-      // $scope.newLine = data;
-      console.log("button clicked");
-      $scope.poem.lines.push(data);
-      // animateOut(newPoem);
       postLine();
-      $scope.getRandomPoem();
-      $scope.newLine = '';
-      console.log("completed")
-      $scope.getRandomPoem();
+      $scope.getAnimatedPoem();
   };
 
   //function that actually makes POST

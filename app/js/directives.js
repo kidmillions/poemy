@@ -157,7 +157,7 @@ Poemy.directive('lineForm', ['$interval', function($interval) {
             break;
             case 39: // right
               console.log('right');
-              $scope.getRandomPoem();
+              $scope.getAnimatedPoem();
             break;
 
             default: return; // exit this handler for other keys
