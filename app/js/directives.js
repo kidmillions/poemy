@@ -163,7 +163,12 @@ Poemy.directive('lineForm', ['$interval', function($interval) {
             default: return; // exit this handler for other keys
         }
         e.preventDefault(); // prevent the default action (scroll / move caret)
-    });
+      });
+
+      //tooltips
+      var newLineHelpText = "Add a line in the box, or press the right keyboard key to look at another poem.";
+      Tipped.create('#newline-input', newLineHelpText, { position: 'bottom', showOn: 'click', size: 'medium' });
+      
     }
   };
 }])

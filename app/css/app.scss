@@ -2,6 +2,7 @@
 @import 'foundation.min';
 @import 'animate';
 @import 'normalize';
+@import 'tipped';
 
 /* fonts and color variables */
 $font-stack:    "Courier", Helvetica, sans-serif;
@@ -399,7 +400,7 @@ h1.big {
     font-size: 25px;
   }
 
-  .newline-input {
+  #newline-input {
     background-color: white;
     color: black;
     width: 50%;
@@ -419,12 +420,3 @@ h1.big {
   padding-bottom: 40px;
 }
 
-.helpBox {
-  @extend .poemBox;
-  padding: 30px;
-  background-color: $black;
-  display:none;
-  h5 {
-    color: white;
-  }
-}
