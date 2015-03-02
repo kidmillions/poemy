@@ -6662,12 +6662,13 @@ td,
 th {
   padding: 0; }
 
+/* fonts and color variables */
 /* app css stylesheet */
 body {
   background-color: #5a2e2e; }
 
 h1, h2, h3, h4, h5, h6, p, label {
-  font-family: 'Courier', sans-serif;
+  font-family: "Courier", Helvetica, sans-serif;
   color: white; }
 
 /*header roll */
@@ -6693,7 +6694,7 @@ ul.menu {
   text-align: right; }
 
 li {
-  font-family: "Courier";
+  font-family: "Courier", Helvetica, sans-serif;
   display: block;
   padding: 3px 30px 3px 0; }
 
@@ -6901,7 +6902,7 @@ h1.big {
     transform: scale(1, 1) translate(20px, 0); } }
 /*logo animation styles */
 #big-title {
-  font-family: "courier";
+  font-family: "Courier", Helvetica, sans-serif;
   color: white;
   font-size: 3em;
   width: 3.9em;
@@ -6950,7 +6951,7 @@ h1.big {
   -webkit-animation-delay: 4.5s;
   -moz-animation-delay: 4.5s; }
 
-.poemBox {
+.poemBox, .helpBox {
   margin-top: 30px;
   /*  background-color: #D5CE9E;*/
   color: black;
@@ -6959,11 +6960,11 @@ h1.big {
   -moz-box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
   box-shadow: 6px 10px 66px -4px rgba(0, 0, 0, 0.77);
   border-radius: 25px; }
-  .poemBox h2, .poemBox h3, .poemBox h5, .poemBox label {
+  .poemBox h2, .helpBox h2, .poemBox h3, .helpBox h3, .poemBox h5, .helpBox h5, .poemBox label, .helpBox label {
     color: black; }
-  .poemBox label {
+  .poemBox label, .helpBox label {
     font-size: 25px; }
-  .poemBox .newline-input {
+  .poemBox .newline-input, .helpBox .newline-input {
     background-color: white;
     color: black;
     width: 50%;
@@ -6977,5 +6978,16 @@ h1.big {
 .newPoemBox {
   padding-top: 40px;
   padding-bottom: 40px; }
+
+.helpBox {
+  padding: 30px;
+  background-color: #2a2c31;
+  display: none; }
+  .helpBox h5 {
+    color: white; }
+
+.container {
+  width: 100%;
+  margin-left: 192px; }
 
 /*# sourceMappingURL=app.css.map */

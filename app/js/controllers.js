@@ -38,11 +38,8 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   $scope,
   AuthService,
   Session, Poems, Notifications) {
-
+  $scope.started = true;
   $scope.poem = {};
-  $scope.animateCard = '';
-  $scope.animateType = '';
-  $scope.showNewPoemForm = false;
   $scope.brandNewPoem = {};
   
   //set max lines for poem (logic should probably be put elsewhere)

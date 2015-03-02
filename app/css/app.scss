@@ -3,22 +3,29 @@
 @import 'animate';
 @import 'normalize';
 
+/* fonts and color variables */
+$font-stack:    "Courier", Helvetica, sans-serif;
+$maroon: rgb(90,46,46);
+$black: rgb(42,44,49);
+$mustard: rgb(223,186,105);
+$gray: rgb(62,65,71);
+
 
 /* app css stylesheet */
 
 body {
-  background-color: rgb(90,46,46)
+  background-color: $maroon;
 }
 
 h1, h2, h3, h4, h5, h6, p, label {
-  font-family: 'Courier', sans-serif;
+  font-family: $font-stack;
   color:white;
 }
 
 /*header roll */
 
 header.home-header {
-  background-color: rgb(42,44,49);
+  background-color: $black;
   position: fixed;
   top:0px;
   bottom: 0px;
@@ -42,7 +49,7 @@ ul.menu {
 }
 
 li {
-  font-family: "Courier";
+  font-family: $font-stack;
   display:block;
   padding:3px 30px 3px 0;
 }
@@ -88,7 +95,7 @@ button {
   font-size: 26px;
   display:block;
   border: 1px solid white;
-  background-color: rgb(62,65,71);
+  background-color: $gray;
   color: white;
 }
 
@@ -229,13 +236,13 @@ h1.big {
   li {
     text-align: center;
     &:hover {
-      background-color: rgb(223,186,105);
+      background-color: $mustard;
     }
   }
 }
 
 .activePanel {
-  background-color: rgb(62,65,71);
+  background-color: $gray;
 }
 
 /* home styles */
@@ -320,7 +327,7 @@ h1.big {
 /*logo animation styles */
 
 #big-title{
-    font-family: "courier";
+    font-family: $font-stack;
     color: white;
     font-size: 3em;
     width: 3.9em;
@@ -410,4 +417,19 @@ h1.big {
 .newPoemBox {
   padding-top: 40px;
   padding-bottom: 40px;
+}
+
+.helpBox {
+  @extend .poemBox;
+  padding: 30px;
+  background-color: $black;
+  display:none;
+  h5 {
+    color: white;
+  }
+}
+
+.container {
+  width: 100%;
+  margin-left: 192px;
 }

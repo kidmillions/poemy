@@ -135,12 +135,20 @@ Poemy.directive('lineForm', ['$interval', function($interval) {
     restrict: "A",
     scope: true,
     link: function($scope) {
+      //submits when enter pressed in input
       $('form').find('input').keypress(function(e) {
               // Enter pressed?
               if(e.which == 10 || e.which == 13) {
                   this.form.submit();
               }
       });
+      //shows help box
+      $('form').find('input').on('focus', function() {
+        $('.helpBox').fadeIn();
+      });
+      $('form').on('submit', function() {
+        $('.helpBox').fadeOut();
+      })
       //left and right key bindings
       $(document).keydown(function(e) {
         switch(e.which) {
