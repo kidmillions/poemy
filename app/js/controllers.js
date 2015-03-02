@@ -34,10 +34,10 @@ Poemy.controller('ApplicationController', function (
 });
 
 
-Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', function (
+Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Notifications', function (
   $scope,
   AuthService,
-  Session, Poems) {
+  Session, Poems, Notifications) {
 
   $scope.poem = {};
   $scope.started = true;
@@ -75,7 +75,8 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', funct
   $scope.getRandomPoem = function() {
     $scope.animateCard = "animated bounceOutLeft";
     $scope.animateType = 'animated fadeOutDown';
-    Poems.random().success(function(data, status, headers, config) {
+    Poems.random()
+    .success(function(data, status, headers, config) {
       $scope.poem = data;
       $scope.animateCard = "animated bounceInRight";
       $scope.animateType = 'animated fadeInDown';
@@ -112,34 +113,11 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', funct
       Poems.line(newLine)
       .success(function(data, status, headers, config) {
         $scope.success = 'New Line Added. GOOD FOR YOU.';
-        console.log(newLine);
-        noty({text: $scope.success,
-            theme: 'relax',
-            type: 'success',
-            layout: "top",
-            animation: {
-              open: 'animated bounceIn',
-              close: 'animated bounceOut',
-              easing:  'swing',
-              speed: 500
-            },
-            timeout: 1500
-        });
+        Notifications($scope.success, 'success');
       })
       .error(function(data, status, headers, config) {
         $scope.success = data;
-        noty({text: 'Sorry, there was an error: ' + $scope.success,
-            theme: 'relax',
-            type: 'error',
-            layout: "top",
-            animation: {
-              open: 'animated bounceIn',
-              close: 'animated bounceOut',
-              easing:  'swing',
-              speed: 500
-            },
-            timeout: 1500
-        });
+        Notifications($scope.success, 'error');
     });
   }
 
@@ -196,13 +174,14 @@ Poemy.controller("LoginCtrl", function (
 
 });
 
-Poemy.controller("SignupCtrl", function (
+Poemy.controller("SignupCtrl", ["$rootScope", "$scope", "$http", "$location", "AUTH_EVENTS", "AuthService", "Notifications", function (
   $rootScope,
   $scope,
   $http,
   $location,
   AUTH_EVENTS,
-  AuthService) {
+  AuthService,
+  Notifications) {
 
   $scope.success = '';
 
@@ -216,7 +195,7 @@ Poemy.controller("SignupCtrl", function (
       }
       postUser(user);
     } else {
-      alert('There were errors');
+      Notifications("There were errors", "error");
     }
   }
 
@@ -225,25 +204,14 @@ Poemy.controller("SignupCtrl", function (
       $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
       $scope.setCurrentUser(user);
       $location.path('/home');
-      noty({text: $scope.success,
-          theme: 'relax',
-          type: 'success',
-          layout: "top",
-          animation: {
-            open: 'animated bounceIn',
-            close: 'animated bounceOut',
-            easing:  'swing',
-            speed: 500
-          },
-          timeout: 1500
-      });
     }, function (data) {
       $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
       $scope.success = data;
+      Notifications($scope.success, "success");
     });
   };
 
-});
+}]);
 
 Poemy.controller("NavController", function($scope, AuthService) {
   $scope.panel = 4;
@@ -294,7 +262,7 @@ Poemy.controller("PoemCtrl", ['$scope', "$routeParams", 'Poems', function (
 }]);
 
 
-Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 'Poems', function($scope, $controller, $http, $location, Poems) {
+Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 'Poems', 'Notifications', function($scope, $controller, $http, $location, Poems, Notifications) {
   $controller('HomeCtrl', {$scope: $scope});
 
   $scope.newTitle;
@@ -338,39 +306,16 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
   var postPoem = function(poem) {
     Poems.newPoem(poem)
     .success(function(data, status, headers, config) {
-      console.log(data)
       $scope.success = 'New Poem Added!';
       console.log("new poem submitted");
-      noty({text: $scope.success,
-        theme: 'relax',
-        type: 'success',
-        layout: "top",
-        animation: {
-          open: 'animated bounceIn',
-          close: 'animated bounceOut',
-          easing:  'swing',
-          speed: 500
-        },
-        timeout: 1500
-      });
+      Notifications($scope.success, 'success');
       $scope.newTitle = '';
       $scope.getRandomPoem();
       $location.path('#/home');
     })
     .error(function(data, status, headers, config) {
       $scope.success = data;
-      noty({text: 'Sorry, there was an error: ' + $scope.success,
-        theme: 'relax',
-        type: 'error',
-        layout: "top",
-        animation: {
-          open: 'animated bounceIn',
-          close: 'animated bounceOut',
-          easing:  'swing',
-          speed: 500
-        },
-        timeout: 1500
-      })
+      Notifications($scope.success, 'error');
     })
     .then(function (res) {
       $scope.poem = res.data

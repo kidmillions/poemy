@@ -199,3 +199,21 @@ Poemy.factory('Poems', ['$http', function PoemsFactory ($http) {
   };
 }]);
 
+Poemy.factory('Notifications', [function NotificationsFactory() {
+  return function(message, type) {
+      return noty({
+            text: message,
+            theme: 'relax',
+            type: type,
+            layout: "top",
+            animation: {
+              open: 'animated bounceIn',
+              close: 'animated bounceOut',
+              easing:  'swing',
+              speed: 500
+            },
+            timeout: 1500
+        });
+    };
+}]);
+
