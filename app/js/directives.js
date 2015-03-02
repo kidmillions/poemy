@@ -159,3 +159,15 @@ Poemy.directive('lineForm', ['$interval', function($interval) {
     }
   };
 }])
+
+Poemy.directive('openingAnimation', function() {
+  return {
+    restrict: "A",
+    templateUrl: "app/partials/opening-animation.html",
+    controller: function($scope) {
+      $scope.getStarted = function() {
+        $scope.started = true;
+      };
+    }
+  };
+})

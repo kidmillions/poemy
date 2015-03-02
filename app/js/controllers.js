@@ -40,7 +40,6 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   Session, Poems, Notifications) {
 
   $scope.poem = {};
-  $scope.started = true;
   $scope.animateCard = '';
   $scope.animateType = '';
   $scope.showNewPoemForm = false;
@@ -61,16 +60,6 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   //       $scope.poem.maxLines = 5;
   //   }
   // }
-
-
-  $scope.getStarted = function() {
-    $scope.started = true;
-  }
-
-  $scope.makeNewPoem = function() {
-    $scope.showNewPoemForm = true;
-  }
-
 
   $scope.getRandomPoem = function() {
     $scope.animateCard = "animated bounceOutLeft";
