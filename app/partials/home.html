@@ -18,7 +18,10 @@
 					<div class="row"><div class="small-12 columns"><h2>{{poem.title}}</h2></div></div>
 					<div ng-repeat="line in poem.lines">
 						<div class="row">
-							<div class="small-12 columns"><h3 class="content-container">{{line.content}}</h3></div>
+							<div class="small-12 columns tooltip tooltip-west">
+								<span class="tooltip-item"><h3>{{line.content}}</h3></span>
+								<span class="tooltip-content"><a href="#/user/{{line.creator}}">Submitted by: {{line.creator}}</a></span>
+							</div>
 						</div>
 					</div>
 					<div class="row">

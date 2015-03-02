@@ -7610,4 +7610,81 @@ h1.big {
   padding-top: 40px;
   padding-bottom: 40px; }
 
+/* tooltips for poem lines */
+.tooltip {
+  z-index: 999;
+  cursor: pointer; }
+
+.tooltip:hover .tooltip-item {
+  border-color: #fff; }
+
+.tooltip:nth-child(2) {
+  top: 50%;
+  left: 10%; }
+
+.tooltip:nth-child(3) {
+  top: 40%;
+  left: 50%; }
+
+.tooltip:nth-child(4) {
+  top: 70%;
+  left: 70%; }
+
+/* Tooltip */
+.tooltip-content {
+  position: absolute;
+  background: #2a2c31;
+  z-index: 9999;
+  width: 200px;
+  bottom: 3em;
+  margin-bottom: -1em;
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 1.1em;
+  text-align: center;
+  color: white;
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+  font-family: "Courier", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s; }
+
+.tooltip-west .tooltip-content {
+  left: 0em;
+  -webkit-transform-origin: -2em 50%;
+  transform-origin: -2em 50%;
+  -webkit-transform: translate3d(0, 50%, 0) rotate3d(1, 1, 1, 30deg);
+  transform: translate3d(0, 50%, 0) rotate3d(1, 1, 1, 30deg); }
+
+.tooltip:hover .tooltip-content {
+  opacity: 0.7;
+  -webkit-transform: translate3d(0, 50%, 0) rotate3d(0, 0, 0, 0);
+  transform: translate3d(0, 50%, 0) rotate3d(0, 0, 0, 0);
+  pointer-events: auto; }
+
+/* Gap "bridge" and arrow */
+.tooltip-content::before,
+.tooltip-content::after {
+  content: '';
+  position: absolute; }
+
+.tooltip-content::before {
+  height: 100%;
+  width: 3em; }
+
+.tooltip-content::after {
+  width: 2em;
+  height: 2em;
+  top: 50%;
+  margin: -1em 0 0;
+  background: url(../img/tooltip2.svg) no-repeat center center;
+  background-size: 100%; }
+
+.tooltip-west .tooltip-content::before,
+.tooltip-west .tooltip-content::after {
+  right: 99%;
+  /* because of FF, otherwise we have a gap */ }
+
 /*# sourceMappingURL=app.css.map */
