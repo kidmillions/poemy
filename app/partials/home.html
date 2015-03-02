@@ -1,18 +1,9 @@
 
-<div class="row">
-	<div class="small-6 columns text-center">
-		<h1 id="big-title">Poemy.<span>|</span></h1>
-
-	</div>
-</div>
 <div ng-if="poem == null">
 	<div class="row">
 		<h1 class="text-center">There are currently no poems.</h1>
-		<button ng-click='makeNewPoem()'>Create New Poem</button>
+		<a href="#/home/new"><button>Create New Poem</button></a>
 	</div>
-</div>
-<div class="row">
-	<div new-poem-form></div>
 </div>
 <div ng-if="poem != null" class="text-center">
 	<div class="row" ng-if="!started">

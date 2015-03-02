@@ -10,7 +10,11 @@
 <body ng-controller="ApplicationController">
   <header class="home-header">
     <a href="#/home"><i class="icon-logo"><h1>Poemy</h1></i></a>
-    <h2 ng-show="currentUser">{{currentUser.name}}</h2>
+    <div ng-show="currentUser" class='row'>
+      <div class="small-12 columns text-center">
+        <a href="#/user/{{currentUser.name}}"><h5>{{currentUser.name}}</h5></a>
+      </div>
+    </div>
     <div class="row">
        <div class="small-12 columns text-center">
         <p class="header-blurb">
@@ -33,7 +37,11 @@
     </nav>
     <p class="bottom-info">+About</p>
   </header>
-
+  <div class="row">
+    <div class="small-6 columns text-center">
+        <h1 id="big-title">Poemy.<span>|</span></h1>
+    </div>
+  </div>
   <div ng-view></div>
   <script src="app/lib/vendors/jquery.min.js"></script>
   <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
