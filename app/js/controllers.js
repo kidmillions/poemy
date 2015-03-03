@@ -40,23 +40,8 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
   Session, Poems, Notifications) {
   $scope.started = false;
   $scope.poem = {};
-  $scope.brandNewPoem = {};
+  $scope.brandNewPoem = {}; 
   
-  //set max lines for poem (logic should probably be put elsewhere)
-  // switch($scope.poem.type) {
-  //     case 'haiku':
-  //       $scope.poem.maxLines = 3;
-  //       break;
-  //     case 'limerick':
-  //       $scope.poem.maxLines = 5;
-  //       break;
-  //     case 'sonnet':
-  //       $scope.poem.maxLines = 10;
-  //     break;
-  //     default:
-  //       $scope.poem.maxLines = 5;
-  //   }
-  // }
 
 
    $scope.getPoem = function() {
@@ -83,11 +68,21 @@ Poemy.controller("HomeCtrl", ['$scope', 'AuthService', 'Session', 'Poems', 'Noti
 
   //function that actually makes POST
   var postLine = function(newLine) {
+    
+    var completeStatus = function() {
+      if ($scope.poem.lines.length >= ($scope.poem.maxLength - 1)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     var newLineContribution = {
       poem : $scope.poem._id,
       content : newLine,
       username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
-      title : $scope.poem.title
+      title : $scope.poem.title,
+      completed: completeStatus()
     }
       Poems.line(newLineContribution)
       .success(function(data, status, headers, config) {
@@ -274,6 +269,22 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
       $scope.newType = type;
   });
 
+  var maxLines = function(type) {
+    switch (type) {
+      case 'haiku':
+        return 3;
+        break;
+      case 'limerick':
+        return 5;
+        break;
+      case 'sonnet':
+        return 10;
+      break;
+      default:
+        return 5;
+    }
+  };
+
   $scope.submitNewPoem = function() {
 
     $scope.brandNewPoem = {
@@ -281,7 +292,8 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
           username : ($scope.currentUser == null ? 'Anonymous' : $scope.currentUser.name),
           title : $scope.newTitle,
           completed : false,
-          type : $scope.newType
+          type : $scope.newType,
+          maxLines: maxLines($scope.newType)
     };
 
     var data = $scope.brandNewPoem;
@@ -300,7 +312,7 @@ Poemy.controller("NewPoemCtrl", ["$scope", "$controller", '$http', '$location', 
       console.log("new poem submitted");
       Notifications($scope.success, 'success');
       $scope.newTitle = '';
-      $scope.getRandomPoem();
+      $scope.getAnimatedPoem();
       
     })
     .error(function(data, status, headers, config) {
